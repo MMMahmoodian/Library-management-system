@@ -14,7 +14,7 @@ class CreateTranslatorsTable extends Migration
     public function up()
     {
         Schema::create('translators', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birth_date');
