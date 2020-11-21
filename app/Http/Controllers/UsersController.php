@@ -12,6 +12,7 @@ use Illuminate\View\View;
 
 class UsersController extends Controller
 {
+    Private $successStatusCode = 200, $badRequestStatusCode = 401;
     public function registrationForm(){
         return View('auth.register');
     }
@@ -49,8 +50,19 @@ class UsersController extends Controller
     }
 
     public function login(Request $request){
-        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']], $request['remember'])){
-            return redirect()->intended('home');
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            $user = Auth::user();
+            $token = $user->createToken('appToken')->accessToken;
+            return response()->json([
+                'status' => $this->successStatusCode,
+                'data' => [
+                    'token' => $token
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+            ]);
         }
     }
 
