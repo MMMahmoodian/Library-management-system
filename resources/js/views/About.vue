@@ -2,7 +2,7 @@
   <div id="app">
     <button type="button" class="btn" @click="showModal">Open Modal!</button>
 
-    <modal v-show="isModalVisible" @close="closeModal" />
+    <modal v-show="!isModalVisible" @close="closeModal" />
   </div>
 </template>
 

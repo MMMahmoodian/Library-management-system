@@ -51,7 +51,7 @@ export default {
 <style>
 body {
   background-color: #f0f0f0;
-  background-image: url("~@/assets/library2.jpeg");
+  background-image: url("./assets/library2.jpeg");
   background-size: cover;
   display: grid;
   color:white;
@@ -77,7 +77,7 @@ h1 {
 
 @font-face {
   font-family: iransans;
-  src: url('../src/assets/font/iran.ttf');
+  src: url('./assets/font/iran.ttf');
 }
 
 *{
