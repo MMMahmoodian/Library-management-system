@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use \App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
+
 
 class UsersController extends Controller
 {
     private $successStatusCode = 200;
-    private $badRequestStatusCode = 401;
+    private $badRequestStatusCode = 400;
+    private $unauthorizedStatusCode = 401;
     private $forbiddenStatusCode = 403;
     private $notFoundStatusCode = 404;
+    private $internalServerErrorStatusCode = 500;
 
     public function register(Request $request){
-        $validation = $request->validate([
+        $validation = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'national_code' => ['required', 'string', 'max:255'],
@@ -29,8 +30,17 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
         $data = $request->all();
-        User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'national_code' => $data['national_code'],
@@ -38,26 +48,51 @@ class UsersController extends Controller
             'mobile' => $data['mobile'],
             'address' => $data['address'],
             'postal_code' => $data['postal_code'],
-            'email' => $data['email'],
+            'email' => strtolower($data['email']),
             'password' => Hash::make($data['password']),
         ]);
-        return View('auth.verify');
+        if ($user){
+            return response()->json([
+                'status' => $this->successStatusCode,
+                'message' => "User created successfully!"
+            ]);
+        }
+
+        return response()->json([
+            'status' => $this->internalServerErrorStatusCode,
+            'message' => 'Server internal error!'
+        ]);
 
     }
 
     public function login(Request $request){
-        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+        $validation = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        if (Auth::attempt(['email' => strtolower($request['email']), 'password' => $request['password']])) {
             $user = Auth::user();
             $token = $user->createToken('appToken')->accessToken;
             return response()->json([
                 'status' => $this->successStatusCode,
+                'message' => "Login success!",
                 'data' => [
                     'token' => $token
                 ]
             ]);
         } else {
             return response()->json([
-                'status' => $this->badRequestStatusCode,
+                'status' => $this->unauthorizedStatusCode,
+                'message' => "Unauthorized!",
             ]);
         }
     }
