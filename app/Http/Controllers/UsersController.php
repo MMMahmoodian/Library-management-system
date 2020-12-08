@@ -33,7 +33,7 @@ class UsersController extends Controller
         if ($validation->fails()){
             return response()->json([
                 'status' => $this->badRequestStatusCode,
-                'message' => 'Bad request',
+                'message' => 'Bad request!',
                 'data' => [
                     'error' => $validation->messages()->first()
                 ]
