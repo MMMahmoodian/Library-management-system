@@ -28,7 +28,7 @@ Route::prefix('management')->group(function () {
         Route::prefix('category')->group(function () {
             Route::get('/list', 'Management\CategoryController@list');
             Route::post('/add', 'Management\CategoryController@create');
-            Route::post('/{id}/edit', 'Management\CategoryController@edit');
+            Route::post('/edit', 'Management\CategoryController@edit');
         });
 
 //    });
