@@ -19,17 +19,17 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('management')->group(function () {
-    Route::middleware(['auth:api'])->group(function () {
+//    Route::middleware(['api-auth'])->group(function () {
         Route::prefix('book')->group(function () {
-            Route::get('/list', 'BooksController@list');
-            Route::post('/add', 'BooksController@create');
-            Route::post('/{id}/edit', 'BooksController@edit');
+            Route::get('/list', 'Management\BookController@list');
+            Route::post('/add', 'Management\BookController@create');
+            Route::post('/edit', 'Management\BookController@edit');
         });
         Route::prefix('category')->group(function () {
-            Route::get('/list', 'CategoryController@list');
-            Route::post('/add', 'CategoryController@create');
-            Route::post('/{id}/edit', 'CategoryController@edit');
+            Route::get('/list', 'Management\CategoryController@list');
+            Route::post('/add', 'Management\CategoryController@create');
+            Route::post('/{id}/edit', 'Management\CategoryController@edit');
         });
 
-    });
+//    });
 });
