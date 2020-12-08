@@ -13,11 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1'], function () {
+Route::prefix('user')->group(function () {
     Route::post('/login', 'UsersController@login');
     Route::post('/register', 'UsersController@register');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('management')->group(function () {
+    Route::middleware(['auth:api'])->group(function () {
+        Route::prefix('book')->group(function () {
+            Route::get('/list', 'BooksController@list');
+            Route::post('/add', 'BooksController@create');
+            Route::post('/{id}/edit', 'BooksController@edit');
+        });
+        Route::prefix('category')->group(function () {
+            Route::get('/list', 'CategoryController@list');
+            Route::post('/add', 'CategoryController@create');
+            Route::post('/{id}/edit', 'CategoryController@edit');
+        });
+
+    });
 });
