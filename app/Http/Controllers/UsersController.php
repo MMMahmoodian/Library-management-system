@@ -12,10 +12,10 @@ use Illuminate\View\View;
 
 class UsersController extends Controller
 {
-    Private $successStatusCode = 200, $badRequestStatusCode = 401;
-    public function registrationForm(){
-        return View('auth.register');
-    }
+    private $successStatusCode = 200;
+    private $badRequestStatusCode = 401;
+    private $forbiddenStatusCode = 403;
+    private $notFoundStatusCode = 404;
 
     public function register(Request $request){
         $validation = $request->validate([
@@ -45,10 +45,6 @@ class UsersController extends Controller
 
     }
 
-    public function loginForm(){
-        return View('auth.login');
-    }
-
     public function login(Request $request){
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $user = Auth::user();
@@ -64,10 +60,5 @@ class UsersController extends Controller
                 'status' => $this->badRequestStatusCode,
             ]);
         }
-    }
-
-    public function logout(){
-        Auth::logout();
-        return redirect('/');
     }
 }
