@@ -16,6 +16,7 @@ export default {
   created() {
     this.fetchBooks();
   },
+  
   methods: {
     deleteBook(id) {
       console.log("deleting book " + id);

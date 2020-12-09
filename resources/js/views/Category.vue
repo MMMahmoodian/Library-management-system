@@ -2,9 +2,7 @@
   <div class="container-fluid employee-container">
     <div class="row mt-4">
       <div class="col-lg-2 col-5">
-        <b-button
-          class="btn btn-light d-flex new-employee-btn"
-          v-b-modal.modal-1
+        <b-button class="btn btn-light d-flex new-employee-btn" v-b-modal.modal-1
           >دسته بندی جدید</b-button
         >
       </div>
@@ -12,11 +10,7 @@
       <b-modal id="modal-1" title="اضافه کردن دسته بندی" hide-footer>
         <div class="container-fluid p-0 d-flex justify-content-center">
           <b-form class="row col-12 p-0 d-flex justify-content-center">
-            <b-form-group
-              class="col-lg-9"
-              id="input-group-1"
-              label-for="input-1"
-            >
+            <b-form-group class="col-lg-9" id="input-group-1" label-for="input-1">
               <b-form-input
                 id="input-1"
                 type="text"
@@ -26,9 +20,7 @@
             </b-form-group>
 
             <div class="d-flex justify-content-center col-lg-12">
-              <b-button type="submit" class="btn new-employee"
-                >اضافه کردن</b-button
-              >
+              <b-button type="submit" class="btn new-employee">اضافه کردن</b-button>
             </div>
           </b-form>
         </div>
