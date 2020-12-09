@@ -10,11 +10,7 @@
       <b-modal id="modal-1" title="اضافه کردن کتاب" hide-footer>
         <div class="container-fluid p-0 d-flex justify-content-center">
           <b-form class="row col-12 p-0">
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-1"
-              label-for="input-1"
-            >
+            <b-form-group class="col-lg-6" id="input-group-1" label-for="input-1">
               <b-form-input
                 id="input-1"
                 type="text"
@@ -22,11 +18,7 @@
                 placeholder="عنوان"
               ></b-form-input>
             </b-form-group>
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-2"
-              label-for="input-2"
-            >
+            <b-form-group class="col-lg-6" id="input-group-2" label-for="input-2">
               <b-form-input
                 id="input-2"
                 type="text"
@@ -34,11 +26,7 @@
                 placeholder="نویسنده"
               ></b-form-input>
             </b-form-group>
-            <b-form-group
-              class="col-lg-12"
-              id="input-group-3"
-              label-for="input-3"
-            >
+            <b-form-group class="col-lg-12" id="input-group-3" label-for="input-3">
               <b-form-input
                 id="input-3"
                 type="text"
@@ -52,22 +40,14 @@
                 <date-picker v-model="date"></date-picker>
               </div>
             </b-form-group>
-             <b-form-group
-              id="input-group-10"
-              class="col-6 mt-auto"
-              label-for="input-10"
-            >
+            <b-form-group id="input-group-10" class="col-6 mt-auto" label-for="input-10">
               <b-form-select v-model="selected" id="input-9" required>
                 <option>دسته بندی</option>
                 <option>سیاسی</option>
                 <option>اقتصاد</option>
               </b-form-select>
             </b-form-group>
-            <b-form-group
-              id="input-group-10"
-              class="col-lg-12"
-              label-for="input-10"
-            >
+            <b-form-group id="input-group-10" class="col-lg-12" label-for="input-10">
               <b-form-textarea
                 id="textarea-rows"
                 placeholder="نظر ناشر"
@@ -133,7 +113,7 @@ export default {
     return {
       showAddNewBook: false,
       date: "",
-      selected:'دسته بندی'
+      selected: "دسته بندی",
     };
   },
 };
