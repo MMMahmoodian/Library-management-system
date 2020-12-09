@@ -15,6 +15,22 @@ class Book extends Model
         'isbn', 'title', 'synopsis'
     ];
 
+    /**
+     * Get the publisher that published the book.
+     */
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    /**
+     * Get the category that owns the book.
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function authors(){
         return $this->belongsToMany(Author::class, 'books_authors');
     }
