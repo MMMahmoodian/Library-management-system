@@ -18,7 +18,7 @@ class BookController extends Controller
 
     public function list(){
 //        $user = Auth::user();
-        $list = Book::all();
+        $list = Book::with(['publisher', 'category', 'authors', 'translators'])->get();
         if ($list){
             return response()->json([
                 'status_code' => $this->successStatusCode,
