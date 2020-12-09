@@ -1,5 +1,8 @@
 <template>
   <div id="sbm">
+    <!-- <ul>
+      <li v-for="post in posts" v-text="post.title"></li>
+    </ul> -->
     <Books v-bind:booksArr="booksArray" v-on:del-book="deleteBook" />
   </div>
 </template>
@@ -15,12 +18,16 @@ export default {
   methods: {
     deleteBook(id) {
       console.log("deleting book " + id);
-      //this.booksArray.splice(this.booksArray.indexOf(id), 1);
       this.booksArray = this.booksArray.filter((book) => book.id !== id);
     },
   },
+  mounted: function (){
+    axios.get('http://localhost:8000/api/management/book/list')
+          .then(response => console.log(response));
+  },
   data() {
     return {
+      posts: null,
       booksArray: [
         {
           id: 1,
