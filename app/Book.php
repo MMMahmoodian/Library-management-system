@@ -6,28 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'isbn', 'title', 'synopsis'
     ];
 
-    /**
-     * Get the publisher that published the book.
-     */
-    public function publisher()
-    {
+    protected $hidden = ['publisher_id', 'category_id', "created_at", "updated_at"];
+
+
+    public function publisher(){
         return $this->belongsTo(Publisher::class);
     }
 
-    /**
-     * Get the category that owns the book.
-     */
-    public function category()
-    {
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 
