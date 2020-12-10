@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Book;
 use App\Http\Controllers\Controller;
+use App\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class BookController extends Controller
+class PublisherController extends Controller
 {
     private $successStatusCode = 200;
     private $badRequestStatusCode = 400;
@@ -18,7 +18,7 @@ class BookController extends Controller
 
     public function list(){
 //        $user = Auth::user();
-        $list = Book::with(['publisher', 'category', 'authors', 'translators'])->get();
+        $list = Publisher::all();
         if ($list){
             return response()->json([
                 'status_code' => $this->successStatusCode,
@@ -36,11 +36,8 @@ class BookController extends Controller
 
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
-            'isbn' => ['required', 'string', 'max:255'],
-            'title' => ['required', 'string', 'max:255'],
-            'synopsis' => ['required', 'string'],
-            'publisher_id' => ['required', 'exists:publishers,id'],
-            'category_id' => ['required', 'exists:categories,id' ],
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string'],
         ]);
         if ($validation->fails()){
             return response()->json([
@@ -53,18 +50,15 @@ class BookController extends Controller
         }
 
         $data = $request->all();
-        $book = new Book();
-        $book->isbn = $data['isbn'];
-        $book->title = $data['title'];
-        $book->synopsis = $data['synopsis'];
-        $book->publisher_id = $data['publisher_id'];
-        $book->category_id = $data['category_id'];
-        $book->save();
+        $publisher = new Publisher();
+        $publisher->name = $data['name'];
+        $publisher->address = $data['address'];
+        $publisher->save();
 
-        if ($book){
+        if ($publisher){
             return response()->json([
                 'status' => $this->successStatusCode,
-                'message' => "Book created successfully!"
+                'message' => "Publisher created successfully!"
             ]);
         }
 
@@ -77,7 +71,7 @@ class BookController extends Controller
 
     public function edit(Request $request){
         $validation = Validator::make($request->all(), [
-            'book_id' => ['required', 'exists:books,id' ],
+            'publisher_id' => ['required', 'exists:categories,id' ],
         ]);
         if ($validation->fails()){
             return response()->json([
@@ -89,11 +83,11 @@ class BookController extends Controller
             ]);
         }
         $data = $request->all();
-        $book = Book::findOrFail($data['book_id']);
-        $book->update($data);
+        $publisher = Publisher::findOrFail($data['publisher_id']);
+        $publisher->update($data);
         return response()->json([
             'status' => $this->successStatusCode,
-            'message' => "Book updated successfully!"
+            'message' => "Publisher updated successfully!"
         ]);
     }
 }

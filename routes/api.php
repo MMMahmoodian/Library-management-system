@@ -30,6 +30,11 @@ Route::prefix('management')->group(function () {
             Route::post('/add', 'Management\CategoryController@create');
             Route::post('/edit', 'Management\CategoryController@edit');
         });
+        Route::prefix('publisher')->group(function () {
+            Route::get('/list', 'Management\PublisherController@list');
+            Route::post('/add', 'Management\PublisherController@create');
+            Route::post('/edit', 'Management\PublisherController@edit');
+        });
 
 //    });
 });

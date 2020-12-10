@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'isbn', 'title', 'synopsis'
     ];
+
+    protected $hidden = ['publisher_id', 'category_id', "created_at", "updated_at"];
+
+
+    public function publisher(){
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
     public function authors(){
         return $this->belongsToMany(Author::class, 'books_authors');
