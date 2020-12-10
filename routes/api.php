@@ -35,6 +35,16 @@ Route::prefix('management')->group(function () {
             Route::post('/add', 'Management\PublisherController@create');
             Route::post('/edit', 'Management\PublisherController@edit');
         });
+        Route::prefix('author')->group(function () {
+            Route::get('/list', 'Management\AuthorController@list');
+            Route::post('/add', 'Management\AuthorController@create');
+            Route::post('/edit', 'Management\AuthorController@edit');
+        });
+        Route::prefix('translator')->group(function () {
+            Route::get('/list', 'Management\TranslatorController@list');
+            Route::post('/add', 'Management\TranslatorController@create');
+            Route::post('/edit', 'Management\TranslatorController@edit');
+        });
 
 //    });
 });
