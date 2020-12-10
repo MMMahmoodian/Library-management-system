@@ -2,10 +2,12 @@
   <div class="book">
     <p v-show="!is_editing">
       Title : {{ book.title }}<br />
-      Created at : {{ book.created_at }}<br />
+      Author : {{ book.authors[0].first_name }} {{ book.authors[0].last_name }}
+      <br />
       ISBN : {{ book.isbn }}<br />
       Summary : {{ book.synopsis }}<br />
-      Is Avaiable : {{ book.available }}
+      Publisher : {{ book.publisher.name }}<br />
+      <!-- Is Avaiable : {{ book.available }} -->
       <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
         E
       </button>
@@ -19,38 +21,47 @@
         :class="{ view: !is_editing }"
       /><br />
 
-      Created at :<input
+      Author's First Name :<input
         type="text"
-        ref="Author"
-        :value="book.created_at"
+        ref="Author_F"
+        :value="book.authors[0].last_name"
+        :class="{ view: !is_editing }"
+      /><br />
+
+      Author's Last Name :<input
+        type="text"
+        ref="Author_L"
+        :value="book.authors[0].first_name"
         :class="{ view: !is_editing }"
       /><br />
 
       ISBN :<input
         type="text"
-        ref="PubYear"
+        ref="ISBN"
         :value="book.isbn"
         :class="{ view: !is_editing }"
       /><br />
 
       Summary :<input
         type="text"
-        ref="circulation"
+        ref="synopsis"
         :value="book.synopsis"
         :class="{ view: !is_editing }"
       /><br />
 
-      Is Avaiable :<input
+      Publisher :<input
         type="text"
-        ref="available"
-        :value="book.available"
+        ref="Publisher"
+        :value="book.publisher.name"
         :disabled="!is_editing"
         :class="{ view: !is_editing }"
       /><br />
     </div>
 
     <button @click="save" v-if="is_editing">Save</button>
-    <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">DEL</button>
+    <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
+      DEL
+    </button>
     <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
       Cancel
     </button>
@@ -76,13 +87,35 @@ export default {
       this.book.circulation = this.$refs["circulation"].value;
       this.book.available = this.$refs["available"].value;
       this.is_editing = !this.is_editing;
+      // axios
+      //   .post("http://localhost:8000/api/management/book/edit", {
+
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+      axios
+        .post("/user", {
+          firstName: "Fred",
+          lastName: "Flintstone",
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
-  data(){
-    return{
+  data() {
+    return {
       is_editing: false,
     };
-  }
+  },
 };
 </script>
 

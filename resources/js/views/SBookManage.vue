@@ -27,7 +27,7 @@ export default {
       axios
         .get("http://localhost:8000/api/management/book/list")
         .then(function (response) {
-          console.log(response.data.data);
+          console.log(response);
           self.booksArray = response.data.data;
         })
         .catch(function (error) {
@@ -36,9 +36,7 @@ export default {
     },
   },
   mounted: function () {
-    // this.booksArray.forEach((book) => {
-    //   console.log(book.title);
-    // });
+   
   },
   data() {
     return {
