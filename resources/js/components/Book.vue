@@ -1,70 +1,73 @@
 <template>
   <div class="book">
-    <p v-show="!is_editing">
-      Title : {{ book.title }}<br />
-      Author : {{ book.authors[0].first_name }} {{ book.authors[0].last_name }}
-      <br />
-      ISBN : {{ book.isbn }}<br />
-      Summary : {{ book.synopsis }}<br />
-      Publisher : {{ book.publisher.name }}<br />
-      <!-- Is Avaiable : {{ book.available }} -->
-      <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
-        E
+    <div class="container-fluid">
+      <p v-show="!is_editing">
+        
+        Title : {{ book.title }}<br />
+        Author : {{ book.authors[0].first_name }}
+        {{ book.authors[0].last_name }}
+        <br />
+        ISBN : {{ book.isbn }}<br />
+        Summary : {{ book.synopsis }}<br />
+        Publisher : {{ book.publisher.name }}<br />
+        Category : {{book.category.name}}<br />
+        <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
+          E
+        </button>
+      </p>
+
+      <div v-show="is_editing">
+        Title :
+        <b-form-input
+          id="input-title"
+          v-model="book.title"
+          :state="nameState_T"
+          aria-describedby="input-live-help input-live-feedback"
+          placeholder="عنوان کتاب"
+          trim
+        ></b-form-input>
+
+        نویسنده<b-form-select v-model="selected_auth" :options="authorsOptions">
+        </b-form-select>
+
+        ISBN :
+        <b-form-input
+          id="input-title"
+          v-model="book.isbn"
+          :state="nameState_I"
+          aria-describedby="input-live-help input-live-feedback"
+          placeholder="شابک"
+          trim
+        ></b-form-input>
+
+        Summary :
+        <b-form-input
+          id="input-synopsis"
+          v-model="book.synopsis"
+          :state="nameState_S"
+          aria-describedby="input-live-help input-live-feedback"
+          placeholder="خلاصه"
+          trim
+        ></b-form-input>
+
+        Publisher :
+        <b-form-select v-model="selected_pub" :options="publishersOptions">
+        </b-form-select>
+
+
+        Category :
+        <b-form-select v-model="selected_cat" :options="categoryOptions">
+        </b-form-select>
+      </div>
+
+      <button @click="save" v-if="is_editing">Save</button>
+      <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
+        DEL
       </button>
-    </p>
-
-    <div v-show="is_editing">
-      Title :<input
-        type="text"
-        ref="title"
-        :value="book.title"
-        :class="{ view: !is_editing }"
-      /><br />
-
-      Author's First Name :<input
-        type="text"
-        ref="Author_F"
-        :value="book.authors[0].last_name"
-        :class="{ view: !is_editing }"
-      /><br />
-
-      Author's Last Name :<input
-        type="text"
-        ref="Author_L"
-        :value="book.authors[0].first_name"
-        :class="{ view: !is_editing }"
-      /><br />
-
-      ISBN :<input
-        type="text"
-        ref="ISBN"
-        :value="book.isbn"
-        :class="{ view: !is_editing }"
-      /><br />
-
-      Summary :<input
-        type="text"
-        ref="synopsis"
-        :value="book.synopsis"
-        :class="{ view: !is_editing }"
-      /><br />
-
-      Publisher :<input
-        type="text"
-        ref="Publisher"
-        :value="book.publisher.name"
-        :disabled="!is_editing"
-        :class="{ view: !is_editing }"
-      /><br />
+      <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
+        Cancel
+      </button>
     </div>
-
-    <button @click="save" v-if="is_editing">Save</button>
-    <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
-      DEL
-    </button>
-    <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
-      Cancel
-    </button>
   </div>
 </template>
 
@@ -72,7 +75,18 @@
 <script>
 export default {
   name: "Book",
-  props: ["book"],
+  props: ["book", "categoryOptions", "publishersOptions", "authorsOptions"],
+  computed: {
+    nameState_T() {
+      return this.book.title.length > 0 ? true : false;
+    },
+    nameState_I() {
+      return this.book.isbn.length > 0 ? true : false;
+    },
+    nameState_S() {
+      return this.book.synopsis.length > 0 ? true : false;
+    },
+  },
   methods: {
     editBook_true: function () {
       this.is_editing = true;
@@ -81,27 +95,18 @@ export default {
       this.is_editing = false;
     },
     save() {
-      this.book.title = this.$refs["title"].value;
-      this.book.Author = this.$refs["Author"].value;
-      this.book.PubYear = this.$refs["PubYear"].value;
-      this.book.circulation = this.$refs["circulation"].value;
-      this.book.available = this.$refs["available"].value;
-      this.is_editing = !this.is_editing;
-      // axios
-      //   .post("http://localhost:8000/api/management/book/edit", {
-
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-
+      console.log(this.selected_pub);
+      console.log(this.selected_cat);
       axios
-        .post("/user", {
-          firstName: "Fred",
-          lastName: "Flintstone",
+        .post("http://localhost:8000/api/management/book/edit", {
+          
+          book_id: this.book.id, 
+          title: this.book.title,
+          synopsis: this.book.summary, 
+          publisher_id: this.selected_pub,
+          category_id: this.selected_cat,
+          author_id: this.selected_auth,
+          isbn: this.book.isbn,
         })
         .then(function (response) {
           console.log(response);
@@ -114,6 +119,9 @@ export default {
   data() {
     return {
       is_editing: false,
+      selected_auth: null,
+      selected_pub: null,
+      selected_cat: null,
     };
   },
 };
