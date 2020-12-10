@@ -36,7 +36,9 @@ export default {
     },
   },
   mounted: function () {
-   
+    // this.booksArray.forEach((book) => {
+    //   console.log(book.title);
+    // });
   },
   data() {
     return {

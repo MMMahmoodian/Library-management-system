@@ -8,8 +8,6 @@
       </div>
 
       <b-modal id="modal-1" title="اضافه کردن کتاب" hide-footer>
-
-        
         <div class="container-fluid p-0 d-flex justify-content-center">
           <b-form class="row col-12 p-0">
             <b-form-group
@@ -19,9 +17,11 @@
             >
               <b-form-input
                 id="input-1"
-                type="text"
-                required
-                placeholder="عنوان"
+                v-model="title"
+                :state="nameState_T"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="عنوان کتاب"
+                trim
               ></b-form-input>
             </b-form-group>
 
@@ -30,13 +30,19 @@
               id="input-group-2"
               label-for="input-2"
             >
-              <b-form-input
-                id="input-2"
-                type="text"
-                required
-                placeholder="نویسنده"
-              ></b-form-input>
+              نویسنده<b-form-select
+                v-model="selected_auth"
+                :options="authorsOptions"
+              >
+              </b-form-select>
+
+              ناشر<b-form-select
+                v-model="selected_pub"
+                :options="publishersOptions"
+              >
+              </b-form-select>
             </b-form-group>
+
             <b-form-group
               class="col-lg-12"
               id="input-group-3"
@@ -44,9 +50,11 @@
             >
               <b-form-input
                 id="input-3"
-                type="text"
-                required
+                v-model="isbn"
+                :state="nameState_I"
+                aria-describedby="input-live-help input-live-feedback"
                 placeholder="کد شابک"
+                trim
               ></b-form-input>
             </b-form-group>
             <b-form-group class="col-6">
@@ -61,34 +69,34 @@
               class="col-6 mt-auto"
               label-for="input-10"
             >
-              <b-form-select v-model="selected" id="input-9" required>
-                <option>دسته بندی</option>
-                <option>سیاسی</option>
-                <option>اقتصاد</option>
+              دسته بندی<b-form-select
+                v-model="selected_cat"
+                :options="categoryOptions"
+              >
               </b-form-select>
             </b-form-group>
 
             <b-form-group
-              id="input-group-10"
+              id="input-group-11"
               class="col-lg-12"
-              label-for="input-10"
+              label-for="input-11"
             >
               <b-form-textarea
-                id="textarea-rows"
-                placeholder="نظر ناشر"
+                v-model="summary"
+                :state="nameState_S"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="خلاصه "
                 rows="3"
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" class="btn new-book">اضافه کردن</b-button>
+              <b-button v-on:click="submitBook" class="btn new-book"
+                >اضافه کردن</b-button
+              >
             </div>
           </b-form>
         </div>
       </b-modal>
-
-      <!-- <div class="header col-lg-8 col-7">
-        <h4>لیست کتاب ها</h4>
-      </div> -->
     </div>
   </div>
 </template>
@@ -96,8 +104,119 @@
 
 <script>
 export default {
+  computed: {
+    nameState_T() {
+      return this.title.length > 0 ? true : false;
+    },
+    nameState_I() {
+      return this.isbn.length > 0 ? true : false;
+    },
+    nameState_S() {
+      return this.summary.length > 0 ? true : false;
+    },
+  },
+  created() {
+    this.fetchAuthors();
+  },
+  methods: {
+    submitBook: function () {
+      axios
+        .post("http://localhost:8000/api/management/book/add", {
+          title: this.title,
+          synopsis: this.summary, 
+          publisher_id: this.selected_pub,
+          category_id: this.selected_cat,
+          author_id: this.selected_auth,
+          isbn: this.isbn,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      console.log(this.title);
+      console.log(this.isbn);
+      console.log(this.selected_auth);
+    },
+
+    fetchAuthors: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/author/list")
+        .then(function (response) {
+          self.authorsArray = response.data.data;
+          console.log(self.authorsArray);
+          self.authorsArray.forEach((element) => {
+            self.authorsOptions.push({
+              text: element.first_name + " " + element.last_name,
+              value: element.id,
+            });
+          });
+
+          self.authorsOptions.forEach((element) => {
+            console.log(element.value);
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      axios
+        .get("http://localhost:8000/api/management/publisher/list")
+        .then(function (response) {
+          self.publishersArray = response.data.data;
+          console.log(self.publishersArray);
+          self.publishersArray.forEach((element) => {
+            self.publishersOptions.push({
+              text: element.name,
+              value: element.id,
+            });
+          });
+
+          self.publishersOptions.forEach((element) => {
+            console.log(element.value);
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      axios
+        .get("http://localhost:8000/api/management/category/list")
+        .then(function (response) {
+          self.categoryArray = response.data.data;
+          console.log(self.categoryArray);
+          self.categoryArray.forEach((element) => {
+            self.categoryOptions.push({
+              text: element.name,
+              value: element.id,
+            });
+          });
+
+          self.categoryOptions.forEach((element) => {
+            console.log(element.value);
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
   data() {
     return {
+      title: "",
+      isbn: "",
+      summary: "",
+      authorsArray: null,
+      publishersArray: null,
+      categoryArray: null,
+      selected_auth: null,
+      selected_pub: null,
+      selected_cat: null,
+      authorsOptions: [],
+      publishersOptions: [],
+      categoryOptions: [],
       showAddNewBook: false,
       date: "",
       selected: "دسته بندی",
