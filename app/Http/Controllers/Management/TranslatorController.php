@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Author;
 use App\Http\Controllers\Controller;
+use App\Translator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AuthorsController extends Controller
+class TranslatorController extends Controller
 {
     private $successStatusCode = 200;
     private $badRequestStatusCode = 400;
@@ -18,7 +18,7 @@ class AuthorsController extends Controller
 
     public function list(){
 //        $user = Auth::user();
-        $list = Author::all();
+        $list = Translator::all();
         if ($list){
             return response()->json([
                 'status_code' => $this->successStatusCode,
@@ -50,15 +50,15 @@ class AuthorsController extends Controller
         }
 
         $data = $request->all();
-        $author = new Author();
-        $author->first_name = $data['first_name'];
-        $author->last_name = $data['last_name'];
-        $author->save();
+        $translator = new Translator();
+        $translator->first_name = $data['first_name'];
+        $translator->last_name = $data['last_name'];
+        $translator->save();
 
-        if ($author){
+        if ($translator){
             return response()->json([
                 'status' => $this->successStatusCode,
-                'message' => "Author created successfully!"
+                'message' => "Translator created successfully!"
             ]);
         }
 
@@ -71,7 +71,7 @@ class AuthorsController extends Controller
 
     public function edit(Request $request){
         $validation = Validator::make($request->all(), [
-            'author_id' => ['required', 'exists:authors,id' ],
+            'translator_id' => ['required', 'exists:translators,id' ],
         ]);
         if ($validation->fails()){
             return response()->json([
@@ -83,11 +83,11 @@ class AuthorsController extends Controller
             ]);
         }
         $data = $request->all();
-        $author = Author::findOrFail($data['author_id']);
-        $author->update($data);
+        $translator = Translator::findOrFail($data['translator_id']);
+        $translator->update($data);
         return response()->json([
             'status' => $this->successStatusCode,
-            'message' => "Author updated successfully!"
+            'message' => "Translator updated successfully!"
         ]);
     }
 }
