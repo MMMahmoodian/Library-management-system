@@ -1,57 +1,68 @@
 <template>
   <div class="book">
-    <p v-show="!book.edit">
+    <p v-show="!is_editing">
       Title : {{ book.title }}<br />
-      Author : {{ book.Author }}<br />
-      Originally published : {{ book.PubYear }}<br />
-      Circulation : {{ book.circulation }}<br />
-      Is Avaiable : {{ book.available }}
-      <button class="edit" v-show="!book.edit" v-on:click="editBook_true">
+      Author : {{ book.authors[0].first_name }} {{ book.authors[0].last_name }}
+      <br />
+      ISBN : {{ book.isbn }}<br />
+      Summary : {{ book.synopsis }}<br />
+      Publisher : {{ book.publisher.name }}<br />
+      <!-- Is Avaiable : {{ book.available }} -->
+      <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
         E
       </button>
     </p>
 
-    <div v-show="book.edit">
+    <div v-show="is_editing">
       Title :<input
         type="text"
         ref="title"
         :value="book.title"
-        :class="{ view: !book.edit }"
+        :class="{ view: !is_editing }"
       /><br />
 
-      Author :<input
+      Author's First Name :<input
         type="text"
-        ref="Author"
-        :value="book.Author"
-        :class="{ view: !book.edit }"
+        ref="Author_F"
+        :value="book.authors[0].last_name"
+        :class="{ view: !is_editing }"
       /><br />
 
-      Originally published :<input
+      Author's Last Name :<input
         type="text"
-        ref="PubYear"
-        :value="book.PubYear"
-        :class="{ view: !book.edit }"
+        ref="Author_L"
+        :value="book.authors[0].first_name"
+        :class="{ view: !is_editing }"
       /><br />
 
-      Circulation :<input
+      ISBN :<input
         type="text"
-        ref="circulation"
-        :value="book.circulation"
-        :class="{ view: !book.edit }"
+        ref="ISBN"
+        :value="book.isbn"
+        :class="{ view: !is_editing }"
       /><br />
 
-      available :<input
+      Summary :<input
         type="text"
-        ref="available"
-        :value="book.available"
-        :disabled="!book.edit"
-        :class="{ view: !book.edit }"
+        ref="synopsis"
+        :value="book.synopsis"
+        :class="{ view: !is_editing }"
+      /><br />
+
+      Publisher :<input
+        type="text"
+        ref="Publisher"
+        :value="book.publisher.name"
+        :disabled="!is_editing"
+        :class="{ view: !is_editing }"
       /><br />
     </div>
 
-    <button @click="save" v-if="book.edit">Save</button>
-    <button @click="$emit('del-book', book.id)" class="del" v-if="book.edit">DEL</button>
-    <button class="edit_on" v-on:click="editBook_false" v-show="book.edit">
+    <button @click="save" v-if="is_editing">Save</button>
+    <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
+      DEL
+    </button>
+    <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
       Cancel
     </button>
   </div>
@@ -64,10 +75,10 @@ export default {
   props: ["book"],
   methods: {
     editBook_true: function () {
-      this.book.edit = true;
+      this.is_editing = true;
     },
     editBook_false: function () {
-      this.book.edit = false;
+      this.is_editing = false;
     },
     save() {
       this.book.title = this.$refs["title"].value;
@@ -75,8 +86,35 @@ export default {
       this.book.PubYear = this.$refs["PubYear"].value;
       this.book.circulation = this.$refs["circulation"].value;
       this.book.available = this.$refs["available"].value;
-      this.book.edit = !this.book.edit;
+      this.is_editing = !this.is_editing;
+      // axios
+      //   .post("http://localhost:8000/api/management/book/edit", {
+
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+      axios
+        .post("/user", {
+          firstName: "Fred",
+          lastName: "Flintstone",
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
+  },
+  data() {
+    return {
+      is_editing: false,
+    };
   },
 };
 </script>

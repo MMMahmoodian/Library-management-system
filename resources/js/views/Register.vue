@@ -15,11 +15,7 @@
         </div>
         <div class="row p-3">
           <b-form class="row col-12 pl-0">
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-1"
-              label-for="input-1"
-            >
+            <b-form-group class="col-lg-6" id="input-group-1" label-for="input-1">
               <b-form-input
                 id="input-1"
                 type="text"
@@ -27,11 +23,7 @@
                 placeholder="نام"
               ></b-form-input>
             </b-form-group>
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-2"
-              label-for="input-2"
-            >
+            <b-form-group class="col-lg-6" id="input-group-2" label-for="input-2">
               <b-form-input
                 id="input-2"
                 type="text"
@@ -39,11 +31,7 @@
                 placeholder="نام خانوادگی"
               ></b-form-input>
             </b-form-group>
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-5"
-              label-for="input-5"
-            >
+            <b-form-group class="col-lg-6" id="input-group-5" label-for="input-5">
               <b-form-input
                 id="input-5"
                 type="text"
@@ -52,11 +40,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              class="col-lg-6"
-              id="input-group-4"
-              label-for="input-4"
-            >
+            <b-form-group class="col-lg-6" id="input-group-4" label-for="input-4">
               <b-form-input
                 id="input-4"
                 type="text"
@@ -65,11 +49,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              class="col-lg-12"
-              id="input-group-3"
-              label-for="input-3"
-            >
+            <b-form-group class="col-lg-12" id="input-group-3" label-for="input-3">
               <b-form-input
                 id="input-3"
                 type="text"
@@ -78,11 +58,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              class="col-lg-12"
-              id="input-group-6"
-              label-for="input-6"
-            >
+            <b-form-group class="col-lg-12" id="input-group-6" label-for="input-6">
               <b-form-input
                 id="input-6"
                 type="email"
@@ -90,11 +66,7 @@
                 placeholder="پست الکترونیکی"
               ></b-form-input>
             </b-form-group>
-            <b-form-group
-              class="col-lg-12"
-              id="input-group-7"
-              label-for="input-7"
-            >
+            <b-form-group class="col-lg-12" id="input-group-7" label-for="input-7">
               <b-form-input
                 id="input-7"
                 type="text"
@@ -108,22 +80,14 @@
                 <date-picker v-model="date"></date-picker>
               </div>
             </b-form-group>
-            <b-form-group
-              id="input-group-9"
-              class="col-lg-4 mt-auto"
-              label-for="input-9"
-            >
+            <b-form-group id="input-group-9" class="col-lg-4 mt-auto" label-for="input-9">
               <b-form-select v-model="selected" id="input-9" required>
                 <option>جنسیت</option>
                 <option>مرد</option>
                 <option>زن</option>
               </b-form-select>
             </b-form-group>
-            <b-form-group
-              class="col-lg-3 mt-auto"
-              id="input-group-8"
-              label-for="input-8"
-            >
+            <b-form-group class="col-lg-3 mt-auto" id="input-group-8" label-for="input-8">
               <b-form-input
                 id="input-8"
                 type="text"
@@ -132,11 +96,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              id="input-group-10"
-              class="col-lg-12"
-              label-for="input-10"
-            >
+            <b-form-group id="input-group-10" class="col-lg-12" label-for="input-10">
               <b-form-textarea
                 id="textarea-rows"
                 placeholder="آدرس"
@@ -144,9 +104,7 @@
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" class="btn btn-register"
-                >ثبت نام</b-button
-              >
+              <b-button type="submit" class="btn btn-register">ثبت نام</b-button>
             </div>
           </b-form>
         </div>

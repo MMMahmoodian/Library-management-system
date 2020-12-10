@@ -1,8 +1,5 @@
 <template>
   <div id="sbm">
-    <!-- <ul>
-      <li v-for="post in posts" v-text="post.title"></li>
-    </ul> -->
     <Books v-bind:booksArr="booksArray" v-on:del-book="deleteBook" />
   </div>
 </template>
@@ -15,61 +12,40 @@ export default {
   components: {
     Books,
   },
+
+  created() {
+    this.fetchBooks();
+  },
+  
   methods: {
     deleteBook(id) {
       console.log("deleting book " + id);
       this.booksArray = this.booksArray.filter((book) => book.id !== id);
     },
+    fetchBooks: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/book/list")
+        .then(function (response) {
+          console.log(response);
+          self.booksArray = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
-  mounted: function (){
-    axios.get('http://localhost:8000/api/management/book/list')
-          .then(response => console.log(response));
+  mounted: function () {
+    // this.booksArray.forEach((book) => {
+    //   console.log(book.title);
+    // });
   },
   data() {
     return {
-      posts: null,
-      booksArray: [
-        {
-          id: 1,
-          title: "Book Number One",
-          Author: "Folane Folani",
-          PubYear: 1998,
-          circulation: 10000, //tirazh
-          available: true,
-          edit: false,
-        },
-        {
-          id: 2,
-          title: "Book Number Two",
-          Author: "Folane Mohammadi",
-          PubYear: 1945,
-          circulation: 100000, //tirazh
-          available: true,
-          edit: false,
-        },
-        {
-          id: 3,
-          title: "Book Number Three",
-          Author: "Folane Folani",
-          PubYear: 2002,
-          circulation: 5000, //tirazh
-          available: false,
-          edit: false,
-        },
-        {
-          id: 4,
-          title: "Book Number Four",
-          Author: "Mohammad Folani",
-          PubYear: 2015,
-          circulation: 2000, //tirazh
-          available: true,
-          edit: false,
-        },
-      ],
+      booksArray: null,
     };
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -2,37 +2,39 @@
   <div class="container-fluid employee-container">
     <div class="row mt-4">
       <div class="col-lg-2 col-5">
-        <b-button
-          class="btn btn-light d-flex new-employee-btn"
-          v-b-modal.modal-1
+        <b-button class="btn btn-light d-flex new-employee-btn" v-b-modal.modal-1
           >دسته بندی جدید</b-button
         >
       </div>
 
+
+
       <b-modal id="modal-1" title="اضافه کردن دسته بندی" hide-footer>
         <div class="container-fluid p-0 d-flex justify-content-center">
+
           <b-form class="row col-12 p-0 d-flex justify-content-center">
-            <b-form-group
-              class="col-lg-9"
-              id="input-group-1"
-              label-for="input-1"
-            >
+          
+
+
+            <b-form-group class="col-lg-9" id="input-group-1" label-for="input-1" >
               <b-form-input
-                id="input-1"
-                type="text"
-                required
-                placeholder="نام "
+                id="input-3"
+                v-model="name"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="نام"
               ></b-form-input>
             </b-form-group>
 
             <div class="d-flex justify-content-center col-lg-12">
-              <b-button type="submit" class="btn new-employee"
-                >اضافه کردن</b-button
-              >
+              <b-button v-on:click="submitCategory" class="btn new-employee">اضافه کردن</b-button>
             </div>
           </b-form>
+
         </div>
       </b-modal>
+
+
+
       <div class="header col-lg-8 col-7">
         <h4>لیست دسته بندی ها</h4>
       </div>
@@ -111,8 +113,25 @@
 </template>
 <script>
 export default {
+  methods: {
+    submitCategory: function () {
+      console.log("Adding to database..");
+      axios
+        .post("http://localhost:8000/api/management/category/add", {
+          name: this.name,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    },
+  },
   data() {
     return {
+      name:"", 
       selected: "وضعیت",
     };
   },
