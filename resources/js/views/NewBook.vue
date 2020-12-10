@@ -97,13 +97,16 @@
           </b-form>
         </div>
       </b-modal>
+      
     </div>
   </div>
 </template>
 
 
 <script>
+
 export default {
+
   computed: {
     nameState_T() {
       return this.title.length > 0 ? true : false;
@@ -135,9 +138,7 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      console.log(this.title);
-      console.log(this.isbn);
-      console.log(this.selected_auth);
+
     },
 
     fetchAuthors: function () {
@@ -152,10 +153,6 @@ export default {
               text: element.first_name + " " + element.last_name,
               value: element.id,
             });
-          });
-
-          self.authorsOptions.forEach((element) => {
-            console.log(element.value);
           });
         })
         .catch(function (error) {
@@ -173,10 +170,6 @@ export default {
               value: element.id,
             });
           });
-
-          self.publishersOptions.forEach((element) => {
-            console.log(element.value);
-          });
         })
         .catch(function (error) {
           console.log(error);
@@ -192,10 +185,6 @@ export default {
               text: element.name,
               value: element.id,
             });
-          });
-
-          self.categoryOptions.forEach((element) => {
-            console.log(element.value);
           });
         })
         .catch(function (error) {
