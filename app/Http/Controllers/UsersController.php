@@ -86,7 +86,8 @@ class UsersController extends Controller
                 'status' => $this->successStatusCode,
                 'message' => "Login success!",
                 'data' => [
-                    'token' => $token
+                    'token' => $token,
+                    'role' => $user->roles
                 ]
             ]);
         } else {
