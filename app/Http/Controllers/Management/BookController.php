@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Author;
 use App\Book;
 use App\Http\Controllers\Controller;
+use App\Translator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,7 +62,12 @@ class BookController extends Controller
         $book->publisher_id = $data['publisher_id'];
         $book->category_id = $data['category_id'];
         $book->save();
-
+        if (isset($data['author_id'])){
+            $book->authors()->save(Author::find($data['author_id']));
+        }
+        if (isset($data['translator_id'])){
+            $book->translators()->save(Translator::find($data['translator_id']));
+        }
         if ($book){
             return response()->json([
                 'status' => $this->successStatusCode,
