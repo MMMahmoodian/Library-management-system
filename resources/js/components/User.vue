@@ -1,97 +1,95 @@
 <template>
   <div class="user">
-    <p v-show="this.isAdm" class="gradient-box">HI ADMIN :)</p>
-    <p v-show="!user.edit"  :class="{'is-not-verified' : !user.isVerified, 'is-verified' :user.isVerified}">
-      First Name : {{ user.FirstName }}<br />
-      Last Name : {{ user.LastName }}<br />
-      Phone : {{ user.Phone }}<br />
-      Email : {{ user.Email }}<br />
-      Postal Code: {{ user.PostalCode }}<br />
-      National Code : {{ user.NationalCode }}<br />
-      UserName : {{ user.UserName }}<br />
-      Password : {{ user.Password }}<br />
-      Is Active : {{ user.Active }}<br />
-      Is Verified : {{ user.isVerified }}<br />
+    <p
+      v-show="!is_editing"
+      :class="{
+        'is-not-verified': !user.isVerified,
+        'is-verified': user.isVerified,
+      }"
+    >
+      First Name : {{ user.first_name }}<br />
+      Last Name : {{ user.last_name }}<br />
+      Phone : {{ user.phone }}<br />
+      Email : {{ user.email }}<br />
+      Postal Code: {{ user.postal_code }}<br />
+      National Code : {{ user.national_code }}<br />
       <button
         class="edit"
-        v-show="!user.edit && this.isAdm"
+        v-show="!is_editing && this.isAdm"
         v-on:click="edit_true"
       >
         E
       </button>
-      <button class="edit" v-show="!user.edit" v-on:click="verify">V</button>
+      <button class="edit" v-show="!is_editing" v-on:click="verify">V</button>
     </p>
 
-    <div v-show="user.edit">
-      First Name :<input
-        type="text"
-        ref="FirstName"
-        :value="user.FirstName"
-        :class="{ view: !user.edit }"
-      /><br />
+    <div v-show="is_editing">
+      First Name :
+      <b-form-input
+        id="input-firstName"
+        v-model="user.first_name"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="نام"
+        :value="user.first_name"
+        trim
+      ></b-form-input>
 
-      Last Name :<input
-        type="text"
-        ref="LastName"
-        :value="user.LastName"
-        :class="{ view: !user.edit }"
-      /><br />
+      Last Name :
+      <b-form-input
+        id="input-lastName"
+        v-model="user.last_name"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="نام خانوادگی"
+        :value="user.last_name"
+        trim
+      ></b-form-input>
 
-      Phone :<input
-        type="text"
-        ref="Phone"
-        :value="user.Phone"
-        :class="{ view: !user.edit }"
-      /><br />
+      Phone :
+      <b-form-input
+        id="input-phone"
+        v-model="user.phone"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="نام خانوادگی"
+        :value="user.phone"
+        trim
+      ></b-form-input>
 
-      Email :<input
-        type="text"
-        ref="Email"
-        :value="user.Email"
-        :class="{ view: !user.edit }"
-      /><br />
+      Email :
+      <b-form-input
+        id="input-email"
+        v-model="user.email"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="ایمیل"
+        :value="user.email"
+        trim
+      ></b-form-input>
 
-      Postal Code :<input
-        type="text"
-        ref="PostalCode"
-        :value="user.PostalCode"
-        :class="{ view: !user.edit }"
-      /><br />
+      Postal Code :
+      <b-form-input
+        id="input-postal"
+        v-model="user.postal_code"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="کد پستی"
+        :value="user.postal_code"
+        trim
+      ></b-form-input>
 
-      National Code :<input
-        type="text"
-        ref="NationalCode"
-        :value="user.NationalCode"
-        :class="{ view: !user.edit }"
-      /><br />
-
-      User Name :<input
-        type="text"
-        ref="UserName"
-        :value="user.UserName"
-        :class="{ view: !user.edit }"
-      /><br />
-
-      Password :<input
-        type="text"
-        ref="Password"
-        :value="user.Password"
-        :class="{ view: !user.edit }"
-      /><br />
-
-      Active :<input
-        type="text"
-        ref="Active"
-        :value="user.Active"
-        :class="{ view: !user.edit }"
-      /><br />
+      National Code :
+      <b-form-input
+        id="input-national"
+        v-model="user.national_code"
+        aria-describedby="input-live-help input-live-feedback"
+        placeholder="کد ملی"
+        :value="user.national_code"
+        trim
+      ></b-form-input>
     </div>
 
-    <button @click="save" v-if="user.edit">Save</button>
-    <button @click="$emit('del-user', user.id)" class="del" v-if="user.edit">
+    <button @click="save" v-if="is_editing">Save</button>
+    <button @click="$emit('del-user', user.id)" class="del" v-if="is_editing">
       DEL
     </button>
-    <button class="edit_off" v-on:click="edit_false" v-show="user.edit">
+    <button class="edit_off" v-on:click="edit_false" v-show="is_editing">
       Cancel
     </button>
   </div>
@@ -101,27 +99,22 @@
 <script>
 export default {
   name: "user",
+  data() {
+    return {
+      is_editing: false,
+    };
+  },
   props: ["user", "isAdm"],
+
   methods: {
     edit_true: function () {
       console.log(this.isAdm);
-      this.user.edit = true;
+      this.is_editing = true;
     },
     edit_false: function () {
-      this.user.edit = false;
+      this.is_editing = false;
     },
-    save() {
-      this.user.FirstName = this.$refs["FirstName"].value;
-      this.user.LastName = this.$refs["LastName"].value;
-      this.user.Phone = this.$refs["Phone"].value;
-      this.user.Email = this.$refs["Email"].value;
-      this.user.PostalCode = this.$refs["PostalCode"].value;
-      this.user.NationalCode = this.$refs["NationalCode"].value;
-      this.user.UserName = this.$refs["UserName"].value;
-      this.user.Password = this.$refs["Password"].value;
-      this.user.Active = this.$refs["Active"].value;
-      this.user.edit = !this.user.edit;
-    },
+    save() {},
     verify: function () {
       this.user.isVerified = !this.user.isVerified;
     },
@@ -130,7 +123,6 @@ export default {
 </script>
 
 <style scoped>
-
 .is-verified {
   border: 2px solid green;
 }

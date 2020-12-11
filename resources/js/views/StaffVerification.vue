@@ -12,27 +12,26 @@ export default {
   components: {
     Users,
   },
+  created() {
+    this.fetchUsers();
+  },
+  methods: {
+    fetchUsers: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/user/patron/list")
+        .then(function (response) {
+          console.log(response);
+          self.UserArray = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
   data() {
     return {
-      UserArray: [
-        {
-          id: 1,
-          FirstName: "Mohammad",
-          LastName: "Mohammadi",
-          Phone: "021-22313242",
-          BirthDay: "dd/mm/yyyy",
-          Email: "qfefe@yahoo.com",
-          PostalCode: "16662324213",
-          NationalCode: "2231423674",
-          UserName: "User1",
-          Password: "Pass1",
-          Active: true,
-          isLoggedIn: false,
-          isSystemReserved: false,
-          isVerified: false,
-          edit: false,
-        },
-      ],
+      UserArray: [],
       isAdmin: false,
     };
   },

@@ -90,15 +90,12 @@ export default {
   },
   methods: {
     editBook_true: function () {
-
       this.is_editing = true;
     },
     editBook_false: function () {
       this.is_editing = false;
     },
     save() {
-      console.log(this.selected_pub);
-      console.log(this.selected_cat);
       axios
         .post("http://localhost:8000/api/management/book/edit", {
           

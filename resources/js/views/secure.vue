@@ -7,7 +7,6 @@
 
 
 <script>
-//import Login from './login'
 
 export default {
   name: "Secure",
