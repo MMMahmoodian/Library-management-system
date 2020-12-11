@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -54,6 +55,34 @@ class UserController extends Controller
     }
 
     public function verifyPatron(Request $request){
+        $validation = Validator::make($request->all(), [
+            'user_id' => ['required', 'exists:users,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $user = User::findOrFail($data['user_id']);
+        if (!$user->verified){
+            $user->verified = true;
+            $user->save();
+            return response()->json([
+                'status' => $this->successStatusCode,
+                'message' => "Patron verified!"
+            ]);
+        }
+
+        return response()->json([
+            'status' => $this->successStatusCode,
+            'message' => "Patron is already verified!"
+        ]);
+
 
     }
 

@@ -53,6 +53,7 @@ Route::prefix('management')->group(function () {
             });
             Route::prefix('patron')->group(function () {
                 Route::get('/list', 'Management\UserController@getPatrons');
+                Route::post('/verify', 'Management\UserController@verifyPatron');
 //                Route::post('/add', 'Management\UserController@create');
 //                Route::post('/edit', 'Management\UserController@edit');
             });
