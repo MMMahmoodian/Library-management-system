@@ -27,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'postal_code' => "12345",
             'email' => "mahmoodian.m1999@gmail.com",
             'password' => Hash::make("123456"),
+            'verified' => true,
         ]);
         $admin->save();
         $admin->roles()->save($admin_role);
@@ -41,6 +42,7 @@ class UsersTableSeeder extends Seeder
             'postal_code' => "12345",
             'email' => "dan.ms@gmail.com",
             'password' => Hash::make("123456"),
+            'verified' => true,
         ]);
         $staff1->save();
         $staff1->roles()->save($staff_role);
@@ -55,11 +57,12 @@ class UsersTableSeeder extends Seeder
             'postal_code' => "12345",
             'email' => "k1.dhg@gmail.com",
             'password' => Hash::make("123456"),
+            'verified' => true,
         ]);
         $staff2->save();
         $staff2->roles()->save($staff_role);
 
-        $patron = User::firstOrNew([
+        $patron1 = User::firstOrNew([
             'first_name' => "Sarah",
             'last_name' => "Firouz Abadi",
             'national_code' => "1234567890",
@@ -69,8 +72,24 @@ class UsersTableSeeder extends Seeder
             'postal_code' => "12345",
             'email' => "firouz.abadi@gmail.com",
             'password' => Hash::make("123123"),
+            'verified' => true,
         ]);
-        $patron->save();
-        $patron->roles()->save($patron_role);
+        $patron1->save();
+        $patron1->roles()->save($patron_role);
+
+        $patron2 = User::firstOrNew([
+            'first_name' => "Test",
+            'last_name' => "Patron",
+            'national_code' => "1234567890",
+            'phone' => "22334455",
+            'mobile' => "09199069657",
+            'address' => "Tehran, Tehran",
+            'postal_code' => "12345",
+            'email' => "test.patron@gmail.com",
+            'password' => Hash::make("123123"),
+            'verified' => false,
+        ]);
+        $patron2->save();
+        $patron2->roles()->save($patron_role);
     }
 }

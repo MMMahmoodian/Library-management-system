@@ -52,6 +52,7 @@ class UserController extends Controller
             'postal_code' => $data['postal_code'],
             'email' => strtolower($data['email']),
             'password' => Hash::make($data['password']),
+            'verified' => false,
         ]);
         if ($user){
             $user->roles()->save($patron_role);

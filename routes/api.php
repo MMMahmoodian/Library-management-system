@@ -48,13 +48,13 @@ Route::prefix('management')->group(function () {
         Route::prefix('user')->group(function () {
             Route::prefix('staff')->group(function () {
                 Route::get('/list', 'Management\UserController@getStaffs');
-//                Route::post('/add', 'Management\TranslatorController@create');
-//                Route::post('/edit', 'Management\TranslatorController@edit');
+//                Route::post('/add', 'Management\UserController@create');
+//                Route::post('/edit', 'Management\UserController@edit');
             });
             Route::prefix('patron')->group(function () {
                 Route::get('/list', 'Management\UserController@getPatrons');
-//                Route::post('/add', 'Management\TranslatorController@create');
-//                Route::post('/edit', 'Management\TranslatorController@edit');
+//                Route::post('/add', 'Management\UserController@create');
+//                Route::post('/edit', 'Management\UserController@edit');
             });
         });
 
