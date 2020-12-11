@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     private $successStatusCode = 200;
     private $badRequestStatusCode = 400;
@@ -19,6 +20,7 @@ class UsersController extends Controller
     private $internalServerErrorStatusCode = 500;
 
     public function register(Request $request){
+        $patron_role = Role::where('slug', 'patron')->first();
         $validation = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -52,6 +54,7 @@ class UsersController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         if ($user){
+            $user->roles()->save($patron_role);
             return response()->json([
                 'status' => $this->successStatusCode,
                 'message' => "User created successfully!"
