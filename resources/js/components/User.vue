@@ -114,9 +114,30 @@ export default {
     edit_false: function () {
       this.is_editing = false;
     },
-    save() {},
+    save() {
+      // axios
+      //   .post("http://localhost:8000/api/???", {
+          
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+    },
     verify: function () {
-      this.user.isVerified = !this.user.isVerified;
+      console.log(this.user.id);
+      axios
+        .post("http://localhost:8000/api/management/user/patron/verify", {
+          user_id: this.user.id
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 };
