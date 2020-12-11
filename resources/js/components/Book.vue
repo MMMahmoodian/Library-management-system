@@ -53,6 +53,7 @@
         Publisher :
         <b-form-select v-model="selected_pub" :options="publishersOptions">
         </b-form-select>
+        
 
 
         Category :
@@ -89,6 +90,7 @@ export default {
   },
   methods: {
     editBook_true: function () {
+
       this.is_editing = true;
     },
     editBook_false: function () {

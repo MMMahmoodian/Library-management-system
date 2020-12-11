@@ -115,7 +115,6 @@
 export default {
   methods: {
     submitCategory: function () {
-      console.log("Adding to database..");
       axios
         .post("http://localhost:8000/api/management/category/add", {
           name: this.name,
