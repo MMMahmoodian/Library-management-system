@@ -25,6 +25,15 @@ export default {
   methods: {
     fetchArrays: function () {
       var self = this;
+      // if(ostadokoshtan()){
+      //   try{
+      //   bekiretkekoshtan();
+      //   } catch(e){
+      //     mirioonjamizanandahnetomigan(e);
+      //   } finally{
+      //     laaghalchannafarobakhodetbebar();
+      //   }
+      // }
       axios
         .get("http://localhost:8000/api/management/author/list")
         .then(function (response) {

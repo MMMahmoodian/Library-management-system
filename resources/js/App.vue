@@ -26,17 +26,17 @@ export default {
         isVerified: false,
         username: "danial",
         password: "12",
-      }, 
+      },
     };
   },
   components: {
     Header,
   },
-  /*  mounted() {
-            if(!this.authenticated) {
-                this.$router.replace({ name: "login" });
-            }
-        },*/
+  // mounted() {
+  //   if (!this.authenticated) {
+  //     this.$router.replace({ name: "login" });
+  //   }
+  // },
   methods: {
     setAuthenticated(status) {
       this.authenticated = status;
@@ -54,7 +54,7 @@ body {
   background-image: url("./assets/library2.jpeg");
   background-size: cover;
   display: grid;
-  color:white;
+  color: white;
 }
 h1 {
   padding: 0;
@@ -77,11 +77,10 @@ h1 {
 
 @font-face {
   font-family: iransans;
-  src: url('./assets/font/iran.ttf');
+  src: url("./assets/font/iran.ttf");
 }
 
-*{
+* {
   font-family: iransans;
 }
-
 </style>
