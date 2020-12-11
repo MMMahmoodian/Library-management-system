@@ -90,7 +90,7 @@
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button v-on:click="submitBook" class="btn new-book"
+              <b-button type="submit" v-on:click="submitBook" class="btn new-book"
                 >اضافه کردن</b-button
               >
             </div>
