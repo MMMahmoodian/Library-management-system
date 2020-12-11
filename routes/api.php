@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('user')->group(function () {
-    Route::post('/login', 'UsersController@login');
-    Route::post('/register', 'UsersController@register');
+    Route::post('/login', 'UserController@login');
+    Route::post('/register', 'UserController@register');
 });
 
 Route::prefix('management')->group(function () {
@@ -44,6 +44,18 @@ Route::prefix('management')->group(function () {
             Route::get('/list', 'Management\TranslatorController@list');
             Route::post('/add', 'Management\TranslatorController@create');
             Route::post('/edit', 'Management\TranslatorController@edit');
+        });
+        Route::prefix('user')->group(function () {
+            Route::prefix('staff')->group(function () {
+                Route::get('/list', 'Management\UserController@getStaffs');
+//                Route::post('/add', 'Management\TranslatorController@create');
+//                Route::post('/edit', 'Management\TranslatorController@edit');
+            });
+            Route::prefix('patron')->group(function () {
+                Route::get('/list', 'Management\UserController@getPatrons');
+//                Route::post('/add', 'Management\TranslatorController@create');
+//                Route::post('/edit', 'Management\TranslatorController@edit');
+            });
         });
 
 //    });
