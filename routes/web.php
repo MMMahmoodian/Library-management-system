@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/register', 'UsersController@registrationForm')->name("register");
-Route::post('/register', 'UsersController@register');
-Route::get('/login', 'UsersController@loginForm')->name("login");
-Route::post('/login', 'UsersController@login');
-Route::post('/logout', 'UsersController@logout')->name("logout");
+Route::get('/register', 'UserController@registrationForm')->name("register");
+Route::post('/register', 'UserController@register');
+Route::get('/login', 'UserController@loginForm')->name("login");
+Route::post('/login', 'UserController@login');
+Route::post('/logout', 'UserController@logout')->name("logout");
 
 Route::get('/home', 'HomeController@index')->name('home');
