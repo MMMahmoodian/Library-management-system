@@ -11,7 +11,6 @@ import Register from "../views/Register"
 import NewEmployee from "../views/NewEmployee"
 import NewBook from "../views/NewBook"
 import Category from "../views/Category"
-
 Vue.use(VueRouter)
 
 export default new VueRouter({

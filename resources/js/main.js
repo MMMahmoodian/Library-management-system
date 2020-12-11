@@ -43,7 +43,6 @@ import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 Vue.component('date-picker', VuePersianDatetimePicker);
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
-window.axios = require('axios');
 
 new Vue({
   router,

@@ -17,32 +17,23 @@
             >
               <b-form-input
                 id="input-1"
-                v-model="title"
-                :state="nameState_T"
-                aria-describedby="input-live-help input-live-feedback"
-                placeholder="عنوان کتاب"
-                trim
+                type="text"
+                required
+                placeholder="عنوان"
               ></b-form-input>
             </b-form-group>
-
             <b-form-group
               class="col-lg-6"
               id="input-group-2"
               label-for="input-2"
             >
-              نویسنده<b-form-select
-                v-model="selected_auth"
-                :options="authorsOptions"
-              >
-              </b-form-select>
-
-              ناشر<b-form-select
-                v-model="selected_pub"
-                :options="publishersOptions"
-              >
-              </b-form-select>
+              <b-form-input
+                id="input-2"
+                type="text"
+                required
+                placeholder="نویسنده"
+              ></b-form-input>
             </b-form-group>
-
             <b-form-group
               class="col-lg-12"
               id="input-group-3"
@@ -50,11 +41,9 @@
             >
               <b-form-input
                 id="input-3"
-                v-model="isbn"
-                :state="nameState_I"
-                aria-describedby="input-live-help input-live-feedback"
+                type="text"
+                required
                 placeholder="کد شابک"
-                trim
               ></b-form-input>
             </b-form-group>
             <b-form-group class="col-6">
@@ -63,157 +52,92 @@
                 <date-picker v-model="date"></date-picker>
               </div>
             </b-form-group>
-
-            <b-form-group
+             <b-form-group
               id="input-group-10"
               class="col-6 mt-auto"
               label-for="input-10"
             >
-              دسته بندی<b-form-select
-                v-model="selected_cat"
-                :options="categoryOptions"
-              >
+              <b-form-select v-model="selected" id="input-9" required>
+                <option>دسته بندی</option>
+                <option>سیاسی</option>
+                <option>اقتصاد</option>
               </b-form-select>
             </b-form-group>
-
             <b-form-group
-              id="input-group-11"
+              id="input-group-10"
               class="col-lg-12"
-              label-for="input-11"
+              label-for="input-10"
             >
               <b-form-textarea
-                v-model="summary"
-                :state="nameState_S"
-                aria-describedby="input-live-help input-live-feedback"
-                placeholder="خلاصه "
+                id="textarea-rows"
+                placeholder="نظر ناشر"
                 rows="3"
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" v-on:click="submitBook" class="btn new-book"
-                >اضافه کردن</b-button
-              >
+              <b-button type="submit" class="btn new-book">اضافه کردن</b-button>
             </div>
           </b-form>
         </div>
       </b-modal>
-      
+      <div class="header col-lg-8 col-7">
+        <h4>لیست کتاب ها</h4>
+      </div>
     </div>
+    <table class="table mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">عنوان</th>
+          <th scope="col">کد شابک</th>
+          <th scope="col">شناسه نویسنده</th>
+          <th scope="col">تاریخ انتشار</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>بیشعوری</td>
+          <td>187890</td>
+          <td>1</td>
+          <td>2020</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>مردی در جاده</td>
+          <td>217840</td>
+          <td>2</td>
+          <td>2019</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>1984</td>
+          <td>123490</td>
+          <td>3</td>
+          <td>2018</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>2بیشعوری</td>
+          <td>187890</td>
+          <td>1</td>
+          <td>2020</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
-
-
 <script>
-
 export default {
-
-  computed: {
-    nameState_T() {
-      return this.title.length > 0 ? true : false;
-    },
-    nameState_I() {
-      return this.isbn.length > 0 ? true : false;
-    },
-    nameState_S() {
-      return this.summary.length > 0 ? true : false;
-    },
-  },
-  created() {
-    this.fetchArrays();
-  },
-  methods: {
-    submitBook: function () {
-      axios
-        .post("http://localhost:8000/api/management/book/add", {
-          title: this.title,
-          synopsis: this.summary, 
-          publisher_id: this.selected_pub,
-          category_id: this.selected_cat,
-          author_id: this.selected_auth,
-          isbn: this.isbn,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    },
-
-    fetchArrays: function () {
-      var self = this;
-      axios
-        .get("http://localhost:8000/api/management/author/list")
-        .then(function (response) {
-          self.authorsArray = response.data.data;
-          console.log(self.authorsArray);
-          self.authorsArray.forEach((element) => {
-            self.authorsOptions.push({
-              text: element.first_name + " " + element.last_name,
-              value: element.id,
-            });
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      axios
-        .get("http://localhost:8000/api/management/publisher/list")
-        .then(function (response) {
-          self.publishersArray = response.data.data;
-          console.log(self.publishersArray);
-          self.publishersArray.forEach((element) => {
-            self.publishersOptions.push({
-              text: element.name,
-              value: element.id,
-            });
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      axios
-        .get("http://localhost:8000/api/management/category/list")
-        .then(function (response) {
-          self.categoryArray = response.data.data;
-          console.log(self.categoryArray);
-          self.categoryArray.forEach((element) => {
-            self.categoryOptions.push({
-              text: element.name,
-              value: element.id,
-            });
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-  },
   data() {
     return {
-      title: "",
-      isbn: "",
-      summary: "",
-      authorsArray: null,
-      publishersArray: null,
-      categoryArray: null,
-      selected_auth: null,
-      selected_pub: null,
-      selected_cat: null,
-      authorsOptions: [],
-      publishersOptions: [],
-      categoryOptions: [],
       showAddNewBook: false,
-      date: ""
+      date: "",
+      selected:'دسته بندی'
     };
   },
 };
 </script>
-
-
 <style scoped>
 .book-container {
   padding: 96px;

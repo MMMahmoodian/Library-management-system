@@ -53,8 +53,6 @@
         Publisher :
         <b-form-select v-model="selected_pub" :options="publishersOptions">
         </b-form-select>
-        
-
 
         Category :
         <b-form-select v-model="selected_cat" :options="categoryOptions">
@@ -163,5 +161,10 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   float: right;
+}
+input{
+      padding: 3px;
+    border: 0.5px solid #a39191;
+    border-radius: 3px;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="row col-lg-10 col-11 register-row p-0">
       <div class="col-lg-6 p-0">
         <div>
-          <div>
+          <div class="text-center">
             <img
               src="../assets/pics/librarylogo.png"
               width="115px"
@@ -11,126 +11,142 @@
               alt="logo"
             />
           </div>
-          <h4 class="register-title">ثبت نام</h4>
+          <h4 class="register-title text-center bg-red">ثبت نام</h4>
         </div>
         <div class="row p-3">
           <b-form class="row col-12 pl-0">
-            <b-form-group class="col-lg-6" id="input-group-1" label-for="input-1">
-
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-1"
+              label-for="input-1"
+            >
               <b-form-input
                 id="input-1"
                 type="text"
                 required
-                v-model="first_name"
                 placeholder="نام"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-6" id="input-group-2" label-for="input-2">
-              
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-2"
+              label-for="input-2"
+            >
               <b-form-input
                 id="input-2"
                 type="text"
-                v-model="last_name"
                 required
                 placeholder="نام خانوادگی"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-6" id="input-group-5" label-for="input-5">
-
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-5"
+              label-for="input-5"
+            >
               <b-form-input
                 id="input-5"
                 type="text"
                 required
-                v-model="mobile"
                 placeholder="تلفن همراه"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group class="col-lg-6" id="input-group-4" label-for="input-4">
-
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-4"
+              label-for="input-4"
+            >
               <b-form-input
                 id="input-4"
                 type="text"
                 required
-                v-model="phone"
                 placeholder="تلفن"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group class="col-lg-12" id="input-group-3" label-for="input-3">
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-3"
+              label-for="input-3"
+            >
               <b-form-input
                 id="input-3"
                 type="text"
                 required
-                v-model="national_code"
                 placeholder="کد ملی"
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="col-lg-12" id="input-group-6" label-for="input-6">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-6"
+              label-for="input-6"
+            >
               <b-form-input
                 id="input-6"
                 type="email"
                 required
-                v-model="email"
                 placeholder="پست الکترونیکی"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-12" id="input-group-7" label-for="input-7">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-7"
+              label-for="input-7"
+            >
               <b-form-input
                 id="input-7"
                 type="text"
                 required
-                v-model="postal_code"
                 placeholder="کد پستی"
               ></b-form-input>
-
             </b-form-group>
-
-            <b-form-group class="col-lg-12" id="input-group-8" label-for="input-8">
-
+            <b-form-group class="col-lg-5">
+              <div>
+                <small class="d-flex mb-1">تاریخ تولد :</small>
+                <date-picker v-model="date"></date-picker>
+              </div>
+            </b-form-group>
+            <b-form-group
+              id="input-group-9"
+              class="col-lg-4 mt-auto"
+              label-for="input-9"
+            >
+              <b-form-select v-model="selected" id="input-9" required>
+                <option>جنسیت</option>
+                <option>مرد</option>
+                <option>زن</option>
+              </b-form-select>
+            </b-form-group>
+            <b-form-group
+              class="col-lg-3 mt-auto"
+              id="input-group-8"
+              label-for="input-8"
+            >
               <b-form-input
-                id="input-9"
-                type="password"
+                id="input-8"
+                type="text"
                 required
-                v-model="password"
-                placeholder="رمز عبور"
+                placeholder=" ملیت"
               ></b-form-input>
-
             </b-form-group>
 
-
-            <b-form-group class="col-lg-12" id="input-group-9" label-for="input-9">
-
-              <b-form-input
-                id="input-10"
-                type="password"
-                required
-                v-model="password_confirmation"
-                placeholder="تایید رمز عبور"
-              ></b-form-input>
-
-            </b-form-group>
-
-            <b-form-group id="input-group-10" class="col-lg-12" label-for="input-10">
+            <b-form-group
+              id="input-group-10"
+              class="col-lg-12"
+              label-for="input-10"
+            >
               <b-form-textarea
                 id="textarea-rows"
                 placeholder="آدرس"
-                v-model="address"
                 rows="3"
               ></b-form-textarea>
-
             </b-form-group>
-
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" class="btn btn-register" v-on:click="submitUser" >ثبت نام</b-button>
+              <b-button type="submit" class="btn btn-register"
+                >ثبت نام</b-button
+              >
             </div>
           </b-form>
         </div>
@@ -148,42 +164,8 @@
 
 <script>
 export default {
-  methods: {
-    submitUser: function () {
-      axios
-        .post("http://localhost:8000/api/user/register" , {
-          first_name: this.first_name,
-          last_name: this.last_name, 
-          phone: this.phone,
-          mobile: this.mobile,
-          address: this.address,
-          postal_code: this.postal_code,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_conf,
-
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    },
-  },
   data() {
     return {
-      first_name: "",
-      last_name: "",
-      phone: "",
-      mobile: "",
-      national_code: "",
-      email: "",
-      address: "",
-      postal_code: "",
-      password: "",
-      password_conf: "",
       selected: "جنسیت",
       date: "",
     };
@@ -193,7 +175,6 @@ export default {
 
 <style scoped>
 .register-container {
-  background-color: #e2e2e2;
   padding: 92px;
   display: flex;
   justify-content: center;

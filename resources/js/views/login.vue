@@ -1,23 +1,72 @@
 <template>
-  <div
-    :style="{ 'background-image': 'url(../assets/library.jpeg)' }"
-    id="login"
-  >
-    <h1 class="logh">خوش آمدید</h1>
-    <input
-      type="text"
-      name="username"
-      v-model="this.email"
-      placeholder="ایمیل"
-    />
-    <input
-      type="password"
-      name="password"
-      v-model="this.password"
-      placeholder="کلمه عبور"
-    />
-    <button type="button" v-on:click="login()">ورود</button>
+  <div>
+    <div class="row col-lg-auto col-lg-auto login-row p-0">
+      <div class="col-lg-6 p-0">
+        <div>
+          <div>
+            <img
+              src="../assets/pics/librarylogo.png"
+              width="115px"
+              height="115px"
+              alt="logo"
+            />
+          </div>
+          <h4 class="login-title">ورود</h4>
+        </div>
+        <div class="row p-3">
+          <b-form class="row col-12 pl-0">
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-1"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                type="text"
+                name="username"
+                v-model="input.username"
+                required
+                placeholder="نام کاربری"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-2"
+              label-for="input-2"
+            >
+              <b-form-input
+                id="input-2"
+                type="password"
+                required
+                name="password"
+                v-model="input.password"
+                placeholder="رمز عبور"
+              ></b-form-input>
+            </b-form-group>
+
+            <div class="d-flex justify-content-center col-12">
+              <b-button
+                type="buton"
+                class="btn btn-login w-100"
+                v-on:click="login()"
+              >
+                ورود</b-button
+              >
+            </div>
+          </b-form>
+        </div>
+      </div>
+      <div class="col-lg-6 p-0 login-pic-row">
+        <img
+          src="../assets/pics/loginbg.jpg"
+          height="400px"
+          alt="login-pic"
+          class="login-pic w-100"
+        />
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -25,73 +74,71 @@ export default {
   name: "Login",
   data() {
     return {
-      email: "",
-      password: "",
+      input: {
+        username: "",
+        password: "",
+      },
     };
   },
   methods: {
     login() {
-      axios
-        .post("http://localhost:8000/api/user/login", {
-          email: this.email,
-          password: this.password
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      // if (this.input.username != "" && this.input.password != "") {
-      //   if (
-      //     this.input.username == this.$parent.mockAccount.username &&
-      //     this.input.password == this.$parent.mockAccount.password
-      //   ) {
-      //     this.$emit("authenticated", true);
-      //     this.$router.replace({ name: "secure" });
-      //   } else {
-      //     console.log("The username and / or password is incorrect");
-      //   }
-      // } else {
-      //   console.log("A username and password must be present");
-      // }
+      if (this.input.username != "" && this.input.password != "") {
+        if (
+          this.input.username == this.$parent.mockAccount.username &&
+          this.input.password == this.$parent.mockAccount.password
+        ) {
+          this.$emit("authenticated", true);
+          this.$router.replace({ name: "secure" });
+        } else {
+          console.log("The username and / or password is incorrect");
+        }
+      } else {
+        console.log("A username and password must be present");
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-#login {
-  width: 500px;
-  background-image: linear-gradient(red, yellow);
-  margin: auto;
-  margin-top: 200px;
-  padding: 20px;
+.login-container {
+  padding: 92px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.logh {
-  color: aliceblue;
-  text-align: center;
-  font-size: 50pxs;
+.login-pic {
+  filter: grayscale();
 }
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+.login-title {
+  font-weight: bold;
+  color: black !important;
 }
-button:hover {
-  opacity: 0.8;
+input {
+  border-radius: 7px;
 }
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+.btn-login {
+  background-color: #25d366;
+  border-color: #25d366;
+}
+.btn-login:hover {
+  background-color: #039c10;
+  border-color: #039c10;
+}
+@media screen and (max-width: 700px) {
+  .login-container {
+    padding: 0 px;
+  }
+  .login-pic-row {
+    display: none;
+  }
+  .login-row {
+    margin-top: 200px;
+    margin-bottom: 20px;
+    border: 0.5px solid rgb(172 172 172 / 45%);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 0px;
+  }
 }
 </style>
