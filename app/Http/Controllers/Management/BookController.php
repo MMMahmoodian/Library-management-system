@@ -97,7 +97,22 @@ class BookController extends Controller
         }
         $data = $request->all();
         $book = Book::findOrFail($data['book_id']);
-        $book->update($data);
+        if (isset($data['isbn'])){
+            $book->isbn = $data['isbn'];
+        }
+        if (isset($data['title'])){
+            $book->title = $data['title'];
+        }
+        if (isset($data['synopsis'])){
+            $book->synopsis = $data['synopsis'];
+        }
+        if (isset($data['publisher_id'])){
+            $book->publisher_id = $data['publisher_id'];
+        }
+        if (isset($data['category_id'])){
+            $book->category_id = $data['category_id'];
+        }
+        $book->save();
         return response()->json([
             'status' => $this->successStatusCode,
             'message' => "Book updated successfully!"
