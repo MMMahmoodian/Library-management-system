@@ -90,7 +90,7 @@
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button v-on:click="submitBook" class="btn new-book"
+              <b-button type="submit" v-on:click="submitBook" class="btn new-book"
                 >اضافه کردن</b-button
               >
             </div>
@@ -119,7 +119,7 @@ export default {
     },
   },
   created() {
-    this.fetchAuthors();
+    this.fetchArrays();
   },
   methods: {
     submitBook: function () {
@@ -141,7 +141,7 @@ export default {
 
     },
 
-    fetchAuthors: function () {
+    fetchArrays: function () {
       var self = this;
       axios
         .get("http://localhost:8000/api/management/author/list")
@@ -207,8 +207,7 @@ export default {
       publishersOptions: [],
       categoryOptions: [],
       showAddNewBook: false,
-      date: "",
-      selected: "دسته بندی",
+      date: ""
     };
   },
 };

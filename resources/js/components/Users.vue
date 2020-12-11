@@ -11,6 +11,9 @@ import User from "./User.vue"
 
 export default {
   name: "Users",
+  created() {
+    
+  },
   props: ["UsersArr", "isAdm"],
   components:{
       User

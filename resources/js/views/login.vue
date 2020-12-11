@@ -3,20 +3,20 @@
     :style="{ 'background-image': 'url(../assets/library.jpeg)' }"
     id="login"
   >
-    <h1 class="logh">Welcome</h1>
+    <h1 class="logh">خوش آمدید</h1>
     <input
       type="text"
       name="username"
-      v-model="input.username"
-      placeholder="Username"
+      v-model="this.email"
+      placeholder="ایمیل"
     />
     <input
       type="password"
       name="password"
-      v-model="input.password"
-      placeholder="Password"
+      v-model="this.password"
+      placeholder="کلمه عبور"
     />
-    <button type="button" v-on:click="login()">Login</button>
+    <button type="button" v-on:click="login()">ورود</button>
   </div>
 </template>
 
@@ -25,27 +25,36 @@ export default {
   name: "Login",
   data() {
     return {
-      input: {
-        username: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     };
   },
   methods: {
     login() {
-      if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.mockAccount.username &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
-        } else {
-          console.log("The username and / or password is incorrect");
-        }
-      } else {
-        console.log("A username and password must be present");
-      }
+      axios
+        .post("http://localhost:8000/api/user/login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // if (this.input.username != "" && this.input.password != "") {
+      //   if (
+      //     this.input.username == this.$parent.mockAccount.username &&
+      //     this.input.password == this.$parent.mockAccount.password
+      //   ) {
+      //     this.$emit("authenticated", true);
+      //     this.$router.replace({ name: "secure" });
+      //   } else {
+      //     console.log("The username and / or password is incorrect");
+      //   }
+      // } else {
+      //   console.log("A username and password must be present");
+      // }
     },
   },
 };
