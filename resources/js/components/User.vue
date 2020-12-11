@@ -3,8 +3,8 @@
     <p
       v-show="!is_editing"
       :class="{
-        'is-not-verified': !user.isVerified,
-        'is-verified': user.isVerified,
+        'is-not-verified': !user.verified,
+        'is-verified': user.verified,
       }"
     >
       First Name : {{ user.first_name }}<br />

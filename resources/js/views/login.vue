@@ -7,16 +7,17 @@
     <input
       type="text"
       name="username"
-      v-model="this.email"
+      v-model="email"
       placeholder="ایمیل"
     />
     <input
       type="password"
       name="password"
-      v-model="this.password"
+      v-model="password"
       placeholder="کلمه عبور"
     />
     <button type="button" v-on:click="login()">ورود</button>
+    
   </div>
 </template>
 

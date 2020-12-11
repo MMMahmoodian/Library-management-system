@@ -1,6 +1,7 @@
 <template>
   <div class="book">
     <div class="container-fluid">
+
       <p v-show="!is_editing">
         
         Title : {{ book.title }}<br />
@@ -17,6 +18,7 @@
       </p>
 
       <div v-show="is_editing">
+        
         Title :
         <b-form-input
           id="input-title"
@@ -53,21 +55,20 @@
         Publisher :
         <b-form-select v-model="selected_pub" :options="publishersOptions">
         </b-form-select>
-        
-
 
         Category :
         <b-form-select v-model="selected_cat" :options="categoryOptions">
         </b-form-select>
       </div>
 
-      <button @click="save" v-if="is_editing">Save</button>
-      <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
+      <button type="submit" @click="save" v-if="is_editing">Save</button>
+      <button type="submit" @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
         DEL
       </button>
       <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
         Cancel
       </button>
+      
     </div>
   </div>
 </template>
@@ -98,10 +99,9 @@ export default {
     save() {
       axios
         .post("http://localhost:8000/api/management/book/edit", {
-          
-          book_id: this.book.id, 
+          book_id: this.book.id,
           title: this.book.title,
-          synopsis: this.book.summary, 
+          synopsis: this.book.summary,
           publisher_id: this.selected_pub,
           category_id: this.selected_cat,
           author_id: this.selected_auth,
@@ -109,6 +109,7 @@ export default {
         })
         .then(function (response) {
           console.log(response);
+          
         })
         .catch(function (error) {
           console.log(error);
