@@ -46,11 +46,4 @@ class User extends Authenticatable
         return $this->belongsToMany(Book::class, 'rent_books');
     }
 
-    public function rent($book_id, $rent_date){
-        $this->books()->attach($book_id, ['renting_date' => $rent_date]);
-    }
-
-    public function withdraw($book_id, $withdraw_date){
-        return $list = $this->books();
-    }
 }

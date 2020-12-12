@@ -61,7 +61,7 @@ Route::prefix('management')->group(function () {
         Route::prefix('rental')->group(function () {
 //            Route::get('/list', 'Management\RentingController@list');
             Route::post('/rent', 'Management\RentingController@rent');
-//            Route::post('/withdraw', 'Management\RentingController@edit');
+            Route::post('/withdraw', 'Management\RentingController@withdraw');
         });
 
 //    });
