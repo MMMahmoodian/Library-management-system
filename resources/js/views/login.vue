@@ -28,21 +28,35 @@ export default {
     return {
       email: "",
       password: "",
+      axiosResponse: "",
+      statusCode: ""
     };
   },
   methods: {
     login() {
+      var self = this;
       axios
         .post("http://localhost:8000/api/user/login", {
           email: this.email,
           password: this.password
         })
         .then(function (response) {
-          console.log(response);
+           console.log(response);
+           self.statusCode = response.data.status;
+           if(self.statusCode == 200){
+             alert("Logged In");
+           } else if(self.statusCode == 401){
+             alert("Incorrect email or password");
+           } else {
+             alert("Fields Cannot be Empty And Must be in Correct Format");
+           }
         })
         .catch(function (error) {
+          alert("error");
           console.log(error);
         });
+      
+
       // if (this.input.username != "" && this.input.password != "") {
       //   if (
       //     this.input.username == this.$parent.mockAccount.username &&

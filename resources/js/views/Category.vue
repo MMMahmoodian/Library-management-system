@@ -2,21 +2,21 @@
   <div class="container-fluid employee-container">
     <div class="row mt-4">
       <div class="col-lg-2 col-5">
-        <b-button class="btn btn-light d-flex new-employee-btn" v-b-modal.modal-1
+        <b-button
+          class="btn btn-light d-flex new-employee-btn"
+          v-b-modal.modal-1
           >دسته بندی جدید</b-button
         >
       </div>
 
-
-
       <b-modal id="modal-1" title="اضافه کردن دسته بندی" hide-footer>
         <div class="container-fluid p-0 d-flex justify-content-center">
-
           <b-form class="row col-12 p-0 d-flex justify-content-center">
-          
-
-
-            <b-form-group class="col-lg-9" id="input-group-1" label-for="input-1" >
+            <b-form-group
+              class="col-lg-9"
+              id="input-group-1"
+              label-for="input-1"
+            >
               <b-form-input
                 id="input-3"
                 v-model="name"
@@ -26,14 +26,13 @@
             </b-form-group>
 
             <div class="d-flex justify-content-center col-lg-12">
-              <b-button v-on:click="submitCategory" class="btn new-employee">اضافه کردن</b-button>
+              <b-button v-on:click="submitCategory" class="btn new-employee"
+                >اضافه کردن</b-button
+              >
             </div>
           </b-form>
-
         </div>
       </b-modal>
-
-
 
       <div class="header col-lg-8 col-7">
         <h4>لیست دسته بندی ها</h4>
@@ -50,65 +49,6 @@
       <div></div>
       <div></div>
     </b-modal>
-    <table class="table mt-4">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">شناسه</th>
-          <th scope="col">نام</th>
-          <th scope="col">حذف</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>سیاسی</td>
-          <td v-b-modal.modal-2>
-            <img
-              src="../assets/icons/delete-icon.png"
-              width="30px"
-              height="30px"
-              alt=""
-            />
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>تاریخی</td>
-          <td v-b-modal.modal-2>
-            <img
-              src="../assets/icons/delete-icon.png"
-              width="30px"
-              height="30px"
-              alt=""
-            />
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>اقتصادی</td>
-          <td v-b-modal.modal-2>
-            <img
-              src="../assets/icons/delete-icon.png"
-              width="30px"
-              height="30px"
-              alt=""
-            />
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>دینی</td>
-          <td v-b-modal.modal-2>
-            <img
-              src="../assets/icons/delete-icon.png"
-              width="30px"
-              height="30px"
-              alt=""
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 <script>
@@ -121,6 +61,11 @@ export default {
         })
         .then(function (response) {
           console.log(response);
+          if ((response.data.message != "Bad request!")) {
+            alert("دسته بندی با موفقیت ساخته شد");
+          } else {
+            alert("نام دسته بندی را مشخص کنید");
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -129,7 +74,7 @@ export default {
   },
   data() {
     return {
-      name:"", 
+      name: "",
       selected: "وضعیت",
     };
   },

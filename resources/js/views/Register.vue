@@ -168,7 +168,7 @@ export default {
 
           console.log(response);
           
-          if(response.data.message = "Bad request!"){
+          if(response.data.message == "Bad request!"){
             alert(response.data.data.error);
           } else {
             alert("User added");

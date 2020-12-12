@@ -134,10 +134,11 @@ export default {
         })
         .then(function (response) {
           console.log(response);
-          if(response.data.message = "Bad request!"){
+          if(response.data.message == "Bad request!"){
             alert(response.data.data.error);
           } else {
             alert("Book added");
+            vm.$forceUpdate();//location.relode()'
           }
         })
         .catch(function (error) {
