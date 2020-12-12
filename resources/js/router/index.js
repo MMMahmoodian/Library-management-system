@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import LoginComponent from "../views/login.vue"
 import SecureComponent from "../views/secure.vue"
@@ -14,13 +13,6 @@ import NewBook from "../views/NewBook"
 import Category from "../views/Category"
 
 Vue.use(VueRouter)
-Vue.use(Vuex)
-
-// export default new Vuex.Store({
-//     modules:{
-//         storageee
-//     }
-// });
 
 export default new VueRouter({
     routes: [

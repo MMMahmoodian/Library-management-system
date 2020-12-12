@@ -11,6 +11,9 @@ import Header from "./components/layouts/Header";
 
 export default {
   name: "App",
+  created() {
+    sessionStorage.setItem("auth", false);
+  },
   data() {
     return {
       mockAccount: {
