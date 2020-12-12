@@ -66,11 +66,6 @@
             <td>{{staff.first_name}} {{staff.last_name}}</td>
             <td>{{staff.national_code}}</td>
         </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>احمد کاظمی</td>
-          <td>2020767921</td>
-        </tr>
         
       </tbody>
     </table>
