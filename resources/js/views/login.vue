@@ -3,20 +3,15 @@
     :style="{ 'background-image': 'url(../assets/library.jpeg)' }"
     id="login"
   >
-    <h1 class="logh">Welcome</h1>
-    <input
-      type="text"
-      name="username"
-      v-model="input.username"
-      placeholder="Username"
-    />
+    <h1 class="logh">خوش آمدید</h1>
+    <input type="text" name="username" v-model="email" placeholder="ایمیل" />
     <input
       type="password"
       name="password"
-      v-model="input.password"
-      placeholder="Password"
+      v-model="password"
+      placeholder="کلمه عبور"
     />
-    <button type="button" v-on:click="login()">Login</button>
+    <button type="button" v-on:click="login()">ورود</button>
   </div>
 </template>
 
@@ -25,27 +20,58 @@ export default {
   name: "Login",
   data() {
     return {
-      input: {
-        username: "",
-        password: "",
-      },
+      email: "",
+      password: "",
+      axiosResponse: "",
+      statusCode: "",
+      token: "",
     };
   },
   methods: {
     login() {
-      if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.mockAccount.username &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
-        } else {
-          console.log("The username and / or password is incorrect");
-        }
-      } else {
-        console.log("A username and password must be present");
-      }
+      var self = this;
+      axios
+        .post("http://localhost:8000/api/user/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(function (response) {
+          console.log(response);
+          self.statusCode = response.data.status;
+          if (self.statusCode == 200) {
+            alert("Logged In");
+
+            self.token = response.data.data.token;
+            console.log("User Token is " + self.token);
+            sessionStorage.setItem("user_token", self.token);
+            sessionStorage.setItem("auth", true);
+
+            console.log(sessionStorage.getItem("auth"));
+            self.$router.push("/secure");
+          } else if (self.statusCode == 401) {
+            alert("Incorrect email or password");
+          } else {
+            alert("Fields Cannot be Empty And Must be in Correct Format");
+          }
+        })
+        .catch(function (error) {
+          alert("error");
+          console.log(error);
+        });
+
+      // if (this.input.username != "" && this.input.password != "") {
+      //   if (
+      //     this.input.username == this.$parent.mockAccount.username &&
+      //     this.input.password == this.$parent.mockAccount.password
+      //   ) {
+      //     this.$emit("authenticated", true);
+      //     this.$router.replace({ name: "secure" });
+      //   } else {
+      //     console.log("The username and / or password is incorrect");
+      //   }
+      // } else {
+      //   console.log("A username and password must be present");
+      // }
     },
   },
 };
