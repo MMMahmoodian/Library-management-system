@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class RentingController extends Controller
@@ -76,7 +77,43 @@ class RentingController extends Controller
         ]);
     }
 
-    public function getAllRents(){
+    public function getOnGoingRents(){
+        $list = DB::table('rent_books')->where('withdraw_date', '=', null)->get();
+        foreach ($list as $rent){
+            $rent->book = Book::find($rent->book_id);
+            $rent->patron = User::find($rent->user_id);
+        }
+        if ($list){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $list
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+    }
 
+    public function getAllRents(){
+        $list = DB::table('rent_books')->get();
+        foreach ($list as $rent){
+            $rent->book = Book::find($rent->book_id);
+            $rent->patron = User::find($rent->user_id);
+        }
+        if ($list){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $list
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
     }
 }

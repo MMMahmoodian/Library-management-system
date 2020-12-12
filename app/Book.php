@@ -43,6 +43,6 @@ class Book extends Model
 
     public function isAvailable(){
         $rents = $this->patrons()->where('withdraw_date', '=',null);
-        return $rents->exists();
+        return !$rents->exists();
     }
 }
