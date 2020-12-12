@@ -2,7 +2,6 @@
   <div class="book">
     <div class="container-fluid">
       <p v-show="!is_editing">
-        
         Title : {{ book.title }}<br />
         Author : {{ book.authors[0].first_name }}
         {{ book.authors[0].last_name }}
@@ -10,7 +9,7 @@
         ISBN : {{ book.isbn }}<br />
         Summary : {{ book.synopsis }}<br />
         Publisher : {{ book.publisher.name }}<br />
-        Category : {{book.category.name}}<br />
+        Category : {{ book.category.name }}<br />
         <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
           E
         </button>
@@ -18,16 +17,25 @@
 
       <div v-show="is_editing">
         Title :
-        <b-form-input
-          id="input-title"
-          v-model="book.title"
-          :state="nameState_T"
-          aria-describedby="input-live-help input-live-feedback"
-          placeholder="عنوان کتاب"
-          trim
-        ></b-form-input>
+        <b-form-group
+          class="mb-0"
+          description="عنوان کتاب نباید خالی باشد"
+        >
+          <b-form-input
+            id="input-title"
+            v-model="book.title"
+            :state="nameState_T"
+            aria-describedby="input-live-help input-live-feedback"
+            placeholder="عنوان کتاب"
+            trim
+          ></b-form-input>
+        </b-form-group>
 
-        نویسنده<b-form-select v-model="selected_auth" :options="authorsOptions">
+        نویسنده<b-form-select
+          :disabled="true"
+          v-model="selected_auth"
+          :options="authorsOptions"
+        >
         </b-form-select>
 
         ISBN :
@@ -53,16 +61,19 @@
         Publisher :
         <b-form-select v-model="selected_pub" :options="publishersOptions">
         </b-form-select>
-        
-
 
         Category :
         <b-form-select v-model="selected_cat" :options="categoryOptions">
         </b-form-select>
       </div>
 
-      <button @click="save" v-if="is_editing">Save</button>
-      <button @click="$emit('del-book', book.id)" class="del" v-if="is_editing">
+      <button type="submit" @click="save" v-if="is_editing">Save</button>
+      <button
+        type="submit"
+        @click="$emit('del-book', book.id)"
+        class="del"
+        v-if="is_editing"
+      >
         DEL
       </button>
       <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
@@ -78,7 +89,7 @@ export default {
   name: "Book",
   props: ["book", "categoryOptions", "publishersOptions", "authorsOptions"],
   computed: {
-    nameState_T() {
+    nameState_T(input) {
       return this.book.title.length > 0 ? true : false;
     },
     nameState_I() {
@@ -98,10 +109,9 @@ export default {
     save() {
       axios
         .post("http://localhost:8000/api/management/book/edit", {
-          
-          book_id: this.book.id, 
+          book_id: this.book.id,
           title: this.book.title,
-          synopsis: this.book.summary, 
+          synopsis: this.book.summary,
           publisher_id: this.selected_pub,
           category_id: this.selected_cat,
           author_id: this.selected_auth,

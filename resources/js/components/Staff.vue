@@ -3,8 +3,8 @@
     <p
       v-show="!is_editing"
       :class="{
-        'is-not-verified': !staff.isVerified,
-        'is-verified': staff.isVerified,
+        'is-not-verified': !staff.verified,
+        'is-verified': staff.verified,
       }"
     >
       First Name : {{ staff.first_name }}<br />
@@ -128,16 +128,16 @@ export default {
     },
     verify: function () {
       console.log(this.staff.id);
-    //   axios
-    //     .post("http://localhost:8000/api/management/staffs/patron/verify", {
-    //       user_id: this.staff.id
-    //     })
-    //     .then(function (response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
+      axios
+        .post("http://localhost:8000/api/management/user/patron/verify", {
+          user_id: this.staff.id
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 };
@@ -156,7 +156,7 @@ export default {
   padding: 0px;
   margin: 0px;
   color: floralwhite;
-  background: rgb(105, 46, 6);
+  background: rgb(231, 133, 68);
   padding: 10px;
   border-bottom: 1px #ccc dotted;
   color: white;

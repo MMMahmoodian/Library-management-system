@@ -9,7 +9,7 @@
 
       <b-modal id="modal-1" title="اضافه کردن کتاب" hide-footer>
         <div class="container-fluid p-0 d-flex justify-content-center">
-          <b-form class="row col-12 p-0">
+          <b-form @submit="submitBook" class="row col-12 p-0">
             <b-form-group
               class="col-lg-6"
               id="input-group-1"
@@ -90,7 +90,7 @@
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" v-on:click="submitBook" class="btn new-book"
+              <b-button type="submit"  class="btn new-book"
                 >اضافه کردن</b-button
               >
             </div>
@@ -134,6 +134,12 @@ export default {
         })
         .then(function (response) {
           console.log(response);
+          if(response.data.message == "Bad request!"){
+            alert(response.data.data.error);
+          } else {
+            alert("Book added");
+            vm.$forceUpdate();//location.relode()'
+          }
         })
         .catch(function (error) {
           console.log(error);

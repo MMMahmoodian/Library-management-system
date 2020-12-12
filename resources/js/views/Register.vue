@@ -14,7 +14,7 @@
           <h4 class="register-title">ثبت نام</h4>
         </div>
         <div class="row p-3">
-          <b-form class="row col-12 pl-0">
+          <b-form  class="row col-12 pl-0">
             <b-form-group class="col-lg-6" id="input-group-1" label-for="input-1">
 
               <b-form-input
@@ -113,7 +113,7 @@
                 id="input-10"
                 type="password"
                 required
-                v-model="password_confirmation"
+                v-model="password_conf"
                 placeholder="تایید رمز عبور"
               ></b-form-input>
 
@@ -157,6 +157,7 @@ export default {
           phone: this.phone,
           mobile: this.mobile,
           address: this.address,
+          national_code: this.national_code,
           postal_code: this.postal_code,
           email: this.email,
           password: this.password,
@@ -164,7 +165,14 @@ export default {
 
         })
         .then(function (response) {
+
           console.log(response);
+          
+          if(response.data.message == "Bad request!"){
+            alert(response.data.data.error);
+          } else {
+            alert("User added");
+          }
         })
         .catch(function (error) {
           console.log(error);
