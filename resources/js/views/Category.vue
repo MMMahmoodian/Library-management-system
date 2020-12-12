@@ -49,12 +49,56 @@
       <div></div>
       <div></div>
     </b-modal>
+
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">نام</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-bind:key="cat.id" v-for="cat in categoryArray">
+            <th scope="row">{{cat.id}}</th>
+            <td>{{cat.name}}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+
   </div>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      name: "",
+      selected: "وضعیت",
+      categoryArray:[],
+    };
+  },
   methods: {
+    fetchArrays: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/category/list")
+        .then(function (response) {
+          self.categoryArray = response.data.data;
+          console.log(self.categoryArray);
+          self.categoryArray.forEach((element) => {
+            self.categoryOptions.push({
+              text: element.name,
+              value: element.id,
+            });
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     submitCategory: function () {
+      var self = this;
+      console.log("HHHHHHHHHHHHH");
       axios
         .post("http://localhost:8000/api/management/category/add", {
           name: this.name,
@@ -72,12 +116,12 @@ export default {
         });
     },
   },
-  data() {
-    return {
-      name: "",
-      selected: "وضعیت",
-    };
+  
+  created() {
+    this.fetchArrays();
+    
   },
+
 };
 </script>
 <style scoped>
