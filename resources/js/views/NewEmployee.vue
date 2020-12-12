@@ -61,26 +61,17 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-bind:key="staff.id" v-for="staff in StaffsArray">
+            <th scope="row">{{staff.id}}</th>
+            <td>{{staff.first_name}} {{staff.last_name}}</td>
+            <td>{{staff.national_code}}</td>
+        </tr>
         <tr>
           <th scope="row">1</th>
           <td>احمد کاظمی</td>
           <td>2020767921</td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>رضا رضایی</td>
-          <td>2030765421</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>علی امینی</td>
-          <td>4030786512</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>محمد امیری</td>
-          <td>1020576329</td>
-        </tr>
+        
       </tbody>
     </table>
   </div>
@@ -90,8 +81,26 @@ export default {
   data() {
     return {
       selected: "وضعیت",
+      StaffsArray: [],
     };
   },
+  created(){
+    this.fetchStaffs();
+  },
+  methods:{
+    fetchStaffs: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/user/staff/list")
+        .then(function (response) {
+          console.log(response);
+          self.StaffsArray = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  }
 };
 </script>
 
