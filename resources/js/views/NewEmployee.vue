@@ -52,6 +52,37 @@
         <h4>لیست کارمندان</h4>
       </div>
     </div>
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">نام کاربری</th>
+          <th scope="col">کد ملی</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>احمد کاظمی</td>
+          <td>2020767921</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>رضا رضایی</td>
+          <td>2030765421</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>علی امینی</td>
+          <td>4030786512</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>محمد امیری</td>
+          <td>1020576329</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 <script>
@@ -63,6 +94,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .employee-container {
   padding: 96px;
@@ -84,28 +116,28 @@ form {
 .new-employee:hover {
   background-color: #1c0097 !important;
 }
-.header h4 {
-  font-weight: 800;
+.header h4{
+    font-weight: 800;
 }
 @media screen and (max-width: 700px) {
-  .employee-container {
-    padding: 0;
-  }
+.employee-container {
+  padding: 0;
+}
 }
 </style>
 <style>
 .modal-content {
   box-shadow: 5px 23px 23px 15px #00000057 !important;
 }
-.modal-dialog {
-  min-width: 761px;
+.modal-dialog{
+        min-width: 761px;
 }
 @media screen and (max-width: 700px) {
-  .modal-dialog {
-    min-width: unset;
-  }
+.modal-dialog{
+        min-width: unset;
 }
-small {
-  font-size: 14px !important;
+}
+small{
+        font-size: 14px !important;
 }
 </style>

@@ -99,6 +99,47 @@
       </b-modal>
       
     </div>
+    <table class="table mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">عنوان</th>
+          <th scope="col">کد شابک</th>
+          <th scope="col">شناسه نویسنده</th>
+          <th scope="col">تاریخ انتشار</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>بیشعوری</td>
+          <td>187890</td>
+          <td>1</td>
+          <td>2020</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>مردی در جاده</td>
+          <td>217840</td>
+          <td>2</td>
+          <td>2019</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>1984</td>
+          <td>123490</td>
+          <td>3</td>
+          <td>2018</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>2بیشعوری</td>
+          <td>187890</td>
+          <td>1</td>
+          <td>2020</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

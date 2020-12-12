@@ -11,6 +11,7 @@ import Register from "../views/Register"
 import NewEmployee from "../views/NewEmployee"
 import NewBook from "../views/NewBook"
 import Category from "../views/Category"
+import Home from "../views/Home"
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,8 @@ export default new VueRouter({
             path: '/',
             redirect: {
                 name: "Home"
-            }
+            },
+            component: Home
         },
         {
             path: "/Category",

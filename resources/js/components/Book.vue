@@ -174,4 +174,9 @@ export default {
   cursor: pointer;
   float: right;
 }
+input{
+      padding: 3px;
+    border: 0.5px solid #a39191;
+    border-radius: 3px;
+}
 </style>
