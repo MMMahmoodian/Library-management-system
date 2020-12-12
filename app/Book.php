@@ -28,4 +28,8 @@ class Book extends Model
     public function translators(){
         return $this->belongsToMany(Translator::class, 'books_translators');
     }
+
+    public function patrons(){
+        return $this->belongsToMany(User::class, 'rent_books');
+    }
 }

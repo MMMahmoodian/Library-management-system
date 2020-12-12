@@ -58,6 +58,11 @@ Route::prefix('management')->group(function () {
 //                Route::post('/edit', 'Management\UserController@edit');
             });
         });
+        Route::prefix('rental')->group(function () {
+//            Route::get('/list', 'Management\RentingController@list');
+            Route::post('/rent', 'Management\RentingController@rent');
+//            Route::post('/withdraw', 'Management\RentingController@edit');
+        });
 
 //    });
 });

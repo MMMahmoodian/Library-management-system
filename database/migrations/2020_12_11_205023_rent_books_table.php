@@ -17,7 +17,7 @@ class RentBooksTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
             $table->date('renting_date');
-            $table->date('withdraw_date');
+            $table->date('withdraw_date')->nullable();
 
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
