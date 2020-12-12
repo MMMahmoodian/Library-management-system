@@ -1,19 +1,23 @@
 <template>
   <div id="app">
     <Header />
-    
-   <router-view  /> 
+    <div id="nav">
+      <router-link
+        v-if="this.authenticated"
+        to="/login"
+        v-on:click.native="logout()"
+        replace
+        >Logout</router-link
+      >
+    </div>
+    <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
 
 <script>
 import Header from "./components/layouts/Header";
-
 export default {
   name: "App",
-  created() {
-    sessionStorage.setItem("auth", false);
-  },
   data() {
     return {
       mockAccount: {
@@ -21,61 +25,53 @@ export default {
         isVerified: false,
         username: "danial",
         password: "12",
-      },
+      }, 
     };
   },
   components: {
     Header,
   },
-  // mounted() {
-  //   if (!this.authenticated) {
-  //     this.$router.replace({ name: "login" });
-  //   }
-  // },
+
   methods: {
-    // setAuthenticated(status) {
-    //   this.authenticated = status;
-    // },
-    // logout() {
-    //   this.authenticated = false;
-    // },
+    setAuthenticated(status) {
+      this.authenticated = status;
+    },
+    logout() {
+      this.authenticated = false;
+    },
   },
 };
 </script>
 
 <style>
 body {
-  background-color: #f0f0f0;
-  background-image: url("./assets/library2.jpeg");
   background-size: cover;
   display: grid;
-  color: white;
+   color: black !important;
 }
 h1 {
   padding: 0;
   margin-top: 0;
 }
 #app {
-  width: 1024px;
+  width: 1300px;
   margin: auto;
   display: grid;
-
-  /* direction: rtl; 
+  direction: rtl; 
   font-family: iransans;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  overflow-x: hidden;*/
+  overflow-x: hidden;
 }
-
-@font-face {
+/* @font-face {
   font-family: iransans;
-  src: url("./assets/font/iran.ttf");
-}
-
-* {
+  src: url('../src/assets/font/iran.ttf');
+} */
+*{
   font-family: iransans;
 }
 </style>
+

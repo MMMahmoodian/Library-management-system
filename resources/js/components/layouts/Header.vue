@@ -1,65 +1,179 @@
 <template>
-  <header class="header">
-    <div id="nav">
-      <div v-if="showLog"  >LOGGED IN</div> <br />
-      <router-link to="/">Home</router-link> |
-      <!-- <router-link to="/About">About</router-link> | -->
-      <router-link to="/SBookManage"> Staff Book Management </router-link> |
-      <router-link to="/StaffVerification"> Staff Verification </router-link> |
-      <router-link to="/AUserManage"> Admin User Management </router-link> |
-      <router-link to="/NewEmployee"> New Employee </router-link> |
-      <router-link to="/NewBook"> New Book </router-link> |
-      <router-link to="/Category"> Category </router-link> |
-      <router-link to="/Register"> Register </router-link> |
-      <router-link to="/login">Login </router-link>
-      <!-- <button v-on:click="toggle()">toggle</button>
-      <button v-on:click="show()">show </button> -->
+   <div id="booksdiv">
+    <div>
+      <b-navbar toggleable="sm" type="light" variant="light">
+        <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
+
+        <img
+          src="../../assets/pics/librarylogo.png"
+          width="65px"
+          height="65px"
+          alt="logo"
+        />
+
+        <b-navbar-brand class="m-0">سامانه مدیریت کتابخانه</b-navbar-brand>
+        <div class="login-container">
+          <button class="btn btn-primary btn-login">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="20"
+              height="20"
+              viewBox="0 0 172 172"
+              style=" fill:#000000;"
+            >
+              <g
+                fill="none"
+                fill-rule="nonzero"
+                stroke="none"
+                stroke-width="1"
+                stroke-linecap="butt"
+                stroke-linejoin="miter"
+                stroke-miterlimit="10"
+                stroke-dasharray=""
+                stroke-dashoffset="0"
+                font-family="none"
+                font-weight="none"
+                font-size="none"
+                text-anchor="none"
+                style="mix-blend-mode: normal"
+              >
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g fill="#fff">
+                  <path
+                    d="M50.16667,35.83333c-27.70633,0 -50.16667,22.46033 -50.16667,50.16667c0,27.70633 22.46033,50.16667 50.16667,50.16667c22.72313,0 41.89756,-15.11458 48.06706,-35.83333h30.76628v21.5h28.66667v-21.5h14.33333v-28.66667h-73.76628c-6.1695,-20.71875 -25.34393,-35.83333 -48.06706,-35.83333zM50.16667,64.5c11.87517,0 21.5,9.62483 21.5,21.5c0,11.87517 -9.62483,21.5 -21.5,21.5c-11.87517,0 -21.5,-9.62483 -21.5,-21.5c0,-11.87517 9.62483,-21.5 21.5,-21.5z"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+           <router-link to="/login">ورود به سیستم </router-link>
+          </button>
+          <button class="btn btn-info btn-register mr-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="20"
+              height="20"
+              viewBox="0 0 226 226"
+              style=" fill:#fff;"
+            >
+              <g
+                fill="none"
+                fill-rule="none"
+                stroke="none"
+                stroke-width="1"
+                stroke-linecap="butt"
+                stroke-linejoin="miter"
+                stroke-miterlimit="10"
+                stroke-dasharray=""
+                stroke-dashoffset="0"
+                font-family="none"
+                font-weight="none"
+                font-size="none"
+                text-anchor="none"
+                style="mix-blend-mode: normal"
+              >
+                <path
+                  d="M0,226v-226h226v226z"
+                  fill="none"
+                  fill-rule="nonzero"
+                ></path>
+                <g fill="#fff" fill-rule="evenodd">
+                  <path
+                    d="M103.58333,18.83333v84.75h-84.75v18.83333h84.75v84.75h18.83333v-84.75h84.75v-18.83333h-84.75v-84.75z"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+            <router-link to="/Register"> ثبت نام </router-link>
+          </button>
+        </div>
+        <b-collapse id="nav-text-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item>
+              <router-link to="/About"> درباره ما </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/Category"> دسته بندی </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/NewBook">کتاب جدید </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/NewEmployee">
+                کارمند جدید
+              </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/AUserManage"
+                >مدیریت ادمین
+              </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/StaffVerification">
+               مدیریت کارمندان
+              </router-link></b-nav-item
+            >
+            <b-nav-item>
+              <router-link to="/SBookManage">
+                مدیریت کتابها
+              </router-link></b-nav-item
+            >
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Header",
-  data() {
-    return {
-      showLog: false,
-    };
-  },
-  mounted() {
-  },
-  updated(){
-    
-  },
-  methods: {
-    show() {
-      console.log("Storage:"+sessionStorage.getItem("auth"));
-      console.log("Local:"+this.showLog);
-    },
-    toggle() {
-      this.showLog = !this.showLog;
-      sessionStorage.setItem("auth", this.showLog );
-    },
-    check(){
-      return sessionStorage.getItem("auth");
-    }
-  },
 };
 </script>
 
-<style scoped>
-.header {
-  padding: 60px;
-  background: #333;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-size: 30px;
+<style>
+.btn-login,
+.btn-register {
+  border-radius: 10px;
 }
-
-.header a {
-  color: #fff;
-  padding-right: 5px;
-  text-decoration: none;
+a {
+  color: black !important;
+  font-size: 19px;
+}
+.login-container {
+  margin-right: 10%;
+}
+@media screen and (max-width: 600px) {
+  .login-container {
+    margin-right: 0%;
+  }
+}
+.navbar {
+  background-color: #a9a9a93b !important;
+}
+.home-img {
+  filter: grayscale();
+  width: 100%;
+  height: 572px;
+  border-radius: 7px;
+}
+.home-text {
+  border: 0.5px solid #d0bebe;
+  padding: 19px;
+  border-radius: 4px;
+  height: 95%;
+  padding-top: 20%;
+}
+li:hover {
+  background: #d8d8d8;
+  border-radius: 16px;
+  transition: 1s;
+}
+.contact-us {
+  background: #efefef;
 }
 </style>

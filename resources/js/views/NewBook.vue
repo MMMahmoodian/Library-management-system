@@ -99,6 +99,32 @@
       </b-modal>
       
     </div>
+    <table class="table mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">شناسه</th>
+          <th scope="col">عنوان</th>
+          <th scope="col">کد شابک</th>
+          <th scope="col">شناسه نویسنده</th>
+          <th scope="col">تاریخ انتشار</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-bind:key="book.id" v-for="book in booksArray">
+            <th scope="row">{{book.id}}</th>
+            <td>{{book.title}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.authors[0].id}}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>2بیشعوری</td>
+          <td>187890</td>
+          <td>1</td>
+          <td>2020</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -120,6 +146,7 @@ export default {
   },
   created() {
     this.fetchArrays();
+    this.fetchBooks();
   },
   methods: {
     submitBook: function () {
@@ -146,7 +173,18 @@ export default {
         });
 
     },
-
+    fetchBooks: function () {
+      var self = this;
+      axios
+        .get("http://localhost:8000/api/management/book/list")
+        .then(function (response) {
+          console.log(response);
+          self.booksArray = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     fetchArrays: function () {
       var self = this;
       axios
@@ -206,6 +244,7 @@ export default {
       authorsArray: null,
       publishersArray: null,
       categoryArray: null,
+      booksArray: null, 
       selected_auth: null,
       selected_pub: null,
       selected_cat: null,
