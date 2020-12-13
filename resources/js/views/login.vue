@@ -104,6 +104,8 @@ export default {
             self.$router.push("/secure");
           } else if (self.statusCode == 401) {
             alert("Incorrect email or password");
+          } else if(self.statusCode == 403) {
+            alert("User Not Verified");
           } else {
             alert("Fields Cannot be Empty And Must be in Correct Format");
           }

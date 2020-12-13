@@ -16,7 +16,7 @@
       </p>
 
       <div v-show="is_editing">
-        Title :
+        عنوان :
         <b-form-group
           class="mb-0"
           description="عنوان کتاب نباید خالی باشد"
@@ -38,7 +38,7 @@
         >
         </b-form-select>
 
-        ISBN :
+        شابک :
         <b-form-input
           id="input-title"
           v-model="book.isbn"
@@ -49,7 +49,7 @@
           @keypress="isNumber($event)"
         ></b-form-input>
 
-        Summary :
+        خلاصه :
         <b-form-input
           id="input-synopsis"
           v-model="book.synopsis"
@@ -59,11 +59,11 @@
           trim
         ></b-form-input>
 
-        Publisher :
+        ناشر :
         <b-form-select v-model="selected_pub" :options="publishersOptions">
         </b-form-select>
 
-        Category :
+        دسته بندی :
         <b-form-select v-model="selected_cat" :options="categoryOptions">
         </b-form-select>
       </div>
