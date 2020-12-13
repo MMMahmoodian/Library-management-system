@@ -85,14 +85,20 @@ class UserController extends Controller
         }
         if (Auth::attempt(['email' => strtolower($request['email']), 'password' => $request['password']])) {
             $user = Auth::user();
-            $token = $user->createToken('appToken')->accessToken;
+            if ($user->verified){
+                $token = $user->createToken('appToken')->accessToken;
+                return response()->json([
+                    'status' => $this->successStatusCode,
+                    'message' => "Login success!",
+                    'data' => [
+                        'token' => $token,
+                        'role' => $user->roles
+                    ]
+                ]);
+            }
             return response()->json([
-                'status' => $this->successStatusCode,
-                'message' => "Login success!",
-                'data' => [
-                    'token' => $token,
-                    'role' => $user->roles
-                ]
+                'status' => $this->forbiddenStatusCode,
+                'message' => "Forbidden!",
             ]);
         } else {
             return response()->json([
