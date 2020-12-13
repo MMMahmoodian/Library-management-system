@@ -98,7 +98,6 @@ export default {
     },
     submitCategory: function () {
       var self = this;
-      console.log("HHHHHHHHHHHHH");
       axios
         .post("/api/management/category/add", {
           name: this.name,

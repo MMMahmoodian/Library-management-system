@@ -51,6 +51,7 @@
                 v-model="national_code"
                 required
                 placeholder="کد ملی"
+                @keypress="isNumber($event)"
               ></b-form-input>
             </b-form-group>
 
@@ -65,6 +66,7 @@
                 v-model="phone"
                 required
                 placeholder="شماره تماس"
+                @keypress="isNumber($event)"
               ></b-form-input>
             </b-form-group>
 
@@ -79,6 +81,7 @@
                 v-model="mobile"
                 required
                 placeholder="شماره همراه"
+                @keypress="isNumber($event)"
               ></b-form-input>
             </b-form-group>
 
@@ -93,6 +96,7 @@
                 v-model="postal_code"
                 required
                 placeholder="کد پستی "
+                @keypress="isNumber($event)"
               ></b-form-input>
             </b-form-group>
 
@@ -138,6 +142,7 @@
               ></b-form-input>
             </b-form-group>
 
+
             <b-form-group
               id="input-group-10"
               class="col-lg-12"
@@ -149,10 +154,28 @@
                 <option>غیرفعال</option>
               </b-form-select>
             </b-form-group>
+
+            <b-form-group
+              id="input-group-11"
+              class="col-lg-12"
+              label-for="input-11"
+            >
+              <b-form-textarea
+                v-model="address"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="آدرس"
+                rows="3"
+              ></b-form-textarea>
+            </b-form-group>
+
+
             <div class="d-flex justify-content-center col-12">
               <b-button type="submit" class="btn new-employee"
                 >اضافه کردن</b-button
               >
+
+              
+
             </div>
           </b-form>
         </div>
@@ -214,6 +237,16 @@ export default {
         });
     },
 
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+
     submitStaff: function () {
       console.log("Adding");
       var self = this;
@@ -235,8 +268,8 @@ export default {
           if (response.data.message == "Bad request!") {
             alert(response.data.data.error);
           } else {
-            alert("Book added");
-            //vm.$forceUpdate(); //location.relode()'
+            alert("Staff added");
+            vm.$forceUpdate(); //location.relode()'
           }
         })
         .catch(function (error) {
