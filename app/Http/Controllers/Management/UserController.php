@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -87,10 +89,73 @@ class UserController extends Controller
     }
 
     public function addStaff(Request $request){
+        $staff_role = Role::where('slug', 'staff')->first();
+        $validation = Validator::make($request->all(), [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'national_code' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'mobile' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'national_code' => $data['national_code'],
+            'phone' => $data['phone'],
+            'mobile' => $data['mobile'],
+            'address' => $data['address'],
+            'postal_code' => $data['postal_code'],
+            'email' => strtolower($data['email']),
+            'password' => Hash::make($data['password']),
+            'verified' => true,
+        ]);
+        if ($user){
+            $user->roles()->save($staff_role);
+            return response()->json([
+                'status' => $this->successStatusCode,
+                'message' => "Staff created successfully!"
+            ]);
+        }
 
+        return response()->json([
+            'status' => $this->internalServerErrorStatusCode,
+            'message' => 'Server internal error!'
+        ]);
     }
 
     public function editUser(Request $request){
-
+        $validation = Validator::make($request->all(), [
+            'user_id' => ['required', 'exists:users,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $user = User::findOrFail($data['user_id']);
+        $user->update($data);
+        return response()->json([
+            'status' => $this->successStatusCode,
+            'message' => "User updated successfully!"
+        ]);
     }
 }

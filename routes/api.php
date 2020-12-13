@@ -49,7 +49,7 @@ Route::prefix('management')->group(function () {
         Route::prefix('user')->group(function () {
             Route::prefix('staff')->group(function () {
                 Route::get('/list', 'Management\UserController@getStaffs');
-//                Route::post('/add', 'Management\UserController@create');
+                Route::post('/add', 'Management\UserController@addStaff');
 //                Route::post('/edit', 'Management\UserController@edit');
             });
             Route::prefix('patron')->group(function () {
@@ -58,6 +58,7 @@ Route::prefix('management')->group(function () {
 //                Route::post('/add', 'Management\UserController@create');
 //                Route::post('/edit', 'Management\UserController@edit');
             });
+            Route::post('/edit', 'Management\UserController@editUser');
         });
         Route::prefix('rental')->group(function () {
             Route::get('/list', 'Management\RentingController@getAllRents');
