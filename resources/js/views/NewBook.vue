@@ -54,6 +54,7 @@
                 :state="nameState_I"
                 aria-describedby="input-live-help input-live-feedback"
                 placeholder="کد شابک"
+                @keypress="isNumber($event)"
                 trim
               ></b-form-input>
             </b-form-group>
@@ -116,13 +117,6 @@
             <td>{{book.isbn}}</td>
             <td>{{book.authors[0].id}}</td>
         </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>2بیشعوری</td>
-          <td>187890</td>
-          <td>1</td>
-          <td>2020</td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -149,9 +143,19 @@ export default {
     this.fetchBooks();
   },
   methods: {
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+
     submitBook: function () {
       axios
-        .post("http://localhost:8000/api/management/book/add", {
+        .post("/api/management/book/add", {
           title: this.title,
           synopsis: this.summary, 
           publisher_id: this.selected_pub,
@@ -176,7 +180,7 @@ export default {
     fetchBooks: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/book/list")
+        .get("/api/management/book/list")
         .then(function (response) {
           console.log(response);
           self.booksArray = response.data.data;
@@ -188,7 +192,7 @@ export default {
     fetchArrays: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/author/list")
+        .get("/api/management/author/list")
         .then(function (response) {
           self.authorsArray = response.data.data;
           console.log(self.authorsArray);
@@ -204,7 +208,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/publisher/list")
+        .get("/api/management/publisher/list")
         .then(function (response) {
           self.publishersArray = response.data.data;
           console.log(self.publishersArray);
@@ -220,7 +224,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/category/list")
+        .get("/api/management/category/list")
         .then(function (response) {
           self.categoryArray = response.data.data;
           console.log(self.categoryArray);

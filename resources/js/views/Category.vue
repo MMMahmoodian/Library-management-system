@@ -81,7 +81,7 @@ export default {
     fetchArrays: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/category/list")
+        .get("/api/management/category/list")
         .then(function (response) {
           self.categoryArray = response.data.data;
           console.log(self.categoryArray);
@@ -98,9 +98,8 @@ export default {
     },
     submitCategory: function () {
       var self = this;
-      console.log("HHHHHHHHHHHHH");
       axios
-        .post("http://localhost:8000/api/management/category/add", {
+        .post("/api/management/category/add", {
           name: this.name,
         })
         .then(function (response) {

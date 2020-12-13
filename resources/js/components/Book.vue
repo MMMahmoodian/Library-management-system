@@ -2,14 +2,14 @@
   <div class="book">
     <div class="container-fluid">
       <p v-show="!is_editing">
-        Title : {{ book.title }}<br />
-        Author : {{ book.authors[0].first_name }}
+        عنوان : {{ book.title }}<br />
+        نویسنده : {{ book.authors[0].first_name }}
         {{ book.authors[0].last_name }}
         <br />
-        ISBN : {{ book.isbn }}<br />
-        Summary : {{ book.synopsis }}<br />
-        Publisher : {{ book.publisher.name }}<br />
-        Category : {{ book.category.name }}<br />
+        شابک : {{ book.isbn }}<br />
+        خلاصه : {{ book.synopsis }}<br />
+        ناشر : {{ book.publisher.name }}<br />
+        دسته بندی : {{ book.category.name }}<br />
         <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
           E
         </button>
@@ -46,6 +46,7 @@
           aria-describedby="input-live-help input-live-feedback"
           placeholder="شابک"
           trim
+          @keypress="isNumber($event)"
         ></b-form-input>
 
         Summary :
@@ -100,6 +101,15 @@ export default {
     },
   },
   methods: {
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
     editBook_true: function () {
       this.is_editing = true;
     },
@@ -108,7 +118,7 @@ export default {
     },
     save() {
       axios
-        .post("http://localhost:8000/api/management/book/edit", {
+        .post("/api/management/book/edit", {
           book_id: this.book.id,
           title: this.book.title,
           synopsis: this.book.summary,

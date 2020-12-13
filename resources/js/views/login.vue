@@ -25,6 +25,7 @@
                 type="text"
                 name="email"
                 v-model="email"
+
                 required
                 placeholder="ایمیل"
               ></b-form-input>
@@ -46,7 +47,7 @@
 
             <div class="d-flex justify-content-center col-12">
               <b-button
-                type="buton"
+                type="button"
                 class="btn btn-login w-100"
                 v-on:click="login()"
               >
@@ -85,7 +86,7 @@ export default {
     login() {
       var self = this;
       axios
-        .post("http://localhost:8000/api/user/login", {
+        .post("/api/user/login", {
           email: this.email,
           password: this.password,
         })
@@ -98,7 +99,6 @@ export default {
             self.token = response.data.data.token;
             console.log("User Token is " + self.token);
             sessionStorage.setItem("user_token", self.token);
-            sessionStorage.setItem("auth", true);
 
             console.log(sessionStorage.getItem("auth"));
             self.$router.push("/secure");

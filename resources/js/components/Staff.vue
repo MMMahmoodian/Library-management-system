@@ -49,7 +49,7 @@
         id="input-phone"
         v-model="staff.phone"
         aria-describedby="input-live-help input-live-feedback"
-        placeholder="نام خانوادگی"
+        placeholder="شماره تماس"
         :value="staff.phone"
         trim
       ></b-form-input>
@@ -114,23 +114,31 @@ export default {
     edit_false: function () {
       this.is_editing = false;
     },
+
     save() {
-      // axios
-      //   .post("http://localhost:8000/api/???", {
-          
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      var self = this;
+      axios
+        .post("/api/management/user/edit", {
+          user_id: self.staff.if,
+          first_name: self.staff.first_name,
+          last_name: self.staff.last_name,
+          phone: self.staff.phone,
+          email: self.staff.email,
+          postal_code: self.staff.postal_code,
+          national_code: self.staff.national_code,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     verify: function () {
       console.log(this.staff.id);
       axios
-        .post("http://localhost:8000/api/management/user/patron/verify", {
-          user_id: this.staff.id
+        .post("/api/management/user/patron/verify", {
+          user_id: this.staff.id,
         })
         .then(function (response) {
           console.log(response);

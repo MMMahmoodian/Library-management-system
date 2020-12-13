@@ -45,6 +45,7 @@
                 required
                 v-model="mobile"
                 placeholder="تلفن همراه"
+                @keypress="isNumber($event)"
               ></b-form-input>
 
             </b-form-group>
@@ -68,6 +69,7 @@
                 required
                 v-model="national_code"
                 placeholder="کد ملی"
+                @keypress="isNumber($event)"
               ></b-form-input>
             </b-form-group>
 
@@ -90,6 +92,7 @@
                 required
                 v-model="postal_code"
                 placeholder="کد پستی"
+                @keypress="isNumber($event)"
               ></b-form-input>
 
             </b-form-group>
@@ -149,9 +152,18 @@
 <script>
 export default {
   methods: {
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
     submitUser: function () {
       axios
-        .post("http://localhost:8000/api/user/register" , {
+        .post("/api/user/register" , {
           first_name: this.first_name,
           last_name: this.last_name, 
           phone: this.phone,

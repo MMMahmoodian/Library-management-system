@@ -235,20 +235,28 @@ export default {
       this.is_editing = false;
     },
     save() {
-      // axios
-      //   .post("http://localhost:8000/api/???", {
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      var self = this;
+      axios
+        .post("/api/management/user/edit", {
+          user_id: self.user.if,
+          first_name: self.user.first_name,
+          last_name: self.user.last_name,
+          phone: self.user.phone,
+          email: self.user.email,
+          postal_code: self.user.postal_code,
+          national_code: self.user.national_code,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     verify: function () {
       console.log(this.user.id);
       axios
-        .post("http://localhost:8000/api/management/user/patron/verify", {
+        .post("/api/management/user/patron/verify", {
           user_id: this.user.id,
         })
         .then(function (response) {

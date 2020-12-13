@@ -26,7 +26,7 @@ export default {
     fetchUsers: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/user/patron/list")
+        .get("/api/management/user/patron/list")
         .then(function (response) {
           console.log(response);
           self.UserArray = response.data.data;
@@ -38,7 +38,7 @@ export default {
     fetchStaffs: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/user/staff/list")
+        .get("/api/management/user/staff/list")
         .then(function (response) {
           console.log(response);
           self.StaffsArray = response.data.data;
