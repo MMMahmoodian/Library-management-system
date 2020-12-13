@@ -151,7 +151,7 @@ export default {
   methods: {
     submitBook: function () {
       axios
-        .post("http://localhost:8000/api/management/book/add", {
+        .post("/api/management/book/add", {
           title: this.title,
           synopsis: this.summary, 
           publisher_id: this.selected_pub,
@@ -176,7 +176,7 @@ export default {
     fetchBooks: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/book/list")
+        .get("/api/management/book/list")
         .then(function (response) {
           console.log(response);
           self.booksArray = response.data.data;
@@ -188,7 +188,7 @@ export default {
     fetchArrays: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/author/list")
+        .get("/api/management/author/list")
         .then(function (response) {
           self.authorsArray = response.data.data;
           console.log(self.authorsArray);
@@ -204,7 +204,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/publisher/list")
+        .get("/api/management/publisher/list")
         .then(function (response) {
           self.publishersArray = response.data.data;
           console.log(self.publishersArray);
@@ -220,7 +220,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/category/list")
+        .get("/api/management/category/list")
         .then(function (response) {
           self.categoryArray = response.data.data;
           console.log(self.categoryArray);
