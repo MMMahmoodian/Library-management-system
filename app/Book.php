@@ -28,4 +28,21 @@ class Book extends Model
     public function translators(){
         return $this->belongsToMany(Translator::class, 'books_translators');
     }
+
+    public function patrons(){
+        return $this->belongsToMany(User::class, 'rent_books');
+    }
+
+    public function rent($user_id, $rent_date){
+        $this->patrons()->attach($user_id, ['renting_date' => $rent_date]);
+    }
+
+    public function withdraw($user_id, $withdraw_date){
+        return $list = $this->patrons()->updateExistingPivot($user_id, ['withdraw_date' => $withdraw_date]);
+    }
+
+    public function isAvailable(){
+        $rents = $this->patrons()->where('withdraw_date', '=',null);
+        return !$rents->exists();
+    }
 }

@@ -24,6 +24,7 @@ Route::prefix('management')->group(function () {
             Route::get('/list', 'Management\BookController@list');
             Route::post('/add', 'Management\BookController@create');
             Route::post('/edit', 'Management\BookController@edit');
+            Route::post('/info', 'Management\BookController@getSingleBook');
         });
         Route::prefix('category')->group(function () {
             Route::get('/list', 'Management\CategoryController@list');
@@ -57,6 +58,12 @@ Route::prefix('management')->group(function () {
 //                Route::post('/add', 'Management\UserController@create');
 //                Route::post('/edit', 'Management\UserController@edit');
             });
+        });
+        Route::prefix('rental')->group(function () {
+            Route::get('/list', 'Management\RentingController@getAllRents');
+            Route::get('/on-going', 'Management\RentingController@getOnGoingRents');
+            Route::post('/rent', 'Management\RentingController@rent');
+            Route::post('/withdraw', 'Management\RentingController@withdraw');
         });
 
 //    });

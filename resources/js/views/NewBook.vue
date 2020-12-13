@@ -116,13 +116,6 @@
             <td>{{book.isbn}}</td>
             <td>{{book.authors[0].id}}</td>
         </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>2بیشعوری</td>
-          <td>187890</td>
-          <td>1</td>
-          <td>2020</td>
-        </tr>
       </tbody>
     </table>
   </div>

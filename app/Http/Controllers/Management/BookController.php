@@ -21,6 +21,9 @@ class BookController extends Controller
     public function list(){
 //        $user = Auth::user();
         $list = Book::with(['publisher', 'category', 'authors', 'translators'])->get();
+        foreach ($list as $book){
+            $book->avaiable = $book->isAvailable();
+        }
         if ($list){
             return response()->json([
                 'status_code' => $this->successStatusCode,
@@ -34,6 +37,36 @@ class BookController extends Controller
             ]);
         }
 
+    }
+
+    public function getSingleBook(Request $request){
+        $validation = Validator::make($request->all(), [
+            'book_id' => ['required', 'exists:books,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $book = Book::find($data['book_id'])->with(['publisher', 'category', 'authors', 'translators'])->first();
+        $book->avaiable = $book->isAvailable();
+        if ($book){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $book
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
     }
 
     public function create(Request $request){
