@@ -21,6 +21,9 @@ class BookController extends Controller
     public function list(){
 //        $user = Auth::user();
         $list = Book::with(['publisher', 'category', 'authors', 'translators'])->get();
+        foreach ($list as $book){
+            $book->avaiable = $book->isAvailable();
+        }
         if ($list){
             return response()->json([
                 'status_code' => $this->successStatusCode,
@@ -50,7 +53,8 @@ class BookController extends Controller
             ]);
         }
         $data = $request->all();
-        $book = Book::findOrFail($data['book_id'])->with(['publisher', 'category', 'authors', 'translators'])->get();
+        $book = Book::find($data['book_id'])->with(['publisher', 'category', 'authors', 'translators'])->first();
+        $book->avaiable = $book->isAvailable();
         if ($book){
             return response()->json([
                 'status_code' => $this->successStatusCode,
