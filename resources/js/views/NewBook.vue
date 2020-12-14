@@ -213,7 +213,7 @@ export default {
                   if(response.data.message == "Bad request!"){
                       alert(response.data.data.error);
                   } else {
-                      alert("Book Withdrawn");
+                      alert("Book Succesfully rented");
                       vm.$forceUpdate();//location.relode()'
                   }
               })

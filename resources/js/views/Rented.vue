@@ -67,9 +67,9 @@ export default {
                 .then(function (response) {
                     console.log(response);
                     if ((response.data.message != "Bad request!")) {
-                        alert("کتاب ساخته");
+                        alert("Book Withdrawn");
                     } else {
-                        alert("نام دسته بندی را مشخص کنید");
+                        alert("Not withdrawn");
                     }
                 })
                 .catch(function (error) {
