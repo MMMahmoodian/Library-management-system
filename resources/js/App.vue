@@ -62,7 +62,7 @@ h1 {
 }
 
 #app {
-  width: 1400px;
+  width: 1500px;
   margin: auto;
   display: grid;
   direction: rtl;
