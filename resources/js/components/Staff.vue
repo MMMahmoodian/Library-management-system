@@ -118,7 +118,7 @@ export default {
       var self = this;
       axios
         .post("/api/management/user/edit", {
-          user_id: self.staff.if,
+          user_id: self.staff.id,
           first_name: self.staff.first_name,
           last_name: self.staff.last_name,
           phone: self.staff.phone,
