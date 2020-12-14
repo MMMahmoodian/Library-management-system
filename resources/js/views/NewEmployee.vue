@@ -142,7 +142,6 @@
               ></b-form-input>
             </b-form-group>
 
-
             <b-form-group
               id="input-group-10"
               class="col-lg-12"
@@ -168,14 +167,10 @@
               ></b-form-textarea>
             </b-form-group>
 
-
             <div class="d-flex justify-content-center col-12">
               <b-button type="submit" class="btn new-employee"
                 >اضافه کردن</b-button
               >
-
-              
-
             </div>
           </b-form>
         </div>
@@ -237,11 +232,15 @@ export default {
         });
     },
 
-    isNumber: function(evt) {
-      evt = (evt) ? evt : window.event;
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        evt.preventDefault();;
+    isNumber: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
       } else {
         return true;
       }
