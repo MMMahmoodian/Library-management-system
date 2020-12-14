@@ -12,6 +12,7 @@ import NewEmployee from "../views/NewEmployee"
 import NewBook from "../views/NewBook"
 import Category from "../views/Category"
 import Home from "../views/Home"
+import Rented from "../views/Rented"
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ export default new VueRouter({
             path: "/Category",
             name: "Category",
             component: Category
+        },
+        {
+            path: "/Rented",
+            name: "Rented",
+            component: Rented
         },
         {
             path: "/NewBook",
