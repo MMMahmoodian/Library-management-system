@@ -158,4 +158,8 @@ class UserController extends Controller
             'message' => "User updated successfully!"
         ]);
     }
+
+    public function getUser(Request $request){
+
+    }
 }
