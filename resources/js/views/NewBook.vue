@@ -111,7 +111,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-bind:key="users.id" v-for="users in usersArray" v-on:click="submitRent(users)">
+                            <tr v-bind:key="users.id" v-for="users in usersArray" v-on:click="submitRent(users)" style="cursor: default">
                                 <th scope="row">{{users.id}}</th>
                                 <td>{{users.national_code}}</td>
                             </tr>

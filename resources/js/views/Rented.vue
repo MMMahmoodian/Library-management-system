@@ -2,7 +2,7 @@
     <div class="container-fluid employee-container">
         <div class="row mt-4">
             <div class="header col-lg-8 col-8">
-                <h4>لیست دسته بندی ها</h4>
+                <h4>لیست قرض داده شده ها</h4>
             </div>
         </div>
 
@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-bind:key="cat.id" v-for="cat in rentArray" v-on:click="Withdraw(cat)">
+            <tr v-bind:key="cat.id" v-for="cat in rentArray" v-on:click="Withdraw(cat)" style="cursor: default">
                 <td>{{cat.user_id}}</td>
                 <td>{{cat.book_id}}</td>
                 <td>{{cat.renting_date}}</td>
@@ -55,7 +55,6 @@ export default {
                 });
         },
         Withdraw: function (self) {
-            debugger;
             var cur = new Date();
             console.log("HHHHHHHHHHHHH");
             axios
