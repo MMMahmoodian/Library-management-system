@@ -30,58 +30,35 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            name: "",
-            selected: "وضعیت",
-            rentArray:[],
-        };
-    },
-    methods: {
-        fetchArrays: function () {
-            var self = this;
-            axios
-                .get("/api/management/rental/on-going")
-                .then(function (response) {
-                    self.rentArray = response.data.data;
-                    console.log(self.rentArray);
-                    self.rentArray.forEach((element) => {
-                        self.categoryOptions.push({
-                            text: element.name,
-                            value: element.id,
-                        });
-                    });
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        },
-        Withdraw: function (self) {
-            debugger;
-            var cur = new Date();
-            axios
-                .post("/api/management/rental/withdraw", {
-                    user_id: self.user_id,
-                    book_id: self.book_id,
-                    withdraw_date: cur,
-                })
-                .then(function (response) {
-                    console.log(response);
-                    if ((response.data.message != "Bad request!")) {
-                        alert("Book Withdrawn");
-                    } else {
-                        alert("Not withdrawn");
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            debugger;
-        },
+  data() {
+    return {
+      name: "",
+      selected: "وضعیت",
+      rentArray: [],
+    };
+  },
+  methods: {
+    fetchArrays: function () {
+      var self = this;
+      axios
+        .get("/api/management/rental/on-going")
+        .then(function (response) {
+          self.rentArray = response.data.data;
+          console.log(self.rentArray);
+          self.rentArray.forEach((element) => {
+            self.categoryOptions.push({
+              text: element.name,
+              value: element.id,
+            });
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     Withdraw: function (self) {
       var cur = new Date();
-      console.log("HHHHHHHHHHHHH");
+
       axios
         .post("/api/management/rental/withdraw", {
           user_id: self.user_id,
@@ -99,7 +76,6 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-
     },
   },
 
