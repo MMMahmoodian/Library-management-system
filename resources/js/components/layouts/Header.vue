@@ -149,7 +149,7 @@ export default {
 }
 a {
   color: black !important;
-  font-size: 19px;
+  font-size: 15px;
 }
 .login-container {
   margin-right: 10%;

@@ -60,7 +60,7 @@ export default {
       var cur = new Date();
       console.log("HHHHHHHHHHHHH");
       axios
-        .post("http://localhost:8000/api/management/rental/withdraw", {
+        .post("/api/management/rental/withdraw", {
           user_id: self.user_id,
           book_id: self.book_id,
           withdraw_date: cur,
