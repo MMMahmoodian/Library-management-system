@@ -39,7 +39,7 @@ export default {
         fetchArrays: function () {
             var self = this;
             axios
-                .get("http://localhost:8000/api/management/rental/on-going")
+                .get("/api/management/rental/on-going")
                 .then(function (response) {
                     self.rentArray = response.data.data;
                     console.log(self.rentArray);
@@ -59,7 +59,7 @@ export default {
             var cur = new Date();
             console.log("HHHHHHHHHHHHH");
             axios
-                .post("http://localhost:8000/api/management/rental/withdraw", {
+                .post("/api/management/rental/withdraw", {
                     user_id: self.user_id,
                     book_id: self.book_id,
                     withdraw_date: cur,
