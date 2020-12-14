@@ -23,9 +23,7 @@
           <slot name="body"> PRAISE YOU </slot>
         </section>
         <footer class="modal-footer">
-          <slot name="footer">
-            
-          </slot>
+          <slot name="footer"> </slot>
         </footer>
       </div>
     </div>
@@ -74,7 +72,7 @@ export default {
 
 .modal-header {
   border-bottom: 1px solid #eeeeee;
-  color: #4AAE9B;
+  color: #4aae9b;
   justify-content: space-between;
 }
 
@@ -94,14 +92,14 @@ export default {
   padding: 20px;
   cursor: pointer;
   font-weight: bold;
-  color: #4AAE9B;
+  color: #4aae9b;
   background: transparent;
 }
 
 .btn-green {
   color: white;
-  background: #4AAE9B;
-  border: 1px solid #4AAE9B;
+  background: #4aae9b;
+  border: 1px solid #4aae9b;
   border-radius: 2px;
 }
 </style>

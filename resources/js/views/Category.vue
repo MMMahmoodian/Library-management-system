@@ -59,13 +59,11 @@
       </thead>
       <tbody>
         <tr v-bind:key="cat.id" v-for="cat in categoryArray">
-            <th scope="row">{{cat.id}}</th>
-            <td>{{cat.name}}</td>
+          <th scope="row">{{ cat.id }}</th>
+          <td>{{ cat.name }}</td>
         </tr>
-        
       </tbody>
     </table>
-
   </div>
 </template>
 <script>
@@ -74,7 +72,7 @@ export default {
     return {
       name: "",
       selected: "وضعیت",
-      categoryArray:[],
+      categoryArray: [],
     };
   },
   methods: {
@@ -104,7 +102,7 @@ export default {
         })
         .then(function (response) {
           console.log(response);
-          if ((response.data.message != "Bad request!")) {
+          if (response.data.message != "Bad request!") {
             alert("دسته بندی با موفقیت ساخته شد");
           } else {
             alert("نام دسته بندی را مشخص کنید");
@@ -115,12 +113,10 @@ export default {
         });
     },
   },
-  
+
   created() {
     this.fetchArrays();
-    
   },
-
 };
 </script>
 <style scoped>

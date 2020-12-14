@@ -14,9 +14,12 @@
           <h4 class="register-title">ثبت نام</h4>
         </div>
         <div class="row p-3">
-          <b-form  class="row col-12 pl-0">
-            <b-form-group class="col-lg-6" id="input-group-1" label-for="input-1">
-
+          <b-form class="row col-12 pl-0">
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-1"
+              label-for="input-1"
+            >
               <b-form-input
                 id="input-1"
                 type="text"
@@ -24,10 +27,12 @@
                 v-model="first_name"
                 placeholder="نام"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-6" id="input-group-2" label-for="input-2">
-              
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-2"
+              label-for="input-2"
+            >
               <b-form-input
                 id="input-2"
                 type="text"
@@ -35,10 +40,12 @@
                 required
                 placeholder="نام خانوادگی"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-6" id="input-group-5" label-for="input-5">
-
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-5"
+              label-for="input-5"
+            >
               <b-form-input
                 id="input-5"
                 type="text"
@@ -47,11 +54,13 @@
                 placeholder="تلفن همراه"
                 @keypress="isNumber($event)"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group class="col-lg-6" id="input-group-4" label-for="input-4">
-
+            <b-form-group
+              class="col-lg-6"
+              id="input-group-4"
+              label-for="input-4"
+            >
               <b-form-input
                 id="input-4"
                 type="text"
@@ -59,10 +68,13 @@
                 v-model="phone"
                 placeholder="تلفن"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group class="col-lg-12" id="input-group-3" label-for="input-3">
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-3"
+              label-for="input-3"
+            >
               <b-form-input
                 id="input-3"
                 type="text"
@@ -73,8 +85,11 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group class="col-lg-12" id="input-group-6" label-for="input-6">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-6"
+              label-for="input-6"
+            >
               <b-form-input
                 id="input-6"
                 type="email"
@@ -82,10 +97,12 @@
                 v-model="email"
                 placeholder="پست الکترونیکی"
               ></b-form-input>
-
             </b-form-group>
-            <b-form-group class="col-lg-12" id="input-group-7" label-for="input-7">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-7"
+              label-for="input-7"
+            >
               <b-form-input
                 id="input-7"
                 type="text"
@@ -94,11 +111,13 @@
                 placeholder="کد پستی"
                 @keypress="isNumber($event)"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group class="col-lg-12" id="input-group-8" label-for="input-8">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-8"
+              label-for="input-8"
+            >
               <b-form-input
                 id="input-9"
                 type="password"
@@ -106,12 +125,13 @@
                 v-model="password"
                 placeholder="رمز عبور"
               ></b-form-input>
-
             </b-form-group>
 
-
-            <b-form-group class="col-lg-12" id="input-group-9" label-for="input-9">
-
+            <b-form-group
+              class="col-lg-12"
+              id="input-group-9"
+              label-for="input-9"
+            >
               <b-form-input
                 id="input-10"
                 type="password"
@@ -119,21 +139,28 @@
                 v-model="password_conf"
                 placeholder="تایید رمز عبور"
               ></b-form-input>
-
             </b-form-group>
 
-            <b-form-group id="input-group-10" class="col-lg-12" label-for="input-10">
+            <b-form-group
+              id="input-group-10"
+              class="col-lg-12"
+              label-for="input-10"
+            >
               <b-form-textarea
                 id="textarea-rows"
                 placeholder="آدرس"
                 v-model="address"
                 rows="3"
               ></b-form-textarea>
-
             </b-form-group>
 
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit" class="btn btn-register" v-on:click="submitUser" >ثبت نام</b-button>
+              <b-button
+                type="submit"
+                class="btn btn-register"
+                v-on:click="submitUser"
+                >ثبت نام</b-button
+              >
             </div>
           </b-form>
         </div>
@@ -152,20 +179,24 @@
 <script>
 export default {
   methods: {
-    isNumber: function(evt) {
-      evt = (evt) ? evt : window.event;
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        evt.preventDefault();;
+    isNumber: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
       } else {
         return true;
       }
     },
     submitUser: function () {
       axios
-        .post("/api/user/register" , {
+        .post("/api/user/register", {
           first_name: this.first_name,
-          last_name: this.last_name, 
+          last_name: this.last_name,
           phone: this.phone,
           mobile: this.mobile,
           address: this.address,
@@ -174,13 +205,11 @@ export default {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_conf,
-
         })
         .then(function (response) {
-
           console.log(response);
-          
-          if(response.data.message == "Bad request!"){
+
+          if (response.data.message == "Bad request!") {
             alert(response.data.data.error);
           } else {
             alert("User added");
@@ -189,7 +218,6 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-
     },
   },
   data() {
