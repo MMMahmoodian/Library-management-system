@@ -99,21 +99,21 @@
               <router-link to="/Category"> دسته بندی </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/NewBook">کتاب جدید </router-link></b-nav-item
+              <router-link to="/NewBook">کتاب ها </router-link></b-nav-item
             >
             <b-nav-item>
               <router-link to="/NewEmployee">
-                کارمند جدید
+                کارمند ها
               </router-link></b-nav-item
             >
             <b-nav-item>
               <router-link to="/AUserManage"
-                >مدیریت ادمین
+                >مدیریت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
               <router-link to="/StaffVerification">
-               مدیریت کارمندان
+               احراز هویت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
@@ -121,6 +121,13 @@
                 مدیریت کتابها
               </router-link></b-nav-item
             >
+
+            <b-nav-item>
+              <router-link to="/Rented">
+                قرض داده شده
+              </router-link></b-nav-item
+            >
+
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
