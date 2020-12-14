@@ -90,37 +90,37 @@
               ></b-form-textarea>
             </b-form-group>
             <div class="d-flex justify-content-center col-12">
-              <b-button type="submit"  class="btn new-book"
-                >اضافه کردن</b-button
-              >
+              <b-button type="submit" class="btn new-book">اضافه کردن</b-button>
             </div>
           </b-form>
         </div>
       </b-modal>
-        <b-modal id="modal-2" title="قرض دادن" hide-footer v-bind="$attrs">
-            <div class="container-fluid p-0 d-flex justify-content-center">
-                <b-form class="row col-12 p-0 d-flex justify-content-center">
-                    <b-form-group
-                        class="col-lg-9"
-                    >
-                        <table class="table mt-2">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">شناسه کاربری</th>
-                                <th scope="col">نام کاربر</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-bind:key="users.id" v-for="users in usersArray" v-on:click="submitRent(users)">
-                                <th scope="row">{{users.id}}</th>
-                                <td>{{users.national_code}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </b-form-group>
-                </b-form>
-            </div>
-        </b-modal>
+      <b-modal id="modal-2" title="قرض دادن" hide-footer v-bind="$attrs">
+        <div class="container-fluid p-0 d-flex justify-content-center">
+          <b-form class="row col-12 p-0 d-flex justify-content-center">
+            <b-form-group class="col-lg-9">
+              <table class="table mt-2">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">شناسه کاربری</th>
+                    <th scope="col">نام کاربر</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-bind:key="users.id"
+                    v-for="users in usersArray"
+                    v-on:click="submitRent(users)"
+                  >
+                    <th scope="row">{{ users.id }}</th>
+                    <td>{{ users.national_code }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </b-form-group>
+          </b-form>
+        </div>
+      </b-modal>
     </div>
     <table class="table mt-2">
       <thead class="thead-dark">
@@ -129,22 +129,25 @@
           <th scope="col">عنوان</th>
           <th scope="col">کد شابک</th>
           <th scope="col">شناسه نویسنده</th>
-            <th scope="col">وضعیت قرض</th>
+          <th scope="col">وضعیت قرض</th>
         </tr>
       </thead>
       <tbody>
         <tr v-bind:key="book.id" v-for="book in booksArray">
-            <th scope="row">{{book.id}}</th>
-            <td>{{book.title}}</td>
-            <td>{{book.isbn}}</td>
-            <td>{{book.authors[0].id}}</td>
-            <td v-if="(book.avaiable)">
-                <b-button class="btn btn-light d-flex new-book-btn" v-b-modal.modal-2 v-on:click="userInit(book)">
-                قرض دادن</b-button>
-            </td>
-            <td v-else>
-                 قرض داده شده
-            </td>
+          <th scope="row">{{ book.id }}</th>
+          <td>{{ book.title }}</td>
+          <td>{{ book.isbn }}</td>
+          <td>{{ book.authors[0].id }}</td>
+          <td v-if="book.avaiable">
+            <b-button
+              class="btn btn-light d-flex new-book-btn"
+              v-b-modal.modal-2
+              v-on:click="userInit(book)"
+            >
+              قرض دادن</b-button
+            >
+          </td>
+          <td v-else>قرض داده شده</td>
         </tr>
       </tbody>
     </table>
@@ -153,9 +156,7 @@
 
 
 <script>
-
 export default {
-
   computed: {
     nameState_T() {
       return this.title.length > 0 ? true : false;
@@ -171,56 +172,52 @@ export default {
     this.fetchArrays();
     this.fetchBooks();
     this.fetchUsers();
-    //debugger;
   },
   methods: {
-      checkstatus : function(){
-      },
-      //EZAFE SHAVAD BA API MAHDI --------------
-      Withdraw: function (self) {
-          console.log("test");
-          debugger;
-          axios
-              .post("/api/management/rental/rent-withdraw", {
-                  user_id: self.user_id,
-                  book_id: self.book_id,
-                  withdraw_date: new Date(),
-              })
-              .then(function (response) {
-                  console.log(response);
-                  if(response.data.message == "Bad request!"){
-                      alert(response.data.data.error);
-                  } else {
-                      alert("Book Withdrawn");
-                      vm.$forceUpdate();//location.relode()'
-                  }
-              })
-              .catch(function (error) {
-                  console.log(error);
-              });
-      },
-      submitRent: function (self){
-          console.log("test2");
-          debugger;
-          axios
-              .post("/api/management/rental/rent", {
-                  user_id: self.id,
-                  book_id: this.selectedUser,
-                  withdraw_date: new Date(),
-              })
-              .then(function (response) {
-                  console.log(response);
-                  if(response.data.message == "Bad request!"){
-                      alert(response.data.data.error);
-                  } else {
-                      alert("Book Succesfully rented");
-                      vm.$forceUpdate();//location.relode()'
-                  }
-              })
-              .catch(function (error) {
-                  console.log(error);
-              });
-      },
+    checkstatus: function () {},
+    //EZAFE SHAVAD BA API MAHDI --------------
+    Withdraw: function (self) {
+      console.log("test");
+      axios
+        .post("/api/management/rental/rent-withdraw", {
+          user_id: self.user_id,
+          book_id: self.book_id,
+          withdraw_date: new Date(),
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.data.message == "Bad request!") {
+            alert(response.data.data.error);
+          } else {
+            alert("Book Withdrawn");
+            vm.$forceUpdate(); //location.relode()'
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    submitRent: function (self) {
+      console.log("test2");
+      axios
+        .post("/api/management/rental/rent", {
+          user_id: self.id,
+          book_id: this.selectedUser,
+          withdraw_date: new Date(),
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.data.message == "Bad request!") {
+            alert(response.data.data.error);
+          } else {
+            alert("Book Succesfully rented");
+            vm.$forceUpdate(); //location.relode()'
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     submitBook: function () {
       axios
         .post("/api/management/book/add", {
@@ -233,30 +230,29 @@ export default {
         })
         .then(function (response) {
           console.log(response);
-          if(response.data.message == "Bad request!"){
+          if (response.data.message == "Bad request!") {
             alert(response.data.data.error);
           } else {
             alert("Book added");
-            vm.$forceUpdate();//location.relode()'
+            vm.$forceUpdate(); //location.relode()'
           }
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-      fetchUsers: function(){
-          var self = this;
-          axios
-              .get("/api/management/user/patron/list")
-              .then(function (response) {
-                  console.log(response);
-                  self.usersArray = response.data.data;
-              })
-              .catch(function (error) {
-                  console.log(error);
-              });
-          debugger;
-      },
+    fetchUsers: function () {
+      var self = this;
+      axios
+        .get("/api/management/user/patron/list")
+        .then(function (response) {
+          console.log(response);
+          self.usersArray = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     fetchBooks: function () {
       var self = this;
       axios
@@ -319,9 +315,9 @@ export default {
           console.log(error);
         });
     },
-      userInit: function (self) {
-          this.selectedUser = self.id;
-      },
+    userInit: function (self) {
+      this.selectedUser = self.id;
+    },
   },
   data() {
     return {
@@ -332,7 +328,7 @@ export default {
       publishersArray: null,
       categoryArray: null,
       booksArray: null,
-        usersArray: null,
+      usersArray: null,
       selected_auth: null,
       selected_pub: null,
       selected_cat: null,
@@ -341,7 +337,7 @@ export default {
       categoryOptions: [],
       showAddNewBook: false,
       date: "",
-        selectedUser: null
+      selectedUser: null,
     };
   },
 };

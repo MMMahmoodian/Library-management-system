@@ -236,9 +236,10 @@ export default {
 
     save() {
       var self = this;
+      console.log("Saving");
       axios
         .post("/api/management/user/edit", {
-          user_id: self.user.if,
+          user_id: self.user.id,
           first_name: self.user.first_name,
           last_name: self.user.last_name,
           phone: self.user.phone,
