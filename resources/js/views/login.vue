@@ -4,7 +4,7 @@
       <div class="col-lg-6 p-0">
         <div>
           <div>
-            <img
+            <img style="margin-top: 3rem"
               src="../assets/pics/librarylogo.png"
               width="115px"
               height="115px"
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="col-lg-6 p-0 login-pic-row">
-        <img
+        <img style="margin-top: 4rem"
           src="../assets/pics/loginbg.jpg"
           height="400px"
           alt="login-pic"

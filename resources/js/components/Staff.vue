@@ -49,7 +49,7 @@
         id="input-phone"
         v-model="staff.phone"
         aria-describedby="input-live-help input-live-feedback"
-        placeholder="شماره تماس"
+        placeholder="نام خانوادگی"
         :value="staff.phone"
         trim
       ></b-form-input>
@@ -114,7 +114,6 @@ export default {
     edit_false: function () {
       this.is_editing = false;
     },
-
     save() {
       var self = this;
       axios
