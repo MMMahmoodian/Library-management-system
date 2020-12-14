@@ -181,7 +181,7 @@ export default {
           console.log("test");
           debugger;
           axios
-              .post("http://localhost:8000/api/management/rental/rent-withdraw", {
+              .post("/api/management/rental/rent-withdraw", {
                   user_id: self.user_id,
                   book_id: self.book_id,
                   withdraw_date: new Date(),
@@ -203,7 +203,7 @@ export default {
           console.log("test2");
           debugger;
           axios
-              .post("http://localhost:8000/api/management/rental/rent", {
+              .post("/api/management/rental/rent", {
                   user_id: self.id,
                   book_id: this.selectedUser,
                   withdraw_date: new Date(),
@@ -223,7 +223,7 @@ export default {
       },
     submitBook: function () {
       axios
-        .post("http://localhost:8000/api/management/book/add", {
+        .post("/api/management/book/add", {
           title: this.title,
           synopsis: this.summary,
           publisher_id: this.selected_pub,
@@ -247,7 +247,7 @@ export default {
       fetchUsers: function(){
           var self = this;
           axios
-              .get("http://localhost:8000/api/management/user/patron/list")
+              .get("/api/management/user/patron/list")
               .then(function (response) {
                   console.log(response);
                   self.usersArray = response.data.data;
@@ -260,7 +260,7 @@ export default {
     fetchBooks: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/book/list")
+        .get("/api/management/book/list")
         .then(function (response) {
           console.log(response);
           self.booksArray = response.data.data;
@@ -272,7 +272,7 @@ export default {
     fetchArrays: function () {
       var self = this;
       axios
-        .get("http://localhost:8000/api/management/author/list")
+        .get("/api/management/author/list")
         .then(function (response) {
           self.authorsArray = response.data.data;
           console.log(self.authorsArray);
@@ -288,7 +288,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/publisher/list")
+        .get("/api/management/publisher/list")
         .then(function (response) {
           self.publishersArray = response.data.data;
           console.log(self.publishersArray);
@@ -304,7 +304,7 @@ export default {
         });
 
       axios
-        .get("http://localhost:8000/api/management/category/list")
+        .get("/api/management/category/list")
         .then(function (response) {
           self.categoryArray = response.data.data;
           console.log(self.categoryArray);

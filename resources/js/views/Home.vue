@@ -1,41 +1,46 @@
 <template>
   <div class="home">
-      <div>
-        <div class="row mt-1">
-          <div class="col-lg-6 mt-4">
-            <div class="home-text">
-              <p>
-            کتابخانۀ مرکزی و مرکز اسناد دانشگاه تهران بزرگترین کتابخانۀ دانشگاهی ایران است و مجموعه‌ای غنی وگسترده از 
-            منابع گوناگون در زمینه‌های مختلف علوم و فنون و ادب را در برمی‌گیرد . این کتابخانه در کنار کتابخانه‌های تخصصی 
-            دانشکده‌ها که هر یک برحسب نیازهای علمی و آموزشی ویژة خود به وجود آمده‌اند، بیشتر به امر پژوهش اختصاص دارد 
-            و به گردآوری آثار مربوط به مطالعات اسلام‌شناسی، ایران‌شناسی و شرق شناسی می‌پردازد. هستة اصلی کتابخانة 
-            مرکزی دانشگاه تهران در سال 1328 ، با مجموعۀ اهدایی سید محمد مشکوه، استاد دانشگاه تهران، شامل 1329
-             جلد نسخة خطی، تشکیل گردید. بنای فعلی کتابخانه، در یکم مهرماه سال 1350 گشایش یافت. در طول این مدت، 
-            امور فنی کتابخانه، ایجاد ارتباط با مراکز علمی و دانشگاهی جهان، انتخاب و به کار گماردن کتابداران متخصص، 
-            در زیرزمین سازمان مرکزی، و زیرزمین دانشکدة علوم و اتاق‌های مسجد دانشگاه انجام می‌شد .</p>
-              <div>
-                <button class="btn btn-secondary">
-                  <router-link to="/">اطلاعات بیشتر</router-link>
-                </button>
-              </div>
+    <div>
+      <div class="row mt-1">
+        <div class="col-lg-6 mt-4">
+          <div class="home-text">
+            <p>
+              کتابخانۀ مرکزی و مرکز اسناد دانشگاه تهران بزرگترین کتابخانۀ
+              دانشگاهی ایران است و مجموعه‌ای غنی وگسترده از منابع گوناگون در
+              زمینه‌های مختلف علوم و فنون و ادب را در برمی‌گیرد . این کتابخانه
+              در کنار کتابخانه‌های تخصصی دانشکده‌ها که هر یک برحسب نیازهای علمی
+              و آموزشی ویژة خود به وجود آمده‌اند، بیشتر به امر پژوهش اختصاص دارد
+              و به گردآوری آثار مربوط به مطالعات اسلام‌شناسی، ایران‌شناسی و شرق
+              شناسی می‌پردازد. هستة اصلی کتابخانة مرکزی دانشگاه تهران در سال
+              1328 ، با مجموعۀ اهدایی سید محمد مشکوه، استاد دانشگاه تهران، شامل
+              1329 جلد نسخة خطی، تشکیل گردید. بنای فعلی کتابخانه، در یکم مهرماه
+              سال 1350 گشایش یافت. در طول این مدت، امور فنی کتابخانه، ایجاد
+              ارتباط با مراکز علمی و دانشگاهی جهان، انتخاب و به کار گماردن
+              کتابداران متخصص، در زیرزمین سازمان مرکزی، و زیرزمین دانشکدة علوم و
+              اتاق‌های مسجد دانشگاه انجام می‌شد .
+            </p>
+            <div>
+              <button class="btn btn-secondary">
+                <router-link to="/">اطلاعات بیشتر</router-link>
+              </button>
             </div>
           </div>
-          <div class="col-lg-6">
-            <img
-              class="home-img"
-              src="https://tcdvisitors.sirv.com/web/bok/long-room/long-room-01.jpg?w=1200&h=630&scale.option=fill"
-              alt=""
-            />
-          </div>
+        </div>
+        <div class="col-lg-6">
+          <img
+            class="home-img"
+            src="https://tcdvisitors.sirv.com/web/bok/long-room/long-room-01.jpg?w=1200&h=630&scale.option=fill"
+            alt=""
+          />
         </div>
       </div>
-      <footer class="mt-5">
-        <div class="contact-us p-3">
+    </div>
+    <footer class="mt-5">
+      <div class="contact-us p-3">
+        <div>
+          <h4 class="text-right mr-2">تماس با ما</h4>
           <div>
-            <h4 class="text-right mr-2">تماس با ما</h4>
-            <div>
-                 <div class="d-flex justify-content-center">
-             
+            <div class="d-flex justify-content-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -43,7 +48,7 @@
                 width="20"
                 height="20"
                 viewBox="0 0 172 172"
-                style=" fill:#000000;"
+                style="fill: #000000"
               >
                 <g
                   fill="none"
@@ -69,12 +74,9 @@
                   </g>
                 </g>
               </svg>
-              <p>
-                 تهران
-              </p>
+              <p>تهران</p>
             </div>
             <div class="d-flex justify-content-center">
-            
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -82,7 +84,7 @@
                 width="20"
                 height="20"
                 viewBox="0 0 172 172"
-                style=" fill:#000000;"
+                style="fill: #000000"
               >
                 <g
                   fill="none"
@@ -111,7 +113,6 @@
               <p>0921212231</p>
             </div>
             <div class="d-flex justify-content-center">
-            
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -119,7 +120,7 @@
                 width="20"
                 height="20"
                 viewBox="0 0 172 172"
-                style=" fill:#000000;"
+                style="fill: #000000"
               >
                 <g
                   fill="none"
@@ -147,39 +148,30 @@
               </svg>
               <p>ketab@gmail.com</p>
             </div>
-            </div>
-         
           </div>
         </div>
-      </footer>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-
 export default {
-
-
-  name: 'Home',
-  data(){
-    return{
-      
-    }
+  name: "Home",
+  data() {
+    return {};
   },
-  components: {
-  }
-}
+  components: {},
+};
 </script>
 
 <style >
-  
-  .d1{
-    display: flex;
-    margin: auto;
-    width: 50%;
-    border: 0px solid rgb(86, 90, 86);
-    padding: 10px;
-    justify-content: center;
-  }
-
+.d1 {
+  display: flex;
+  margin: auto;
+  width: 50%;
+  border: 0px solid rgb(86, 90, 86);
+  padding: 10px;
+  justify-content: center;
+}
 </style>

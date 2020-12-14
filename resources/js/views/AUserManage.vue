@@ -1,7 +1,15 @@
 <template>
   <div id="aum">
-    <Users v-bind:UsersArr="UserArray" v-on:del-user="deleteUser" v-bind:isAdm="isAdmin"/>
-    <Staffs v-bind:StaffsArr="StaffsArray" v-on:del-staff="deleteStaff" v-bind:isAdm="isAdmin"/>
+    <Users
+      v-bind:UsersArr="UserArray"
+      v-on:del-user="deleteUser"
+      v-bind:isAdm="isAdmin"
+    />
+    <Staffs
+      v-bind:StaffsArr="StaffsArray"
+      v-on:del-staff="deleteStaff"
+      v-bind:isAdm="isAdmin"
+    />
   </div>
 </template>
 
@@ -13,72 +21,72 @@ import axios from "axios";
 export default {
   name: "AUserManage",
   components: {
-    Users,Staffs
+    Users,
+    Staffs,
   },
-data() {
-            return {
-                fields: [
-                    {
-                        key: 'first_name',
-                        label: 'نام',
-                        sortable: true
-                    },
-                    {
-                        key: 'last_name',
-                        label: 'نام خانوادگی',
-                        sortable: false
-                    },
-                    {
-                        key: 'phone',
-                        label: 'شماره تماس',
-                        sortable: false
-                    },
-                    {
-                        key: 'email',
-                        label: 'ایمیل',
-                        sortable: false
-                    },
-                    {
-                        key: 'postal_code',
-                        label: 'کد پستی',
-                        sortable: false
-                    },
-                    {
-                        key: 'national_code',
-                        label: 'کد ملی',
-                        sortable: false
-                    },
-
-                ],
-                UserArray: [
-                    {
-                        first_name: 'سارا',
-                        last_name: 'فیروزآبادی',
-                        phone: '09206764929',
-                        email: 'sarahfirouzabadi@gmail.com',
-                        postal_code: '1349768711',
-                        national_code: '0021916861'
-                    },
-                    {
-                        first_name: 'سارا',
-                        last_name: 'فیروزآبادی',
-                        phone: '09206764929',
-                        email: 'sarahfirouzabadi@gmail.com',
-                        postal_code: '1349768711',
-                        national_code: '0021916861'
-                    },
-                    {
-                        first_name: 'سارا',
-                        last_name: 'فیروزآبادی',
-                        phone: '09206764929',
-                        email: 'sarahfirouzabadi@gmail.com',
-                        postal_code: '1349768711',
-                        national_code: '0021916861'
-                    },
-                ],
-                isAdmin: false,
-            };
+  data() {
+    return {
+      fields: [
+        {
+          key: "first_name",
+          label: "نام",
+          sortable: true,
         },
+        {
+          key: "last_name",
+          label: "نام خانوادگی",
+          sortable: false,
+        },
+        {
+          key: "phone",
+          label: "شماره تماس",
+          sortable: false,
+        },
+        {
+          key: "email",
+          label: "ایمیل",
+          sortable: false,
+        },
+        {
+          key: "postal_code",
+          label: "کد پستی",
+          sortable: false,
+        },
+        {
+          key: "national_code",
+          label: "کد ملی",
+          sortable: false,
+        },
+      ],
+      UserArray: [
+        {
+          first_name: "سارا",
+          last_name: "فیروزآبادی",
+          phone: "09206764929",
+          email: "sarahfirouzabadi@gmail.com",
+          postal_code: "1349768711",
+          national_code: "0021916861",
+        },
+        {
+          first_name: "سارا",
+          last_name: "فیروزآبادی",
+          phone: "09206764929",
+          email: "sarahfirouzabadi@gmail.com",
+          postal_code: "1349768711",
+          national_code: "0021916861",
+        },
+        {
+          first_name: "سارا",
+          last_name: "فیروزآبادی",
+          phone: "09206764929",
+          email: "sarahfirouzabadi@gmail.com",
+          postal_code: "1349768711",
+          national_code: "0021916861",
+        },
+      ],
+      isAdmin: false,
+    };
+  },
 
   methods: {
     deleteUser(id) {
@@ -123,7 +131,7 @@ data() {
     return {
       UserArray: [],
       StaffsArray: [],
-      isAdmin: true
+      isAdmin: true,
     };
   },
 };

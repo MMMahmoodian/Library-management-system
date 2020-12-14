@@ -1,10 +1,12 @@
 <template>
   <div id="sbm">
-    <Books v-bind:booksArr="booksArray"
-     v-bind:authorsOptions="authorsOptions"
-     v-bind:publishersOptions="publishersOptions"
-     v-bind:categoryOptions="categoryOptions"
-     v-on:del-book="deleteBook" />
+    <Books
+      v-bind:booksArr="booksArray"
+      v-bind:authorsOptions="authorsOptions"
+      v-bind:publishersOptions="publishersOptions"
+      v-bind:categoryOptions="categoryOptions"
+      v-on:del-book="deleteBook"
+    />
   </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
     this.fetchBooks();
     this.fetchArrays();
   },
-  
+
   methods: {
     fetchArrays: function () {
       var self = this;
@@ -90,9 +92,7 @@ export default {
         });
     },
   },
-  mounted: function () {
-
-  },
+  mounted: function () {},
   data() {
     return {
       booksArray: null,

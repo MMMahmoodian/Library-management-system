@@ -4,7 +4,8 @@
       <div class="col-lg-6 p-0">
         <div>
           <div>
-            <img style="margin-top: 3rem"
+            <img
+              style="margin-top: 3rem"
               src="../assets/pics/librarylogo.png"
               width="115px"
               height="115px"
@@ -25,7 +26,6 @@
                 type="text"
                 name="email"
                 v-model="email"
-
                 required
                 placeholder="ایمیل"
               ></b-form-input>
@@ -58,7 +58,8 @@
         </div>
       </div>
       <div class="col-lg-6 p-0 login-pic-row">
-        <img style="margin-top: 4rem"
+        <img
+          style="margin-top: 4rem"
           src="../assets/pics/loginbg.jpg"
           height="400px"
           alt="login-pic"
@@ -104,7 +105,7 @@ export default {
             self.$router.push("/secure");
           } else if (self.statusCode == 401) {
             alert("Incorrect email or password");
-          } else if(self.statusCode == 403) {
+          } else if (self.statusCode == 403) {
             alert("User Not Verified");
           } else {
             alert("Fields Cannot be Empty And Must be in Correct Format");
