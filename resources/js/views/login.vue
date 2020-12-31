@@ -72,7 +72,9 @@
 
 
 <script>
+import { mapActions } from "vuex";
 export default {
+  
   name: "Login",
   data() {
     return {
@@ -84,37 +86,18 @@ export default {
     };
   },
   methods: {
-    login() {
-      var self = this;
-      axios
-        .post("/api/user/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(function (response) {
-          console.log(response);
-          self.statusCode = response.data.status;
-          if (self.statusCode == 200) {
-            alert("Logged In");
-
-            self.token = response.data.data.token;
-            console.log("User Token is " + self.token);
-            sessionStorage.setItem("user_token", self.token);
-
-            console.log(sessionStorage.getItem("auth"));
-            self.$router.push("/secure");
-          } else if (self.statusCode == 401) {
-            alert("Incorrect email or password");
-          } else if (self.statusCode == 403) {
-            alert("User Not Verified");
-          } else {
-            alert("Fields Cannot be Empty And Must be in Correct Format");
-          }
-        })
-        .catch(function (error) {
-          alert("error");
-          console.log(error);
-        });
+    ...mapActions(["LogIn"]),
+    async login() {
+      const User = new FormData();
+      User.append("email", this.email);
+      User.append("password", this.password);
+      try {
+        await this.LogIn(User);
+        this.$router.push("/");
+      } catch (error) {
+        alert("Error");
+      }
+      
     },
   },
 };
