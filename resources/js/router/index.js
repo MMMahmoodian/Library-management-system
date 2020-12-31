@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginComponent from "../views/login.vue"
-import SecureComponent from "../views/secure.vue"
 import HomeComponent from "../views/Home"
 import AboutComponent from "../views/About"
 import SBookManagement from "../views/SBookManage"
@@ -65,12 +64,6 @@ const routes = [
         name: "login",
         component: LoginComponent,
         meta: { guest: true },
-    },
-    {
-        path: "/secure",
-        name: "secure",
-        component: SecureComponent,
-        meta: { requiresAuth: true },
     },
     {
         path: "/About",

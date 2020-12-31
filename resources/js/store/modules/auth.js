@@ -32,6 +32,7 @@ const actions = {
             self.token = response.data.data.token;
             console.log("User Token is " + self.token);
             commit("setUser", user.get("email"));
+            
 
           } else if (self.statusCode == 401) {
             alert("Incorrect email or password");
