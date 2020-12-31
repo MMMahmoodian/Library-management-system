@@ -21,7 +21,7 @@
             </p>
             <div>
               <button class="btn btn-secondary">
-                <router-link to="/">اطلاعات بیشتر</router-link>
+                <router-link to="/About">اطلاعات بیشتر</router-link>
               </button>
             </div>
           </div>
