@@ -53,7 +53,7 @@ body {
 
 @font-face {
   font-family: iransans;
-  src: url("../../public/fonts/iran.ttf");
+  src: url("./assets/font/iran.ttf");
 }
 
 h1 {
