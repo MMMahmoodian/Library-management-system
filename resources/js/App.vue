@@ -14,12 +14,6 @@ export default {
   name: "App",
   data() {
     return {
-      mockAccount: {
-        authenticated: false,
-        isVerified: false,
-        username: "danial",
-        password: "12",
-      },
     };
   },
   components: {

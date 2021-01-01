@@ -1,5 +1,11 @@
 <template>
   <div id="booksdiv">
+    <span v-if="isAdmin">
+      hi admin :)
+    </span>
+    <span v-if="isStaff">
+      hi staff :)
+    </span>
     <span v-if="isLoggedIn">
       <p>کاربر {{ User }}</p>
     </span>
@@ -18,6 +24,12 @@
           <b-button v-if="isLoggedIn" variant="danger"
             ><a @click="logout"> خروج </a></b-button
           >
+          <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
+            <router-link to="/adminlogin">ورود ادمین </router-link>
+          </button>
+          <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
+            <router-link to="/stafflogin">ورود کارکنان </router-link>
+          </button>
           <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,28 +123,28 @@
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link v-if="isLoggedIn" to="/NewEmployee">
+              <router-link v-if="isAdmin" to="/NewEmployee">
                 کارمند ها
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link v-if="isLoggedIn" to="/AUserManage"
+              <router-link v-if="isAdmin" to="/AUserManage"
                 >مدیریت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link v-if="isLoggedIn" to="/StaffVerification">
+              <router-link v-if="isAdminOrStaff" to="/StaffVerification">
                 احراز هویت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link v-if="isLoggedIn" to="/SBookManage">
+              <router-link v-if="isAdminOrStaff" to="/SBookManage">
                 مدیریت کتابها
               </router-link></b-nav-item
             >
 
             <b-nav-item>
-              <router-link v-if="isLoggedIn" to="/Rented">
+              <router-link v-if="isAdminOrStaff" to="/Rented">
                 قرض داده شده
               </router-link></b-nav-item
             >
@@ -152,6 +164,15 @@ export default {
     ...mapGetters({ User: "StateUser" }),
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function () {
+      return this.$store.getters.isAdmin;
+    },
+    isStaff: function () {
+      return this.$store.getters.isStaff;
+    },
+    isAdminOrStaff: function () {
+      return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
     },
   },
   methods: {

@@ -13,6 +13,8 @@ import Category from "../views/Category"
 import Home from "../views/Home"
 import Rented from "../views/Rented"
 import store from "../store";
+import AdminLoginComponent from "../views/AdminLogin"
+import StaffLoginComponent from "../views/StaffLogin"
 
 Vue.use(VueRouter)
 
@@ -66,6 +68,18 @@ const routes = [
         meta: { guest: true },
     },
     {
+        path: "/adminlogin",
+        name: "AdminLogin",
+        component: AdminLoginComponent,
+        meta: { guest: true },
+    },
+    {
+        path: "/stafflogin",
+        name: "StaffLogin",
+        component: StaffLoginComponent,
+        meta: { guest: true },
+    },
+    {
         path: "/About",
         name: "about",
         component: AboutComponent,
@@ -91,7 +105,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: "history",
+    //mode: "history",
     base: process.env.BASE_URL,
     routes,
 });
