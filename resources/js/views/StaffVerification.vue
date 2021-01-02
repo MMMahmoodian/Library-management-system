@@ -1,17 +1,15 @@
 <template>
   <div id="svv">
-    <b-table
-      class="mt-5"
-      head-variant="dark"
-      striped
-      hover
-      :items="UserArray"
-      :fields="fields"
-    ></b-table>
+
+    <Users
+      v-bind:UsersArr="UserArray"
+    />
+
   </div>
 </template>
 
 <script>
+
 import Users from "../components/Users";
 import axios from "axios";
 
@@ -22,45 +20,7 @@ export default {
   },
   data() {
     return {
-      fields: [
-        {
-          key: "first_name",
-          label: "نام",
-          sortable: true,
-        },
-        {
-          key: "last_name",
-          label: "نام خانوادگی",
-          sortable: false,
-        },
-        {
-          key: "phone",
-          label: "شماره تماس",
-          sortable: false,
-        },
-        {
-          key: "email",
-          label: "ایمیل",
-          sortable: false,
-        },
-        {
-          key: "postal_code",
-          label: "کد پستی",
-          sortable: false,
-        },
-        {
-          key: "national_code",
-          label: "کد ملی",
-          sortable: false,
-        },
-        {
-          key: "id",
-          label: "id",
-          sortable: false,
-        },
-      ],
-      UserArray: [],
-      isAdmin: false,
+      UserArray:[],
     };
   },
   created() {

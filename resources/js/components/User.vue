@@ -92,7 +92,7 @@
         <small class="text-muted">{{
           user.verified == false ? "تایید نشده" : "تایید شده"
         }}</small>
-        <b-button variant="primary" class="btn d-flex" @click="edit_toggle"
+        <b-button v-if="isAdmin" variant="primary" class="btn d-flex" @click="edit_toggle"
           >ادیت</b-button
         >
         <b-button :disabled="user.verified" variant="success" class="btn d-flex" @click="verify"
@@ -105,9 +105,24 @@
 
 <script>
 import axios from "axios";
-
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "user",
+  computed: {
+    ...mapGetters({ User: "StateUser" }),
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function () {
+      return this.$store.getters.isAdmin;
+    },
+    isStaff: function () {
+      return this.$store.getters.isStaff;
+    },
+    isAdminOrStaff: function () {
+      return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
+    },
+  },
   data() {
     return {
       is_editing: false,
