@@ -12,7 +12,7 @@
               alt="logo"
             />
           </div>
-          <h4 class="login-title">ورود</h4>
+          <h4 class="login-title">ورود ادمین</h4>
         </div>
         <div class="row p-3">
           <b-form class="row col-12 pl-0">
@@ -24,10 +24,10 @@
               <b-form-input
                 id="input-1"
                 type="text"
-                name="email"
-                v-model="email"
+                name="userName"
+                v-model="userName"
                 required
-                placeholder="ایمیل"
+                placeholder="نام کاربری"
               ></b-form-input>
             </b-form-group>
             <b-form-group
@@ -57,15 +57,6 @@
           </b-form>
         </div>
       </div>
-      <div class="col-lg-6 p-0 login-pic-row">
-        <img
-          style="margin-top: 4rem"
-          src="../assets/pics/loginbg.jpg"
-          height="400px"
-          alt="login-pic"
-          class="login-pic w-100"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -75,10 +66,10 @@
 import { mapActions } from "vuex";
 export default {
   
-  name: "Login",
+  name: "AdminLogin",
   data() {
     return {
-      email: "",
+      userName: "",
       password: "",
       axiosResponse: "",
       statusCode: "",
@@ -86,13 +77,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["LogIn"]),
+    ...mapActions(["LogInAdmin"]),
     async login() {
-      const User = new FormData();
-      User.append("email", this.email);
-      User.append("password", this.password);
+      const Admin = new FormData();
+      Admin.append("userName", this.userName);
+      Admin.append("password", this.password);
       try {
-        await this.LogIn(User);
+        await this.LogInAdmin(Admin);
         this.$router.push("/");
       } catch (error) {
         alert("Error");

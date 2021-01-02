@@ -2,15 +2,8 @@
   <div id="app">
     <Header />
     <div id="nav">
-      <router-link
-        v-if="this.authenticated"
-        to="/login"
-        v-on:click.native="logout()"
-        replace
-        >Logout
-      </router-link>
     </div>
-    <router-view @authenticated="setAuthenticated" />
+    <router-view  />
   </div>
 </template>
 
@@ -21,12 +14,6 @@ export default {
   name: "App",
   data() {
     return {
-      mockAccount: {
-        authenticated: false,
-        isVerified: false,
-        username: "danial",
-        password: "12",
-      },
     };
   },
   components: {
@@ -34,12 +21,6 @@ export default {
   },
 
   methods: {
-    setAuthenticated(status) {
-      this.authenticated = status;
-    },
-    logout() {
-      this.authenticated = false;
-    },
   },
 };
 </script>
@@ -53,7 +34,7 @@ body {
 
 @font-face {
   font-family: iransans;
-  src: url("../../public/fonts/iran.ttf");
+  src: url("./assets/font/iran.ttf");
 }
 
 h1 {

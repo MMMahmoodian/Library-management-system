@@ -1,9 +1,17 @@
 <template>
-   <div id="booksdiv">
+  <div id="booksdiv">
+    <span v-if="isAdmin">
+      hi admin :)
+    </span>
+    <span v-if="isStaff">
+      hi staff :)
+    </span>
+    <span v-if="isLoggedIn">
+      <p>کاربر {{ User }}</p>
+    </span>
     <div>
       <b-navbar toggleable="sm" type="light" variant="light">
         <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
-
         <img
           src="../../assets/pics/librarylogo.png"
           width="65px"
@@ -13,7 +21,16 @@
 
         <b-navbar-brand class="m-0">سامانه مدیریت کتابخانه</b-navbar-brand>
         <div class="login-container">
-          <button class="btn btn-primary btn-login">
+          <b-button v-if="isLoggedIn" variant="danger"
+            ><a @click="logout"> خروج </a></b-button
+          >
+          <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
+            <router-link to="/adminlogin">ورود ادمین </router-link>
+          </button>
+          <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
+            <router-link to="/stafflogin">ورود کارکنان </router-link>
+          </button>
+          <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -21,7 +38,7 @@
               width="20"
               height="20"
               viewBox="0 0 172 172"
-              style=" fill:#000000;"
+              style="fill: #000000"
             >
               <g
                 fill="none"
@@ -47,9 +64,9 @@
                 </g>
               </g>
             </svg>
-           <router-link to="/login">ورود به سیستم </router-link>
+            <router-link to="/login">ورود به سیستم </router-link>
           </button>
-          <button class="btn btn-info btn-register mr-1">
+          <button v-if="!isLoggedIn" class="btn btn-info btn-register mr-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -57,7 +74,7 @@
               width="20"
               height="20"
               viewBox="0 0 226 226"
-              style=" fill:#fff;"
+              style="fill: #fff"
             >
               <g
                 fill="none"
@@ -96,49 +113,74 @@
               <router-link to="/About"> درباره ما </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/Category"> دسته بندی </router-link></b-nav-item
+              <router-link v-if="isLoggedIn" to="/Category">
+                دسته بندی
+              </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/NewBook">کتاب ها </router-link></b-nav-item
+              <router-link v-if="isLoggedIn" to="/NewBook"
+                >کتاب ها
+              </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/NewEmployee">
+              <router-link v-if="isAdmin" to="/NewEmployee">
                 کارمند ها
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/AUserManage"
+              <router-link v-if="isAdmin" to="/AUserManage"
                 >مدیریت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/StaffVerification">
-               احراز هویت کاربران
+              <router-link v-if="isAdminOrStaff" to="/StaffVerification">
+                احراز هویت کاربران
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link to="/SBookManage">
+              <router-link v-if="isAdminOrStaff" to="/SBookManage">
                 مدیریت کتابها
               </router-link></b-nav-item
             >
 
             <b-nav-item>
-              <router-link to="/Rented">
+              <router-link v-if="isAdminOrStaff" to="/Rented">
                 قرض داده شده
               </router-link></b-nav-item
             >
-
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Header",
+  computed: {
+    ...mapGetters({ User: "StateUser" }),
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function () {
+      return this.$store.getters.isAdmin;
+    },
+    isStaff: function () {
+      return this.$store.getters.isStaff;
+    },
+    isAdminOrStaff: function () {
+      return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
+    },
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("LogOut");
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 

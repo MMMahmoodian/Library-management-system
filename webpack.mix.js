@@ -16,4 +16,4 @@ mix.js('resources/js/main.js', 'public/js')
    .options({
       processCssUrls: false
     })
-   .sourceMaps();;
+   .sourceMaps();
