@@ -1,11 +1,5 @@
 <template>
   <div id="booksdiv">
-    <span v-if="isAdmin">
-      hi admin :)
-    </span>
-    <span v-if="isStaff">
-      hi staff :)
-    </span>
     <span v-if="isLoggedIn">
       <p>کاربر {{ User }}</p>
     </span>
