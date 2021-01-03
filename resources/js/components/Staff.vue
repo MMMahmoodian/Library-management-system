@@ -1,97 +1,104 @@
 <template>
   <div class="staff">
-    <p
-      v-show="!is_editing"
-      :class="{
-        'is-not-verified': !staff.verified,
-        'is-verified': staff.verified,
-      }"
-    >
-      First Name : {{ staff.first_name }}<br />
-      Last Name : {{ staff.last_name }}<br />
-      Phone : {{ staff.phone }}<br />
-      Email : {{ staff.email }}<br />
-      Postal Code: {{ staff.postal_code }}<br />
-      National Code : {{ staff.national_code }}<br />
-      <button
-        class="edit"
-        v-show="!is_editing && this.isAdm"
-        v-on:click="edit_true"
-      >
-        E
-      </button>
-      <button class="edit" v-show="!is_editing" v-on:click="verify">V</button>
-    </p>
+    <b-card img-alt="Card image" img-right class="mb-3">
+      <b-card-title>{{ staff.first_name }} {{ staff.last_name }}</b-card-title>
+      <b-card-text class="disable_this">
+        This is a wider card with supporting text below as a natural lead-in to
+        additional content. This content is a little bit Lorem ipsum dolor sit
+        amet consectetur adipisicing elit.
+      </b-card-text>
+      
+      <b-list-group flush v-if="!is_editing">
+        <b-list-group-item>شماره تماس : {{ staff.phone }}</b-list-group-item>
+        <b-list-group-item>پست الکترونیک : {{ staff.email }}</b-list-group-item>
+        <b-list-group-item
+          >شماره پستی : {{ staff.postal_code }}</b-list-group-item
+        >
+        <b-list-group-item
+          >شماره ملی : {{ staff.national_code }}</b-list-group-item
+        >
+        <b-list-group-item
+          >نقش : کارمند کتابخانه</b-list-group-item
+        >
+      </b-list-group>
 
-    <div v-show="is_editing">
-      First Name :
-      <b-form-input
-        id="input-firstName"
-        v-model="staff.first_name"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="نام"
-        :value="staff.first_name"
-        trim
-      ></b-form-input>
+      <b-form @submit="save" v-if="is_editing">
+        <b-form-group id="input-group-1" label="نام" label-for="input-1">
+          <b-form-input
+            id="input-1"
+            v-model="staff.first_name"
+            placeholder="staff.first_name"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      Last Name :
-      <b-form-input
-        id="input-lastName"
-        v-model="staff.last_name"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="نام خانوادگی"
-        :value="staff.last_name"
-        trim
-      ></b-form-input>
+        <b-form-group
+          id="input-group-2"
+          label="نام خانوادگی"
+          label-for="input-2"
+        >
+          <b-form-input
+            id="input-2"
+            v-model="staff.last_name"
+            placeholder="staff.last_name"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      Phone :
-      <b-form-input
-        id="input-phone"
-        v-model="staff.phone"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="نام خانوادگی"
-        :value="staff.phone"
-        trim
-      ></b-form-input>
+        <b-form-group id="input-group-3" label="شماره تماس" label-for="input-3">
+          <b-form-input
+            id="input-3"
+            v-model="staff.phone"
+            placeholder="staff.phone"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      Email :
-      <b-form-input
-        id="input-email"
-        v-model="staff.email"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="ایمیل"
-        :value="staff.email"
-        trim
-      ></b-form-input>
+        <b-form-group
+          id="input-group-4"
+          label="پست الکترونیک"
+          label-for="input-4"
+        >
+          <b-form-input
+            id="input-4"
+            v-model="staff.email"
+            placeholder="staff.email"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      Postal Code :
-      <b-form-input
-        id="input-postal"
-        v-model="staff.postal_code"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="کد پستی"
-        :value="staff.postal_code"
-        trim
-      ></b-form-input>
+        <b-form-group id="input-group-5" label="کد پستی" label-for="input-5">
+          <b-form-input
+            id="input-5"
+            v-model="staff.postal_code"
+            placeholder="staff.postal_code"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      National Code :
-      <b-form-input
-        id="input-national"
-        v-model="staff.national_code"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="کد ملی"
-        :value="staff.national_code"
-        trim
-      ></b-form-input>
-    </div>
+        <b-form-group id="input-group-6" label="کد ملی" label-for="input-6">
+          <b-form-input
+            id="input-5"
+            v-model="staff.national_code"
+            placeholder="staff.national_code"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-    <button @click="save" v-if="is_editing">Save</button>
-    <button @click="$emit('del-staff', staff.id)" class="del" v-if="is_editing">
-      DEL
-    </button>
-    <button class="edit_off" v-on:click="edit_false" v-show="is_editing">
-      Cancel
-    </button>
+        <b-button type="submit" variant="primary">ثبت</b-button>
+        <b-button @click="edit_false" variant="danger">خروج</b-button>
+      </b-form>
+
+
+      <template #footer>
+        <small class="text-muted">{{
+          staff.verified == false ? "تایید نشده" : "تایید شده"
+        }}</small>
+        <b-button variant="primary" class="btn d-flex" @click="edit_toggle"
+          >ادیت</b-button
+        >
+      </template>
+    </b-card>
   </div>
 </template>
 
@@ -104,15 +111,21 @@ export default {
       is_editing: false,
     };
   },
-  props: ["staff", "isAdm"],
+  props: ["staff"],
 
   methods: {
-    edit_true: function () {
+   edit_true: function () {
       console.log(this.isAdm);
       this.is_editing = true;
     },
     edit_false: function () {
       this.is_editing = false;
+    },
+    edit_toggle: function () {
+      this.is_editing = !this.is_editing;
+    },
+    pass() {
+      console.log("passed");
     },
     save() {
       var self = this;
@@ -132,19 +145,7 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-    },
-    verify: function () {
-      console.log(this.staff.id);
-      axios
-        .post("/api/management/user/patron/verify", {
-          user_id: this.staff.id,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        this.is_editing = false;
     },
   },
 };
@@ -163,10 +164,9 @@ export default {
   padding: 0px;
   margin: 0px;
   color: floralwhite;
-  background: rgb(231, 133, 68);
   padding: 10px;
   border-bottom: 1px #ccc dotted;
-  color: white;
+  color: black;
 }
 
 .edit {
@@ -177,6 +177,9 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   float: right;
+}
+.disable_this {
+  color: white;
 }
 .edit_on {
   background: rgb(235, 172, 101);

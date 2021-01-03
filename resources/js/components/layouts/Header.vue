@@ -1,14 +1,5 @@
 <template>
   <div id="booksdiv">
-    <span v-if="isAdmin">
-      hi admin :)
-    </span>
-    <span v-if="isStaff">
-      hi staff :)
-    </span>
-    <span v-if="isLoggedIn">
-      <p>کاربر {{ User }}</p>
-    </span>
     <div>
       <b-navbar toggleable="sm" type="light" variant="light">
         <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
@@ -21,9 +12,37 @@
 
         <b-navbar-brand class="m-0">سامانه مدیریت کتابخانه</b-navbar-brand>
         <div class="login-container">
-          <b-button v-if="isLoggedIn" variant="danger"
-            ><a @click="logout"> خروج </a></b-button
+          <b-button v-if="isLoggedIn" v-b-toggle.sidebar-no-header
+            >پنل کاربری</b-button
           >
+          <b-sidebar
+            bg-variant="dark"
+            id="sidebar-no-header"
+            aria-labelledby="sidebar-no-header-title"
+            no-header
+            shadow="lg"
+          >
+            <template #default="{ hide }">
+              <div class="p-3">
+                <h5 class="text-white-50" id="sidebar-no-header-title">
+                  کاربر {{ User }}
+                </h5>
+
+                <nav class="mb-3">
+                  <b-nav vertical>
+                    <b-nav-item active>
+                    <router-link v-if="!isAdminOrStaff" to="/Profile">مشاهده پروفایل </router-link>
+                    </b-nav-item>
+                  </b-nav>
+                </nav>
+                <b-button v-if="isLoggedIn" block variant="danger"
+                  ><a @click="logout"> خروج </a></b-button
+                >
+                <b-button variant="primary" block @click="hide">بستن</b-button>
+              </div>
+            </template>
+          </b-sidebar>
+
           <button v-if="!isLoggedIn" class="btn btn-primary btn-login">
             <router-link to="/adminlogin">ورود ادمین </router-link>
           </button>
@@ -133,7 +152,7 @@
               </router-link></b-nav-item
             >
             <b-nav-item>
-              <router-link v-if="isAdminOrStaff" to="/StaffVerification">
+              <router-link v-if="isStaff" to="/StaffVerification">
                 احراز هویت کاربران
               </router-link></b-nav-item
             >
@@ -172,7 +191,7 @@ export default {
       return this.$store.getters.isStaff;
     },
     isAdminOrStaff: function () {
-      return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
+      return this.$store.getters.isStaff || this.$store.getters.isAdmin;
     },
   },
   methods: {

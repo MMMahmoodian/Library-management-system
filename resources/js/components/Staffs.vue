@@ -1,12 +1,11 @@
 <template>
   <div id="Staffs_div">
-    <div v-bind:key="staff.id" v-for="staff in StaffsArr">
+    <b-card-group v-bind:key="staff.id" v-for="staff in StaffsArr">
       <Staff
         v-bind:staff="staff"
-        v-on:del-staff="$emit('del-user', staff.id)"
-        v-bind:isAdm="isAdm"
+        v-on:del-staff="$emit('del-staff', staff.id)"
       />
-    </div>
+    </b-card-group>
   </div>
 </template>
 
@@ -16,7 +15,7 @@ import Staff from "./Staff.vue";
 export default {
   name: "Staffs",
   created() {},
-  props: ["StaffsArr", "isAdm"],
+  props: ["StaffsArr"],
   components: {
     Staff,
   },
