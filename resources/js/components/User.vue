@@ -83,6 +83,9 @@
         <b-list-group-item
           >شماره ملی : {{ user.national_code }}</b-list-group-item
         >
+        <b-list-group-item
+          >نقش : کاربر عادی</b-list-group-item
+        >
         <b-list-group-item>{{
           user.Active == false ? "غیرفعال" : "فعال"
         }}</b-list-group-item>

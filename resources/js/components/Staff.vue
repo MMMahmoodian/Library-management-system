@@ -17,6 +17,9 @@
         <b-list-group-item
           >شماره ملی : {{ staff.national_code }}</b-list-group-item
         >
+        <b-list-group-item
+          >نقش : کارمند کتابخانه</b-list-group-item
+        >
       </b-list-group>
 
       <b-form @submit="save" v-if="is_editing">
