@@ -219,4 +219,97 @@ class BookController extends Controller
             'message' => "Book updated successfully!"
         ]);
     }
+
+    public function search(Request $request){
+        $data = $request->all();
+        $query = Book::query();
+        if (isset($data['title'])){
+            $query = $query->where('title', 'like', '%'.$data['title'].'%');
+        }
+        if (isset($data['synopsis'])){
+            $query = $query->where('synopsis', 'like', '%'.$data['synopsis'].'%');
+        }
+        if (isset($data['isbn'])){
+            $query = $query->where('isbn', 'like', '%'.$data['isbn'].'%');
+        }
+        if (isset($data['category'])){
+            $query = $query->WhereHas('category', function($q) use ($data){
+                $q->where([
+                    'name', 'like', '%'.$data['category'].'%',
+                ]);
+            });
+        }
+        if (isset($data['publisher'])){
+            $query = $query->WhereHas('publisher', function($q) use ($data){
+                $q->where([
+                    'name', 'like', '%'.$data['publisher'].'%',
+                ]);
+            });
+        }
+        if (isset($data['author_first_name'])){
+            $query = $query->WhereHas('authors', function($q) use ($data){
+                $q->where([
+                    'first_name', 'like', '%'.$data['author_first_name'].'%',
+                ]);
+            });
+        }
+        if (isset($data['author_last_name'])){
+            $query = $query->WhereHas('authors', function($q) use ($data){
+                $q->where([
+                    'last_name', 'like', '%'.$data['author_last_name'].'%',
+                ]);
+            });
+        }
+        if (isset($data['translator_first_name'])){
+            $query = $query->WhereHas('translators', function($q) use ($data){
+                $q->where([
+                    'first_name', 'like', '%'.$data['author_first_name'].'%',
+                ]);
+            });
+        }
+        if (isset($data['translator_last_name'])){
+            $query = $query->WhereHas('translators', function($q) use ($data){
+                $q->where([
+                    'last_name', 'like', '%'.$data['author_last_name'].'%',
+                ]);
+            });
+        }
+
+//        $list = Book::where()
+//            ->orWhere('title', 'like', '%'.$data['title'].'%')
+//            ->orWhere('synopsis', 'like', '%'.$data['synopsis'].'%')
+//            ->orWhereHas('category', function($q) use ($data){
+//                $q->where('name', 'like', '%'.$data['category'].'%');
+//            })
+//            ->orWhereHas('publisher', function($q) use ($data){
+//                $q->where('name', 'like', '%'.$data['publisher'].'%');
+//            })
+//            ->orWhereHas('authors', function($q) use ($data){
+//                $q->where([
+//                    'first_name', 'like', '%'.$data['author_first_name'].'%',
+//                    'last_name', 'like', '%'.$data['author_last_name'].'%',
+//                ]);
+//            })
+//            ->orWhereHas('translators', function($q) use ($data){
+//                $q->where([
+//                    'first_name', 'like', '%'.$data['translator_first_name'].'%',
+//                    'last_name', 'like', '%'.$data['translator_last_name'].'%',
+//                ]);
+//            })
+//            ->with(['publisher', 'category', 'authors', 'translators'])->get();
+
+        $list = $query->with(['publisher', 'category', 'authors', 'translators'])->get();
+        if ($list){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $list
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+    }
 }

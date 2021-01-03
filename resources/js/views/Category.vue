@@ -58,9 +58,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="cat.id" v-for="cat in categoryArray">
-          <th scope="row">{{ cat.id }}</th>
-          <td>{{ cat.name }}</td>
+        <tr class="category-row" v-for="(item, index) in categoryArray" @click="subCategory(item.id)" :key="`item-${index}`">
+          <th scope="row">{{ item.id }}</th>
+          <td>{{ item.name }}</td>
         </tr>
       </tbody>
     </table>
@@ -71,7 +71,6 @@ export default {
   data() {
     return {
       name: "",
-      selected: "وضعیت",
       categoryArray: [],
     };
   },
@@ -93,6 +92,10 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    subCategory(id) {
+          console.log(typeof(Number(id)))
+          this.$router.push({name:'SingleCategory', params:{id: Number(id)}})
     },
     submitCategory: function () {
       var self = this;
@@ -120,6 +123,9 @@ export default {
 };
 </script>
 <style scoped>
+.category-row{
+      cursor: pointer;
+}
 .employee-container {
   padding: 96px;
 }
