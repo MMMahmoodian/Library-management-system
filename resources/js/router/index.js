@@ -15,6 +15,7 @@ import Rented from "../views/Rented"
 import store from "../store";
 import AdminLoginComponent from "../views/AdminLogin"
 import StaffLoginComponent from "../views/StaffLogin"
+import ProfileComponent from "../views/Profile"
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,12 @@ const routes = [
         name: "Category",
         component: Category,
         meta: { requiresAuth: true },
+    },
+    {
+        path: "/Profile",
+        name: "Profile",
+        component: ProfileComponent,
+        meta: { OnlyPatron: true,  requiresAuth: true},
     },
     {
         path: "/Rented",
@@ -112,6 +119,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
+        
         if (store.getters.isAuthenticated) {
             next();
             return;

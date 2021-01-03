@@ -12,8 +12,6 @@
 
         <b-navbar-brand class="m-0">سامانه مدیریت کتابخانه</b-navbar-brand>
         <div class="login-container">
-          
-
           <b-button v-if="isLoggedIn" v-b-toggle.sidebar-no-header
             >پنل کاربری</b-button
           >
@@ -22,24 +20,25 @@
             id="sidebar-no-header"
             aria-labelledby="sidebar-no-header-title"
             no-header
-            shadow='lg'
+            shadow="lg"
           >
             <template #default="{ hide }">
               <div class="p-3">
-                <h5 class = "text-white-50" id="sidebar-no-header-title">کاربر {{ User }}</h5>
-                
+                <h5 class="text-white-50" id="sidebar-no-header-title">
+                  کاربر {{ User }}
+                </h5>
+
                 <nav class="mb-3">
                   <b-nav vertical>
-                    <!-- <b-nav-item active @click="hide">Active</b-nav-item>
-                    !-->
+                    <b-nav-item active>
+                    <router-link v-if="!isAdminOrStaff" to="/Profile">مشاهده پروفایل </router-link>
+                    </b-nav-item>
                   </b-nav>
                 </nav>
                 <b-button v-if="isLoggedIn" block variant="danger"
                   ><a @click="logout"> خروج </a></b-button
                 >
-                <b-button variant="primary" block @click="hide"
-                  >بستن</b-button
-                >
+                <b-button variant="primary" block @click="hide">بستن</b-button>
               </div>
             </template>
           </b-sidebar>

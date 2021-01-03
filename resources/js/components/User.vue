@@ -95,10 +95,10 @@
         <small class="text-muted">{{
           user.verified == false ? "تایید نشده" : "تایید شده"
         }}</small>
-        <b-button v-if="isAdmin" variant="primary" class="btn d-flex" @click="edit_toggle"
+        <b-button v-if="canEdit" variant="primary" class="btn d-flex" @click="edit_toggle"
           >ادیت</b-button
         >
-        <b-button :disabled="user.verified" variant="success" class="btn d-flex" @click="verify"
+        <b-button v-if="isAdminOrStaff" :disabled="user.verified" variant="success" class="btn d-flex" @click="verify"
           > تایید </b-button
         >
       </template>
@@ -125,13 +125,16 @@ export default {
     isAdminOrStaff: function () {
       return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
     },
+    canEdit: function() {
+      return this.isAdmin || this.userEdit;
+    },
   },
   data() {
     return {
       is_editing: false,
     };
   },
-  props: ["user"],
+  props: ["user", "userEdit"],
 
   methods: {
     edit_true: function () {
