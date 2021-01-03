@@ -16,6 +16,9 @@ import store from "../store";
 import AdminLoginComponent from "../views/AdminLogin"
 import StaffLoginComponent from "../views/StaffLogin"
 import ProfileComponent from "../views/Profile"
+import SingleCategory from "../views/SingleCategory"
+import Authors from "../views/Authors"
+
 
 Vue.use(VueRouter)
 
@@ -33,6 +36,19 @@ const routes = [
         component: Category,
         meta: { requiresAuth: true },
     },
+      {
+            path: "/Category/:id",
+            name: "SingleCategory",
+            component: SingleCategory,
+            meta: { requiresAuth: true },
+            props: true
+      },
+      {
+            path: "/Authors",
+            name: "Authors",
+            component: Authors,
+            meta: { requiresAuth: true },
+      },
     {
         path: "/Profile",
         name: "Profile",
