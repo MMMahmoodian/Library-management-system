@@ -24,6 +24,7 @@ Route::prefix('management')->group(function () {
             Route::get('/list', 'Management\BookController@list');
             Route::post('/category-list', 'Management\BookController@listCategory');
             Route::post('/publisher-list', 'Management\BookController@listPublisher');
+            Route::post('/search', 'Management\BookController@search');
             Route::post('/add', 'Management\BookController@create');
             Route::post('/edit', 'Management\BookController@edit');
             Route::post('/info', 'Management\BookController@getSingleBook');
