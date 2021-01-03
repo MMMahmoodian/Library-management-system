@@ -22,6 +22,8 @@ Route::prefix('management')->group(function () {
 //    Route::middleware(['api-auth'])->group(function () {
         Route::prefix('book')->group(function () {
             Route::get('/list', 'Management\BookController@list');
+            Route::post('/category-list', 'Management\BookController@listCategory');
+            Route::post('/publisher-list', 'Management\BookController@listPublisher');
             Route::post('/add', 'Management\BookController@create');
             Route::post('/edit', 'Management\BookController@edit');
             Route::post('/info', 'Management\BookController@getSingleBook');

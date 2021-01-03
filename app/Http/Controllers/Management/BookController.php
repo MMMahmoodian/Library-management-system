@@ -39,6 +39,74 @@ class BookController extends Controller
 
     }
 
+    public function listPublisher(Request $request){
+        $validation = Validator::make($request->all(), [
+            'publisher_id' => ['required', 'exists:categories,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $list = Book::where('publisher_id', $data["publisher_id"])->with(['publisher', 'category', 'authors', 'translators'])->get();
+        foreach ($list as $book){
+            $book->avaiable = $book->isAvailable();
+        }
+        if ($list){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $list
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
+
+    public function listCategory(Request $request){
+        $validation = Validator::make($request->all(), [
+            'category_id' => ['required', 'exists:categories,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $list = Book::where('category_id', $data["category_id"])->with(['publisher', 'category', 'authors', 'translators'])->get();
+        foreach ($list as $book){
+            $book->avaiable = $book->isAvailable();
+        }
+        if ($list){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => $list
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
+
+
+
     public function getSingleBook(Request $request){
         $validation = Validator::make($request->all(), [
             'book_id' => ['required', 'exists:books,id' ],
