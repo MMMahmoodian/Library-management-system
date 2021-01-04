@@ -106,7 +106,7 @@ class PublisherController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = Publisher::find($data['publisher_id'])->first();
+        $entity = Publisher::find($data['publisher_id']);
         try {
             $entity->delete();
         }catch (QueryException $e){

@@ -105,7 +105,7 @@ class TranslatorController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = Translator::find($data['translator_id'])->first();
+        $entity = Translator::find($data['translator_id']);
         $entity->delete();
         if ($entity){
             return response()->json([

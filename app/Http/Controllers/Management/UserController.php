@@ -177,7 +177,7 @@ class UserController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = User::find($data['user_id'])->first();
+        $entity = User::find($data['user_id']);
         $entity->delete();
         if ($entity){
             return response()->json([

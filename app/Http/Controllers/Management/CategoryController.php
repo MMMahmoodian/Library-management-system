@@ -119,7 +119,7 @@ class CategoryController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = Category::find($data['category_id'])->first();
+        $entity = Category::find($data['category_id']);
         try {
             $entity->delete();
         }catch (QueryException $e){

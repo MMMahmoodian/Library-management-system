@@ -105,7 +105,7 @@ class AuthorController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = Author::find($data['author_id'])->first();
+        $entity = Author::find($data['author_id']);
         $entity->delete();
         if ($entity){
             return response()->json([

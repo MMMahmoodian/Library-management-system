@@ -303,7 +303,7 @@ class BookController extends Controller
             ]);
         }
         $data = $request->all();
-        $entity = Book::find($data['book_id'])->first();
+        $entity = Book::find($data['book_id']);
         $entity->delete();
         if ($entity){
             return response()->json([
