@@ -211,7 +211,7 @@ export default {
             alert(response.data.data.error);
           } else {
             alert("Book Succesfully rented");
-            vm.$forceUpdate(); //location.relode()'
+            vm.$forceUpdate(); 
           }
         })
         .catch(function (error) {

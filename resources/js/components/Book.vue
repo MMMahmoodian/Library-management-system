@@ -66,14 +66,14 @@
       </div>
 
       <button type="submit" @click="save" v-if="is_editing">Save</button>
-      <!-- <button
+      <button
         type="submit"
         @click="$emit('del-book', book.id)"
         class="del"
         v-if="is_editing"
       >
         DEL
-      </button> -->
+      </button>
       <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
         Cancel
       </button>
