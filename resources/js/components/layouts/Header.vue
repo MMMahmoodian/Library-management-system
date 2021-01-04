@@ -31,7 +31,9 @@
                 <nav class="mb-3">
                   <b-nav vertical>
                     <b-nav-item active>
-                    <router-link v-if="!isAdminOrStaff" to="/Profile">مشاهده پروفایل </router-link>
+                      <router-link v-if="!isAdminOrStaff" to="/Profile"
+                        >مشاهده پروفایل
+                      </router-link>
                     </b-nav-item>
                   </b-nav>
                 </nav>
@@ -142,6 +144,11 @@
               </router-link></b-nav-item
             >
             <b-nav-item>
+              <router-link v-if="isLoggedIn" to="/Authors">
+                نویسنده ها
+              </router-link>
+            </b-nav-item>
+            <b-nav-item>
               <router-link v-if="isAdmin" to="/NewEmployee">
                 کارمند ها
               </router-link></b-nav-item
@@ -161,18 +168,12 @@
                 مدیریت کتابها
               </router-link></b-nav-item
             >
-
             <b-nav-item>
               <router-link v-if="isAdminOrStaff" to="/Rented">
                 قرض داده شده
               </router-link></b-nav-item
             >
           </b-navbar-nav>
-            <b-nav-item>
-                  <router-link to="/Authors">
-                  نویسنده ها
-                  </router-link>
-            </b-nav-item>
         </b-collapse>
       </b-navbar>
     </div>
@@ -242,7 +243,7 @@ a {
   padding-top: 20%;
 }
 li {
-      list-style-type: none;
+  list-style-type: none;
 }
 li:hover {
   background: #d8d8d8;
