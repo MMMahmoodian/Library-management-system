@@ -52,8 +52,15 @@ class CategoryController extends Controller
         $data = $request->all();
         $category = new Category();
         $category->name = $data['name'];
-        $category->save();
-
+        try {
+            $category->save();
+        }catch (QueryException $e){
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+                'data' => "Duplicate category name!"
+            ]);
+        }
         if ($category){
             return response()->json([
                 'status' => $this->successStatusCode,
@@ -83,7 +90,15 @@ class CategoryController extends Controller
         }
         $data = $request->all();
         $category = Category::findOrFail($data['category_id']);
-        $category->update($data);
+        try {
+            $category->update($data);
+        }catch (QueryException $e){
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+                'data' => "Duplicate category name!"
+            ]);
+        }
         return response()->json([
             'status' => $this->successStatusCode,
             'message' => "Category updated successfully!"
