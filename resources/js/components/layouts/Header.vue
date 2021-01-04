@@ -168,6 +168,11 @@
               </router-link></b-nav-item
             >
           </b-navbar-nav>
+            <b-nav-item>
+                  <router-link to="/Authors">
+                  نویسنده ها
+                  </router-link>
+            </b-nav-item>
         </b-collapse>
       </b-navbar>
     </div>
@@ -235,6 +240,9 @@ a {
   border-radius: 4px;
   height: 95%;
   padding-top: 20%;
+}
+li {
+      list-style-type: none;
 }
 li:hover {
   background: #d8d8d8;
