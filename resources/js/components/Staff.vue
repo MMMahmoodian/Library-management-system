@@ -7,7 +7,7 @@
         additional content. This content is a little bit Lorem ipsum dolor sit
         amet consectetur adipisicing elit.
       </b-card-text>
-      
+
       <b-list-group flush v-if="!is_editing">
         <b-list-group-item>شماره تماس : {{ staff.phone }}</b-list-group-item>
         <b-list-group-item>پست الکترونیک : {{ staff.email }}</b-list-group-item>
@@ -17,9 +17,7 @@
         <b-list-group-item
           >شماره ملی : {{ staff.national_code }}</b-list-group-item
         >
-        <b-list-group-item
-          >نقش : کارمند کتابخانه</b-list-group-item
-        >
+        <b-list-group-item>نقش : کارمند کتابخانه</b-list-group-item>
       </b-list-group>
 
       <b-form @submit="save" v-if="is_editing">
@@ -89,7 +87,6 @@
         <b-button @click="edit_false" variant="danger">خروج</b-button>
       </b-form>
 
-
       <template #footer>
         <small class="text-muted">{{
           staff.verified == false ? "تایید نشده" : "تایید شده"
@@ -97,6 +94,13 @@
         <b-button variant="primary" class="btn d-flex" @click="edit_toggle"
           >ادیت</b-button
         >
+        <b-button
+          variant="danger"
+          class="btn d-flex"
+          @click="deletethis"
+        >
+          حذف
+        </b-button>
       </template>
     </b-card>
   </div>
@@ -114,7 +118,10 @@ export default {
   props: ["staff"],
 
   methods: {
-   edit_true: function () {
+    deletethis: function () {
+      this.$emit("del-staff", this.staff.id);
+    },
+    edit_true: function () {
       console.log(this.isAdm);
       this.is_editing = true;
     },
@@ -145,7 +152,7 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-        this.is_editing = false;
+      this.is_editing = false;
     },
   },
 };

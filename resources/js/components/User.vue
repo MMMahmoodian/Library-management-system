@@ -83,9 +83,7 @@
         <b-list-group-item
           >شماره ملی : {{ user.national_code }}</b-list-group-item
         >
-        <b-list-group-item
-          >نقش : کاربر عادی</b-list-group-item
-        >
+        <b-list-group-item>نقش : کاربر عادی</b-list-group-item>
         <b-list-group-item>{{
           user.Active == false ? "غیرفعال" : "فعال"
         }}</b-list-group-item>
@@ -95,12 +93,31 @@
         <small class="text-muted">{{
           user.verified == false ? "تایید نشده" : "تایید شده"
         }}</small>
-        <b-button v-if="canEdit" variant="primary" class="btn d-flex" @click="edit_toggle"
-          >ادیت</b-button
+        <b-button
+          v-if="canEdit"
+          variant="primary"
+          class="btn d-flex"
+          @click="edit_toggle"
         >
-        <b-button v-if="isAdminOrStaff" :disabled="user.verified" variant="success" class="btn d-flex" @click="verify"
-          > تایید </b-button
+          ادیت
+        </b-button>
+        <b-button
+          v-if="isAdminOrStaff"
+          :disabled="user.verified"
+          variant="success"
+          class="btn d-flex"
+          @click="verify"
         >
+          تایید
+        </b-button>
+        <b-button
+          v-if="isAdmin"
+          variant="danger"
+          class="btn d-flex"
+          @click="deletethis"
+        >
+          حذف
+        </b-button>
       </template>
     </b-card>
   </div>
@@ -123,9 +140,9 @@ export default {
       return this.$store.getters.isStaff;
     },
     isAdminOrStaff: function () {
-      return (this.$store.getters.isStaff) || (this.$store.getters.isAdmin);
+      return this.$store.getters.isStaff || this.$store.getters.isAdmin;
     },
-    canEdit: function() {
+    canEdit: function () {
       return this.isAdmin || this.userEdit;
     },
   },
@@ -137,6 +154,9 @@ export default {
   props: ["user", "userEdit"],
 
   methods: {
+    deletethis: function () {
+      this.$emit("del-user", this.user.id);
+    },
     edit_true: function () {
       console.log(this.isAdm);
       this.is_editing = true;
@@ -171,7 +191,7 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-        this.is_editing = false;
+      this.is_editing = false;
     },
 
     verify: function () {

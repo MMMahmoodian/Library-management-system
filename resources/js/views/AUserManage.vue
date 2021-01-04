@@ -25,25 +25,51 @@ export default {
     Users,
     Staffs,
   },
-  data() {
-    return {
-      isAdmin:false,
-      UserArray: [],
-    };
-  },
 
   methods: {
-    deleteUser(id) {
+    async deleteUser(id) {
       console.log("deleting User " + id);
-      this.UserArray = this.UserArray.filter((user) => user.id !== id);
+       this.UserArray = this.UserArray.filter((user) => user.id !== id);
+      await axios
+        .post("/api/management/user/delete", {
+          user_id: id,
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.data.message == "Bad request!") {
+            alert(response.data.data.error);
+          } else {
+            alert("User Deleted");
+            vm.$forceUpdate();
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-    deleteStaff(id) {
+    async deleteStaff(id) {
       console.log("deleting User " + id);
       this.StaffsArray = this.StaffsArray.filter((staff) => staff.id !== id);
+       await axios
+        .post("/api/management/user/delete", {
+          user_id: id,
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.data.message == "Bad request!") {
+            alert(response.data.data.error);
+          } else {
+            alert("Staff Deleted");
+            vm.$forceUpdate();
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-    fetchUsers: function () {
+    fetchUsers: async function () {
       var self = this;
-      axios
+      await axios
         .get("/api/management/user/patron/list")
         .then(function (response) {
           console.log(response);
@@ -53,9 +79,9 @@ export default {
           console.log(error);
         });
     },
-    fetchStaffs: function () {
+    fetchStaffs: async function () {
       var self = this;
-      axios
+      await axios
         .get("/api/management/user/staff/list")
         .then(function (response) {
           console.log(response);
@@ -66,9 +92,9 @@ export default {
         });
     },
   },
-  created() {
-    this.fetchUsers();
-    this.fetchStaffs();
+  async created() {
+    await this.fetchUsers();
+    await this.fetchStaffs();
   },
 
   data() {
