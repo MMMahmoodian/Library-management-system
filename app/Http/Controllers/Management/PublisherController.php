@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Publisher;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -106,7 +107,16 @@ class PublisherController extends Controller
         }
         $data = $request->all();
         $entity = Publisher::find($data['publisher_id'])->first();
-        $entity->delete();
+        try {
+            $entity->delete();
+        }catch (QueryException $e){
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+                'data' => "Publisher is used in another entity!"
+            ]);
+        }
+
         if ($entity){
             return response()->json([
                 'status_code' => $this->successStatusCode,

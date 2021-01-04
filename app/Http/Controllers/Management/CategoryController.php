@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -104,7 +105,15 @@ class CategoryController extends Controller
         }
         $data = $request->all();
         $entity = Category::find($data['category_id'])->first();
-        $entity->delete();
+        try {
+            $entity->delete();
+        }catch (QueryException $e){
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+                'data' => "Publisher is used in another entity!"
+            ]);
+        }
         if ($entity){
             return response()->json([
                 'status_code' => $this->successStatusCode,
