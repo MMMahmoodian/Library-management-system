@@ -28,26 +28,31 @@ Route::prefix('management')->group(function () {
             Route::post('/add', 'Management\BookController@create');
             Route::post('/edit', 'Management\BookController@edit');
             Route::post('/info', 'Management\BookController@getSingleBook');
+            Route::post('/delete', 'Management\BookController@delete');
         });
         Route::prefix('category')->group(function () {
             Route::get('/list', 'Management\CategoryController@list');
             Route::post('/add', 'Management\CategoryController@create');
             Route::post('/edit', 'Management\CategoryController@edit');
+            Route::post('/delete', 'Management\CategoryController@delete');
         });
         Route::prefix('publisher')->group(function () {
             Route::get('/list', 'Management\PublisherController@list');
             Route::post('/add', 'Management\PublisherController@create');
             Route::post('/edit', 'Management\PublisherController@edit');
+            Route::post('/delete', 'Management\PublisherController@delete');
         });
         Route::prefix('author')->group(function () {
             Route::get('/list', 'Management\AuthorController@list');
             Route::post('/add', 'Management\AuthorController@create');
             Route::post('/edit', 'Management\AuthorController@edit');
+            Route::post('/delete', 'Management\AuthorController@delete');
         });
         Route::prefix('translator')->group(function () {
             Route::get('/list', 'Management\TranslatorController@list');
             Route::post('/add', 'Management\TranslatorController@create');
             Route::post('/edit', 'Management\TranslatorController@edit');
+            Route::post('/delete', 'Management\TranslatorController@delete');
         });
         Route::prefix('user')->group(function () {
             Route::prefix('staff')->group(function () {
@@ -62,6 +67,7 @@ Route::prefix('management')->group(function () {
 //                Route::post('/edit', 'Management\UserController@edit');
             });
             Route::post('/edit', 'Management\UserController@editUser');
+            Route::post('/delete', 'Management\UserController@delete');
         });
         Route::prefix('rental')->group(function () {
             Route::get('/list', 'Management\RentingController@getAllRents');

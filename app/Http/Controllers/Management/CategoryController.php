@@ -88,4 +88,35 @@ class CategoryController extends Controller
             'message' => "Category updated successfully!"
         ]);
     }
+
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'category_id' => ['required', 'exists:categories,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $entity = Category::find($data['category_id'])->first();
+        $entity->delete();
+        if ($entity){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => "Category deleted!"
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
 }

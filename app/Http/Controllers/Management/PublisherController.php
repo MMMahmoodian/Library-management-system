@@ -90,4 +90,35 @@ class PublisherController extends Controller
             'message' => "Publisher updated successfully!"
         ]);
     }
+
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'publisher_id' => ['required', 'exists:publishers,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $entity = Publisher::find($data['publisher_id'])->first();
+        $entity->delete();
+        if ($entity){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => "Publisher deleted!"
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
 }

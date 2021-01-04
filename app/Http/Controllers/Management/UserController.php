@@ -162,4 +162,35 @@ class UserController extends Controller
     public function getUser(Request $request){
 
     }
+
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'user_id' => ['required', 'exists:users,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $entity = User::find($data['user_id'])->first();
+        $entity->delete();
+        if ($entity){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => "User deleted!"
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
 }

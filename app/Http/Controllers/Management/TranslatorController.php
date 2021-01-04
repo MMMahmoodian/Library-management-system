@@ -90,4 +90,35 @@ class TranslatorController extends Controller
             'message' => "Translator updated successfully!"
         ]);
     }
+
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'translator_id' => ['required', 'exists:translators,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $entity = Translator::find($data['translator_id'])->first();
+        $entity->delete();
+        if ($entity){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => "Translator deleted!"
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
+    }
 }

@@ -274,30 +274,6 @@ class BookController extends Controller
                 ]);
             });
         }
-
-//        $list = Book::where()
-//            ->orWhere('title', 'like', '%'.$data['title'].'%')
-//            ->orWhere('synopsis', 'like', '%'.$data['synopsis'].'%')
-//            ->orWhereHas('category', function($q) use ($data){
-//                $q->where('name', 'like', '%'.$data['category'].'%');
-//            })
-//            ->orWhereHas('publisher', function($q) use ($data){
-//                $q->where('name', 'like', '%'.$data['publisher'].'%');
-//            })
-//            ->orWhereHas('authors', function($q) use ($data){
-//                $q->where([
-//                    'first_name', 'like', '%'.$data['author_first_name'].'%',
-//                    'last_name', 'like', '%'.$data['author_last_name'].'%',
-//                ]);
-//            })
-//            ->orWhereHas('translators', function($q) use ($data){
-//                $q->where([
-//                    'first_name', 'like', '%'.$data['translator_first_name'].'%',
-//                    'last_name', 'like', '%'.$data['translator_last_name'].'%',
-//                ]);
-//            })
-//            ->with(['publisher', 'category', 'authors', 'translators'])->get();
-
         $list = $query->with(['publisher', 'category', 'authors', 'translators'])->get();
         if ($list){
             return response()->json([
@@ -311,5 +287,36 @@ class BookController extends Controller
                 'status_message' => 'Internal server error',
             ]);
         }
+    }
+
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'book_id' => ['required', 'exists:books,id' ],
+        ]);
+        if ($validation->fails()){
+            return response()->json([
+                'status' => $this->badRequestStatusCode,
+                'message' => 'Bad request!',
+                'data' => [
+                    'error' => $validation->messages()->first()
+                ]
+            ]);
+        }
+        $data = $request->all();
+        $entity = Book::find($data['book_id'])->first();
+        $entity->delete();
+        if ($entity){
+            return response()->json([
+                'status_code' => $this->successStatusCode,
+                'status_message' => 'Success',
+                'data' => "Book deleted!"
+            ]);
+        }else{
+            return response()->json([
+                'status_code' => $this->internalServerErrorStatusCode,
+                'status_message' => 'Internal server error',
+            ]);
+        }
+
     }
 }
