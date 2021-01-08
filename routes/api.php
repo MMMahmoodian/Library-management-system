@@ -27,7 +27,7 @@ Route::prefix('management')->group(function () {
             Route::post('/search', 'Management\BookController@search');
             Route::post('/add', 'Management\BookController@create');
             Route::post('/edit', 'Management\BookController@edit');
-            Route::post('/info', 'Management\BookController@getSingleBook');
+            Route::post('/info', 'Management\BookController@bookInfo');
             Route::post('/delete', 'Management\BookController@delete');
         });
         Route::prefix('category')->group(function () {

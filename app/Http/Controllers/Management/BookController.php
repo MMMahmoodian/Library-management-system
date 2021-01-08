@@ -105,9 +105,7 @@ class BookController extends Controller
 
     }
 
-
-
-    public function getSingleBook(Request $request){
+    public function bookInfo(Request $request){
         $validation = Validator::make($request->all(), [
             'book_id' => ['required', 'exists:books,id' ],
         ]);
@@ -121,7 +119,7 @@ class BookController extends Controller
             ]);
         }
         $data = $request->all();
-        $book = Book::find($data['book_id'])->with(['publisher', 'category', 'authors', 'translators'])->first();
+        $book = Book::where('id', $data['book_id'])->with(['publisher', 'category', 'authors', 'translators'])->first();
         $book->avaiable = $book->isAvailable();
         if ($book){
             return response()->json([
