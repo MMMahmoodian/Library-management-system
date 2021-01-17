@@ -33,16 +33,35 @@ class Book extends Model
         return $this->belongsToMany(User::class, 'rent_books');
     }
 
+    public function reserves(){
+        return $this->belongsToMany(User::class, 'reserve_books');
+    }
+
+    public function reserve($user_id, $reserve_date){
+        $this->reserves()->attach($user_id, ['reserve_date' => $reserve_date]);
+    }
+
     public function rent($user_id, $rent_date){
         $this->patrons()->attach($user_id, ['renting_date' => $rent_date]);
+    }
+
+    public function cancelReservation($user_id, $cancel_date){
+        return $list = $this->reserves()->updateExistingPivot($user_id, ['withdraw_date' => $cancel_date]);
     }
 
     public function withdraw($user_id, $withdraw_date){
         return $list = $this->patrons()->updateExistingPivot($user_id, ['withdraw_date' => $withdraw_date]);
     }
 
-    public function isAvailable(){
+    public function isRented(){
         $rents = $this->patrons()->where('withdraw_date', '=',null);
-        return !$rents->exists();
+        return $rents->exists();
+    }
+    public function isReserved(){
+        $reserves = $this->reserves()->where('cancel_date', '=',null);
+        return $reserves->exists();
+    }
+    public function isAvailable(){
+        return !$this->isRented() && !$this->isReserved();
     }
 }
