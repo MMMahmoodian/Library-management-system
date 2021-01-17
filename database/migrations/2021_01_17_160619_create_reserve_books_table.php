@@ -14,8 +14,12 @@ class CreateReserveBooksTable extends Migration
     public function up()
     {
         Schema::create('reserve_books', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('user_id');
+            $table->date('reserve_date');
+            $table->date('cancel_date');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
