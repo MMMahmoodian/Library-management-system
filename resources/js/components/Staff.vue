@@ -187,6 +187,7 @@ export default {
 }
 .disable_this {
   color: white;
+  user-select: none;
 }
 .edit_on {
   background: rgb(235, 172, 101);

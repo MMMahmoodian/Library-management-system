@@ -5,6 +5,7 @@
         <b-button
           class="btn btn-light d-flex new-employee-btn"
           v-b-modal.modal-1
+          v-if="isAdminOrStaff"
           >دسته بندی جدید</b-button
         >
       </div>
@@ -36,6 +37,7 @@
 
       <div class="header col-lg-8 col-7">
         <h4>لیست دسته بندی ها</h4>
+        برای دیدن کتاب های دست بندی روی آن کلیک کنید
       </div>
     </div>
     <b-modal id="modal-2" title="حذف دسته بندی" hide-footer>
@@ -58,7 +60,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="category-row" v-for="(item, index) in categoryArray" @click="subCategory(item.id)" :key="`item-${index}`">
+        <tr
+          class="category-row"
+          v-for="(item, index) in categoryArray"
+          @click="subCategory(item.id)"
+          :key="`item-${index}`"
+        >
           <th scope="row">{{ item.id }}</th>
           <td>{{ item.name }}</td>
         </tr>
@@ -67,12 +74,28 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       name: "",
       categoryArray: [],
     };
+  },
+  computed: {
+    ...mapGetters({ User: "StateUser" }),
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function () {
+      return this.$store.getters.isAdmin;
+    },
+    isStaff: function () {
+      return this.$store.getters.isStaff;
+    },
+    isAdminOrStaff: function () {
+      return this.$store.getters.isStaff || this.$store.getters.isAdmin;
+    },
   },
   methods: {
     fetchArrays: function () {
@@ -94,8 +117,8 @@ export default {
         });
     },
     subCategory(id) {
-          console.log(typeof(Number(id)))
-          this.$router.push({name:'SingleCategory', params:{id: Number(id)}})
+      console.log(typeof Number(id));
+      this.$router.push({ name: "SingleCategory", params: { id: Number(id) } });
     },
     submitCategory: function () {
       var self = this;
@@ -123,8 +146,8 @@ export default {
 };
 </script>
 <style scoped>
-.category-row{
-      cursor: pointer;
+.category-row {
+  cursor: pointer;
 }
 .employee-container {
   padding: 96px;

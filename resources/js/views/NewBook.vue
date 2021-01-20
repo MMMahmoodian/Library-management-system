@@ -2,9 +2,12 @@
   <div class="container-fluid book-container">
     <div class="row mt-4">
       <div class="col-lg-2 col-5">
-        <b-button class="btn btn-light d-flex new-book-btn" v-b-modal.modal-1
+        <b-button
+        v-if="isAdminOrStaff"
+         class="btn btn-light d-flex new-book-btn" v-b-modal.modal-1
           >کتاب جدید</b-button
         >
+      برای دیدن هر کتاب روی آن کلیک کنید.
       </div>
 
       <b-modal id="modal-1" title="اضافه کردن کتاب" hide-footer>
@@ -133,7 +136,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="book.id" v-for="book in booksArray" style="cursor:pointer;  @click="singleBook(book.id)">
+        <tr v-bind:key="book.id" v-for="book in booksArray" style="cursor:pointer;"  @click="singleBook(book.id)">
           <th scope="row">{{ book.id }}</th>
           <td>{{ book.title }}</td>
           <td>{{ book.isbn }}</td>
@@ -156,8 +159,22 @@
 
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
+    ...mapGetters({ User: "StateUser" }),
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+    isAdmin: function () {
+      return this.$store.getters.isAdmin;
+    },
+    isStaff: function () {
+      return this.$store.getters.isStaff;
+    },
+    isAdminOrStaff: function () {
+      return this.$store.getters.isStaff || this.$store.getters.isAdmin;
+    },
     nameState_T() {
       return this.title.length > 0 ? true : false;
     },
