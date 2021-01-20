@@ -284,6 +284,7 @@ export default {
         .then(function (response) {
           console.log(response);
           self.booksArray = response.data.data;
+          console.log(self.booksArray)
         })
         .catch(function (error) {
           console.log(error);

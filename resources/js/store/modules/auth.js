@@ -104,6 +104,7 @@ const actions = {
 
           self.token = response.data.data.token;
           console.log("role : ", response.data.data.role[0].name);
+          localStorage.setItem('user_id', response.data.data.role[0].id)
           console.log("User Token is " + self.token);
           commit("setUser", user.get("email"));
 
