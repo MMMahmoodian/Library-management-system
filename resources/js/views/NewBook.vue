@@ -168,7 +168,7 @@ export default {
       return this.summary.length > 0 ? true : false;
     },
   },
-  created() {
+  mounted() {
     this.fetchArrays();
     this.fetchBooks();
     this.fetchUsers();
