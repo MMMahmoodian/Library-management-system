@@ -79,6 +79,36 @@ export default {
   methods: {
     ...mapActions(["LogInAdmin"]),
     async login() {
+      if (!this.userName) {
+                        this.toaster(
+                              ".لطفا ایمیل خود را وارد نمائید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.userName && !this.validateEmail(this.userName)) {
+                        this.toaster(
+                              ".ایمیل وارد شده نادرست است",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+
+                  if (!this.password) {
+                        this.toaster(
+                              ".رمز عبور خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
       const Admin = new FormData();
       Admin.append("userName", this.userName);
       Admin.append("password", this.password);

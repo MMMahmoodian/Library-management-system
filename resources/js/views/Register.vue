@@ -23,7 +23,7 @@
               <b-form-input
                 id="input-1"
                 type="text"
-                required
+                
                 v-model="first_name"
                 placeholder="نام"
               ></b-form-input>
@@ -37,7 +37,7 @@
                 id="input-2"
                 type="text"
                 v-model="last_name"
-                required
+                
                 placeholder="نام خانوادگی"
               ></b-form-input>
             </b-form-group>
@@ -49,7 +49,7 @@
               <b-form-input
                 id="input-5"
                 type="text"
-                required
+                
                 v-model="mobile"
                 placeholder="تلفن همراه"
                 @keypress="isNumber($event)"
@@ -64,7 +64,7 @@
               <b-form-input
                 id="input-4"
                 type="text"
-                required
+                
                 v-model="phone"
                 placeholder="تلفن"
               ></b-form-input>
@@ -78,7 +78,7 @@
               <b-form-input
                 id="input-3"
                 type="text"
-                required
+                
                 v-model="national_code"
                 placeholder="کد ملی"
                 @keypress="isNumber($event)"
@@ -91,9 +91,7 @@
               label-for="input-6"
             >
               <b-form-input
-                id="input-6"
-                type="email"
-                required
+                id="input-6"                
                 v-model="email"
                 placeholder="پست الکترونیکی"
               ></b-form-input>
@@ -106,7 +104,7 @@
               <b-form-input
                 id="input-7"
                 type="text"
-                required
+                
                 v-model="postal_code"
                 placeholder="کد پستی"
                 @keypress="isNumber($event)"
@@ -120,11 +118,15 @@
             >
               <b-form-input
                 id="input-9"
-                type="password"
-                required
+                :type="pass.input_type"
+                
                 v-model="password"
                 placeholder="رمز عبور"
               ></b-form-input>
+              <i
+                  :class="pass_conf.icon"
+                  @click="show(pass_conf.icon, 'repeat')"
+            ></i>
             </b-form-group>
 
             <b-form-group
@@ -134,11 +136,15 @@
             >
               <b-form-input
                 id="input-10"
-                type="password"
-                required
+                :type="pass_conf.input_type"
+                
                 v-model="password_conf"
                 placeholder="تایید رمز عبور"
               ></b-form-input>
+              <i
+                  :class="pass_conf.icon"
+                  @click="show(pass_conf.icon, 'repeat')"
+            ></i>
             </b-form-group>
 
             <b-form-group
@@ -193,6 +199,182 @@ export default {
       }
     },
     submitUser: function () {
+      if (!this.first_name) {
+                        this.toaster(
+                              "نام خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+
+                  if (!this.last_name) {
+                        this.toaster(
+                              "نام خانوادگی خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  
+                  if (!this.mobile) {
+                        this.toaster(
+                              "شماره همراه خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (this.mobile && this.mobile.length < 11) {
+                        this.toaster(
+                              "تلفن همراه وارد شده نادرست است",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.phone) {
+                        this.toaster(
+                              "شماره ثابت خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.phone.length < 8){
+                        this.toaster(
+                              "شماره ثابت باید 8 رقمی باشد",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.national_code) {
+                        this.toaster(
+                              "کد ملی خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.national_code.length < 10) {
+                        this.toaster(
+                              "کد ملی باید ده رقمی باشد",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.email) {
+                        this.toaster(
+                              "ایمیل خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.email && !this.validateEmail(this.email)) {
+                        this.toaster(
+                              "ایمیل وارد شده نادرست است",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.postal_code) {
+                        this.toaster(
+                              "کد پستی خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.postal_code.length < 10) {
+                        this.toaster(
+                              "کد پستی باید ده رقمی باشد",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.password) {
+                        this.toaster(
+                              "رمز عبور خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.password.length < 8) {
+                        this.toaster(
+                              "رمز عبور می بایست حداقل 8 کاراکتر داشته باشد",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.password_conf) {
+                        this.toaster(
+                              "تکرار رمز عبور خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.password_conf.length < 8) {
+                        this.toaster(
+                              "تکرار رمز عبور می بایست حداقل 8 کاراکتر داشته باشد",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (this.password !== this.password_conf) {
+                        this.toaster(
+                              "رمز عبور و تکرار آن برابر نیستند",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+                  if (!this.address) {
+                        this.toaster(
+                              "آدرس خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
       axios
         .post("/api/user/register", {
           first_name: this.first_name,
@@ -219,6 +401,15 @@ export default {
           console.log(error);
         });
     },
+    show(className, status) {
+                  if(!status) {
+                        if (className == "show-password") this.pass['icon'] = "hide-password", this.pass['input_type'] = 'text';
+                        else this.pass['icon'] = "show-password", this.pass['input_type'] = 'password';
+                  } else {
+                        if (className == "show-password") this.pass_conf['icon'] = "hide-password", this.pass_conf['input_type'] = 'text';
+                        else this.pass_conf['icon'] = "show-password", this.pass_conf['input_type'] = 'password';
+                  }
+            },
   },
   data() {
     return {
@@ -234,6 +425,14 @@ export default {
       password_conf: "",
       selected: "جنسیت",
       date: "",
+      pass_conf :{
+            icon: "show-password",
+            input_type: "password"
+      },
+      pass :{
+            icon: "show-password",
+            input_type: "password"
+      }
     };
   },
 };
@@ -288,8 +487,26 @@ input {
     box-shadow: 1px 6px 50px 15px #808080ad;
   }
 }
-</style>
-<style>
+.show-password {
+      position: absolute;
+      left: 24px;
+      top: 5px;
+      padding: 15px;
+      background: url("../assets/icons/show-password.svg") no-repeat 100% 100%;
+      background-size: cover;
+}
+
+.hide-password {
+      position: absolute;
+      left: 24px;
+      top: 5px;
+      padding: 15px;
+      background: url("../assets/icons/hide-password.svg") no-repeat 100% 100%;
+      background-size: cover;
+}
+i {
+      cursor: pointer;
+}
 .vpd-icon-btn {
   background-color: rgb(101 101 101) !important;
 }
