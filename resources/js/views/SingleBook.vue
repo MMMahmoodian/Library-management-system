@@ -35,8 +35,7 @@
                   </div>
                   <div class="lending-controller">
                       <button v-if="user == 'user'" @click="demandBook" class="mybtn" :disabled="!availability">{{availability? 'ثبت تقاضا' : 'ناموجود'}}</button>  
-                      <button v-if="user == 'staff'" @click="demandBook" class="mybtn" :disabled="!availability">{{availability? 'ثبت تقاضا' : 'ناموجود'}}</button>  
-                      <button v-if="user == 'staff'" @click="demandBook" class="mybtn" :disabled="!availability">{{availability? 'ثبت تقاضا' : 'ناموجود'}}</button>  
+                      <p v-show="msg"> {{msg}} </p> 
                   </div>
             </div>
       </div>     
@@ -56,7 +55,8 @@ export default {
                         summary: "خلاصه ای در مورد کتاب",
                   },
                   availability: null,
-                  loading : true
+                  loading : true,
+                  msg : ''
             };
       },
       computed :{
@@ -93,7 +93,7 @@ export default {
                         user_id: user_id,
                         book_id : book_id
                   }).then(res => {
-                        console.log(res)
+                        if(res.status == '200') this.msg = "قبت تقاضا با موفقیت انجام شد."
                   })
                   //.catch(err => {
                   //      console.log(err)

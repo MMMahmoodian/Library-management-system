@@ -133,7 +133,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="book.id" v-for="book in booksArray" style="cursor:pointer;  @click="singleBook(book.id)">
+        <tr v-bind:key="book.id" v-for="book in booksArray" style="cursor:pointer;"  @click="singleBook(book.id)">
           <th scope="row">{{ book.id }}</th>
           <td>{{ book.title }}</td>
           <td>{{ book.isbn }}</td>
@@ -267,6 +267,7 @@ export default {
         .then(function (response) {
           console.log(response);
           self.booksArray = response.data.data;
+          console.log(self.booksArray)
         })
         .catch(function (error) {
           console.log(error);
