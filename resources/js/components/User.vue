@@ -221,6 +221,7 @@ export default {
 }
 .disable_this {
   color: white;
+  user-select: none;
 }
 .user {
   opacity: 0.95;
