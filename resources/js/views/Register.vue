@@ -124,8 +124,8 @@
                 placeholder="رمز عبور"
               ></b-form-input>
               <i
-                  :class="pass_conf.icon"
-                  @click="show(pass_conf.icon, 'repeat')"
+                  :class="pass.icon"
+                  @click="show(pass.icon)"
             ></i>
             </b-form-group>
 

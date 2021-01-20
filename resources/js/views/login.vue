@@ -88,7 +88,7 @@ export default {
   methods: {
     ...mapActions(["LogIn"]),
     async login() {
-      if (!this.userName) {
+      if (!this.email) {
                         this.toaster(
                               ".لطفا ایمیل خود را وارد نمائید",
                               "bubble",
