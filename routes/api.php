@@ -75,6 +75,11 @@ Route::prefix('management')->group(function () {
             Route::post('/rent', 'Management\RentingController@rent');
             Route::post('/withdraw', 'Management\RentingController@withdraw');
         });
-
+        Route::prefix('reservation')->group(function () {
+            Route::get('/list', 'Management\ReserveController@getAllReserves');
+            Route::get('/on-going', 'Management\ReserveController@getOnGoingReserves');
+            Route::post('/reserve', 'Management\ReserveController@reserve');
+            Route::post('/cancel', 'Management\ReserveController@cancel');
+        });
 //    });
 });
