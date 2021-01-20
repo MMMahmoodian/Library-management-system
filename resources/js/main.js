@@ -40,11 +40,26 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 import store from './store';
+import Toasted from 'vue-toasted';
+
+Vue.use(Toasted)
 
 Vue.component('date-picker', VuePersianDatetimePicker);
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 window.axios = require('axios');
+Vue.mixin({
+  methods: {
+        toaster(text, theme, pos, duration, className) {
+              this.$toasted.show(text, { theme: theme, position: pos, duration: duration, className: className });
+        },
+        validateEmail(email) {
+              const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              return re.test(String(email).toLowerCase());
+        },
+        $evaluate: param => eval('this.' + param)
+  },
+})
 
 new Vue({
   store, 

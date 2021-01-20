@@ -133,7 +133,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="book.id" v-for="book in booksArray">
+        <tr v-bind:key="book.id" v-for="book in booksArray" style="cursor:pointer;  @click="singleBook(book.id)">
           <th scope="row">{{ book.id }}</th>
           <td>{{ book.title }}</td>
           <td>{{ book.isbn }}</td>
@@ -168,12 +168,19 @@ export default {
       return this.summary.length > 0 ? true : false;
     },
   },
-  created() {
+  mounted() {
     this.fetchArrays();
     this.fetchBooks();
     this.fetchUsers();
   },
   methods: {
+    singleBook(id) {
+                  if(this.selectedUser) return;
+                  this.$router.push({
+                        name: "SingleBook",
+                        params: { id: Number(id) },
+                  });
+            },
     checkstatus: function () {},
     //EZAFE SHAVAD BA API MAHDI --------------
     Withdraw: function (self) {

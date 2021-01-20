@@ -88,6 +88,36 @@ export default {
   methods: {
     ...mapActions(["LogIn"]),
     async login() {
+      if (!this.email) {
+                        this.toaster(
+                              ".لطفا ایمیل خود را وارد نمائید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  } else if (this.userName && !this.validateEmail(this.userName)) {
+                        this.toaster(
+                              ".ایمیل وارد شده نادرست است",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
+
+                  if (!this.password) {
+                        this.toaster(
+                              ".رمز عبور خود را وارد کنید",
+                              "bubble",
+                              "top-center",
+                              3000,
+                              "error"
+                        );
+                        return;
+                  }
       const User = new FormData();
       User.append("email", this.email);
       User.append("password", this.password);
