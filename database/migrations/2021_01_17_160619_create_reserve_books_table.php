@@ -17,7 +17,7 @@ class CreateReserveBooksTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
             $table->date('reserve_date');
-            $table->date('cancel_date');
+            $table->date('cancel_date')->nullable();
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
