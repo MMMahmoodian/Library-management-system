@@ -1,83 +1,101 @@
 <template>
   <div class="book">
-    <div class="container-fluid">
-      <p v-show="!is_editing">
-        Title : {{ book.title }}<br />
-        Author : {{ book.authors[0].first_name }}
-        {{ book.authors[0].last_name }}
-        <br />
-        ISBN : {{ book.isbn }}<br />
-        Summary : {{ book.synopsis }}<br />
-        Publisher : {{ book.publisher.name }}<br />
-        Category : {{ book.category.name }}<br />
-        <button class="edit" v-show="!is_editing" v-on:click="editBook_true">
-          E
-        </button>
-      </p>
+      <b-card img-alt="Card image" img-right class="mb-3">
+          <b-card-title>{{ book.title }}</b-card-title>
+          <b-card-text class="disable_this">
+              This is a wider card with supporting text below as a natural lead-in to
+              additional content. This content is a little bit Lorem ipsum dolor sit
+              amet consectetur adipisicing elit.
+          </b-card-text>
 
-      <div v-show="is_editing">
-        Title :
-        <b-form-group class="mb-0" description="عنوان کتاب نباید خالی باشد">
-          <b-form-input
-            id="input-title"
-            v-model="book.title"
-            :state="nameState_T"
-            aria-describedby="input-live-help input-live-feedback"
-            placeholder="عنوان کتاب"
-            trim
-          ></b-form-input>
-        </b-form-group>
+          <b-list-group flush v-if="!is_editing">
+              <b-list-group-item> Author : {{ book.authors[0].first_name }}
+                  {{ book.authors[0].last_name }} </b-list-group-item>
+              <b-list-group-item>Isbn : {{ book.isbn }}</b-list-group-item>
+              <b-list-group-item
+              >Summary : {{ book.synopsis }}</b-list-group-item
+              >
+              <b-list-group-item
+              > Category : {{ book.category.name }}</b-list-group-item
+              >
+          </b-list-group>
 
-        نویسنده
-        <b-form-select
-          :disabled="true"
-          v-model="selected_auth"
-          :options="authorsOptions"
-        >
-        </b-form-select>
+          <b-form @submit="save" v-if="is_editing">
+              <b-form-group id="input-group-1" label="Title" label-for="input-1">
+                  <b-form-input
+                      id="input-1"
+                      v-model="book.title"
+                      placeholder="book.title"
+                      required
+                  ></b-form-input>
+              </b-form-group>
 
-        ISBN :
-        <b-form-input
-          id="input-title"
-          v-model="book.isbn"
-          :state="nameState_I"
-          aria-describedby="input-live-help input-live-feedback"
-          placeholder="شابک"
-          trim
-        ></b-form-input>
+              <b-form-group
+                  id="input-group-2"
+                  label="Author "
+                  label-for="input-2"
+              >
+                  <b-form-select
+                      :disabled="false"
+                      v-model="selected_auth"
+                      :options="authorsOptions"
+                  >
+                  </b-form-select>
+              </b-form-group>
 
-        Summary :
-        <b-form-input
-          id="input-synopsis"
-          v-model="book.synopsis"
-          :state="nameState_S"
-          aria-describedby="input-live-help input-live-feedback"
-          placeholder="خلاصه"
-          trim
-        ></b-form-input>
+              <b-form-group id="input-group-3" label="ISBN" label-for="input-3">
+                  <b-form-input
+                      id="input-title"
+                      v-model="book.isbn"
+                      :state="nameState_I"
+                      aria-describedby="input-live-help input-live-feedback"
+                      placeholder="ISBN"
+                      trim
+                  ></b-form-input>
+              </b-form-group>
 
-        Publisher :
-        <b-form-select v-model="selected_pub" :options="publishersOptions">
-        </b-form-select>
+              <b-form-group
+                  id="input-group-4"
+                  label="Summary"
+                  label-for="input-4"
+              >
+                  <b-form-input
+                      id="input-synopsis"
+                      v-model="book.synopsis"
+                      :state="nameState_S"
+                      aria-describedby="input-live-help input-live-feedback"
+                      placeholder="Summary"
+                      trim
+                  ></b-form-input>
+              </b-form-group>
 
-        Category :
-        <b-form-select v-model="selected_cat" :options="categoryOptions">
-        </b-form-select>
-      </div>
+              <b-form-group id="input-group-5" label="Publisher" label-for="input-5">
+                  <b-form-select v-model="selected_pub" :options="publishersOptions">
+                  </b-form-select>
+              </b-form-group>
 
-      <button type="submit" @click="save" v-if="is_editing">Save</button>
-      <button
-        type="submit"
-        @click="$emit('del-book', book.id)"
-        class="del"
-        v-if="is_editing"
-      >
-        DEL
-      </button>
-      <button class="edit_on" v-on:click="editBook_false" v-show="is_editing">
-        Cancel
-      </button>
-    </div>
+              <b-form-group id="input-group-6" label="Category" label-for="input-6">
+                  <b-form-select v-model="selected_cat" :options="categoryOptions">
+                  </b-form-select>
+              </b-form-group>
+
+              <b-button type="submit" variant="primary">ثبت</b-button>
+              <b-button @click="edit_false" variant="danger">خروج</b-button>
+          </b-form>
+
+          <template #footer>
+              <b-button variant="primary" class="btn d-flex" @click="edit_toggle"
+              >ادیت</b-button
+              >
+              <b-button
+                  variant="danger"
+                  class="btn d-flex"
+                  @click="deletethis"
+              >
+                  حذف
+              </b-button>
+          </template>
+      </b-card>
   </div>
 </template>
 
@@ -98,6 +116,22 @@ export default {
     },
   },
   methods: {
+      deletethis: function () {
+          this.$emit("del-staff", this.staff.id);
+      },
+      edit_true: function () {
+          console.log(this.isAdm);
+          this.is_editing = true;
+      },
+      edit_false: function () {
+          this.is_editing = false;
+      },
+      edit_toggle: function () {
+          this.is_editing = !this.is_editing;
+      },
+      pass() {
+          console.log("passed");
+      },
     editBook_true: function () {
       this.is_editing = true;
     },
@@ -135,49 +169,51 @@ export default {
 </script>
 
 <style scoped>
-.book {
-  opacity: 0.95;
-  padding: 0px;
-  margin: 0px;
-  color: floralwhite;
-  background: dimgray;
-  padding: 10px;
-  border-bottom: 1px #ccc dotted;
+.is-verified {
+    border: 2px solid green;
+}
+.is-not-verified {
+    border: 2px dotted red;
+}
+
+.staff {
+    opacity: 0.95;
+    padding: 0px;
+    margin: 0px;
+    color: floralwhite;
+    padding: 10px;
+    border-bottom: 1px #ccc dotted;
+    color: black;
 }
 
 .edit {
-  background: rgb(235, 172, 101);
-  color: black;
-  border: none;
-  padding: 5px 9px;
-  border-radius: 50%;
-  cursor: pointer;
-  float: right;
+    background: rgb(235, 172, 101);
+    color: black;
+    border: none;
+    padding: 5px 9px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
 }
-
+.disable_this {
+    color: white;
+}
 .edit_on {
-  background: rgb(235, 172, 101);
-  color: black;
-  border: none;
-  padding: 5px 9px;
-  border-radius: 50%;
-  cursor: pointer;
-  float: right;
+    background: rgb(235, 172, 101);
+    color: black;
+    border: none;
+    padding: 5px 9px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
 }
-
 .del {
-  background: #ff0000;
-  color: #fff;
-  border: none;
-  padding: 5px 9px;
-  border-radius: 50%;
-  cursor: pointer;
-  float: right;
-}
-
-input {
-  padding: 3px;
-  border: 0.5px solid #a39191;
-  border-radius: 3px;
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 9px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
 }
 </style>
